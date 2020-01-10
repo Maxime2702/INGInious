@@ -10,7 +10,7 @@ class DemoPage(object):
 
     def GET(self):
         """ GET request """
-        return "This is a simple demo plugin"
+        return "This is a simple demo plugin 42"
 
 def init(plugin_manager, _, _2, _3):
     """ Init the plugin """
