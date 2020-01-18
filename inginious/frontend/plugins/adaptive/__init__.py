@@ -23,109 +23,94 @@ class AdaptivePage(INGIniousAuthPage):
 
     def is_available(self, node, course):
         parents = node["content"]["parent"]
-        print(parents)
         for parent in parents:
             if not self.is_complete(parent, course):
                 return False
         return True
 
+    def sort_tasks(self, category, tasks):
+        tasks_sorted = tasks.copy()
+        for taskid, task in tasks.items():
+            if category not in task.get_categories():
+                tasks_sorted.pop(taskid)
+        return tasks_sorted
+
+    def sort_user_tasks(self, skill_tasks, user_tasks):
+        tasks_id = []
+        for task in skill_tasks:
+            tasks_id.append(task)
+        correct_tasks = []
+        for user_task in user_tasks:
+            if user_task["taskid"] in tasks_id:
+                correct_tasks.append(user_task)
+        return correct_tasks
+
     def is_complete(self, node, course):
         username = self.user_manager.session_username()
-        #course = self.course_factory.get_course(courseid)
-        #tasks = [task for taskid, task in course.get_tasks().items() if self in task.get_categories()]
         tasks = course.get_tasks()
         user_tasks = self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})
-        for user_task in user_tasks:
-            task = course.get_task(user_task["taskid"])
-            if node in task.get_categories() and not user_task["succeeded"]:
-                return False
-        return True
+        tasks = self.sort_tasks(node, tasks)
+        user_tasks = self.sort_user_tasks(tasks, user_tasks)
+        if len(tasks) != len(user_tasks):
+            return False
+        else:
+            for user_task in user_tasks:
+                if not user_task["succeeded"]:
+                    return False
+            return True
 
-    def get_tasks_data(self, course):
+    def get_data(self, course):
         username = self.user_manager.session_username()
-        #course = self.course_factory.get_course(courseid)
-        tasks = course.get_tasks() # return taskid as str
-        # tasks.items return taskid, task
-        user_tasks = self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})
-        bases = course.get_descriptor().get('adaptive', [])["base"]
+        tasks = course.get_tasks()
+        user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
         tree = course.get_descriptor().get('adaptive', [])["tree"]
-        '''
-        for node in tree:
-            if node["content"]["parent"]:
-                print(node["content"]["parent"].keys())
-            for parent in node["content"]["parent"]:
-                print(parent)
-        '''
+        bases = list(course.get_descriptor().get('adaptive', [])["bases"])
         tasks_data = {}
         is_admin = self.user_manager.has_staff_rights_on_course(course, username)
 
-        tasks_score = [0.0, 0.0]
+        tasks_score = [0.0, 0.0, 0.0]
 
         for taskid, task in tasks.items():
-            #tasks_data[taskid] = {"visible": task.get_accessible_time().after_start() or is_admin, "succeeded": False,
-            #                      "grade": 0.0}
-            tasks_data[taskid] = {"visible": False or is_admin, "succeeded": False,
-                                  "grade": 0.0}
-            #tasks_data[taskid] = {"visible": False, "succeeded": False,
-            #"grade": 0.0}
-            tasks_score[1] += task.get_grading_weight() if tasks_data[taskid]["visible"] else 0
+            tasks_data[taskid] = {"visible": set(task.get_categories()).issubset(set(bases)), "succeeded": False,
+                                   "grade": 0.0, 'tried': 0, "tasks_parents": []}
+
+        for user_task in user_tasks:
+            tasks_data[user_task["taskid"]]["succeeded"] = user_task["succeeded"]
+            tasks_data[user_task["taskid"]]["grade"] = user_task["grade"]
+            tasks_data[user_task["taskid"]]["tried"] = user_task["tried"]
 
         for node in tree:
             if self.is_available(node, course):
-                for user_task in user_tasks:
-                    task = course.get_task(user_task["taskid"])
+                for taskid, task in tasks.items():
                     tags = task.get_categories()
                     if node["node"] in tags:
-                        tasks_data[user_task["taskid"]]["visible"] = task.get_accessible_time().after_start() or is_admin
-                        tasks_data[user_task["taskid"]]["succeeded"] = user_task["succeeded"]
-                        tasks_data[user_task["taskid"]]["grade"] = user_task["grade"]
+                        tasks_data[taskid]["visible"] = task.get_accessible_time().after_start() or is_admin
+                        for parent in node["content"]["parent"]:
+                            for task_p_id, task_p in tasks.items():
+                                tags_p = task_p.get_categories()
+                                if parent in tags_p:
+                                    tasks_data[taskid]["tasks_parents"].append(task_p_id)
 
-                        weighted_score = user_task["grade"]*tasks[user_task["taskid"]].get_grading_weight()
-                        tasks_score[0] += weighted_score if tasks_data[user_task["taskid"]]["visible"] else 0
+        for data_id, data in tasks_data.items():
+            weighted_score = data["grade"]*tasks[data_id].get_grading_weight()
+            tasks_score[0] += weighted_score if data["visible"] else 0
+            tasks_score[1] += tasks[data_id].get_grading_weight() if data["visible"] else 0
+            tasks_score[2] += tasks[data_id].get_grading_weight() if tasks[data_id].get_accessible_time().after_start() else 0
+        visible_grade = round(tasks_score[0]/tasks_score[1]) if tasks_score[1] > 0 else 0
+        course_grade = round(tasks_score[0]/tasks_score[2]) if tasks_score[2] > 0 else 0
+        return {"visible_grade": visible_grade, "course_grade": course_grade, "data": tasks_data}
 
-        '''
-        for user_task in user_tasks:
-            task = course.get_task(user_task["taskid"])
-            tag = task.get_categories()
-            tasks_data[user_task["taskid"]]["visible"] = task.get_accessible_time().after_start() or is_admin
-            tasks_data[user_task["taskid"]]["succeeded"] = user_task["succeeded"]
-            tasks_data[user_task["taskid"]]["grade"] = user_task["grade"]
+    def get_recommendations(self, course, tree, tasks_data):
+        recommendations = {'high': {}, 'medium': {}, 'low': {}}
+        for taskid, task in tasks_data.items():
+            if task["visible"] and task["tried"] == 0:
+                recommendations["low"].update({taskid: task})
+            elif task["visible"] and not task["succeeded"]:
+                recommendations["medium"].update({taskid: task})
+                for task_p_id in task["tasks_parents"]:
+                    recommendations["high"].update({task_p_id: tasks_data[task_p_id]})
 
-            weighted_score = user_task["grade"]*tasks[user_task["taskid"]].get_grading_weight()
-            tasks_score[0] += weighted_score if tasks_data[user_task["taskid"]]["visible"] else 0
-        '''
-
-        '''
-        for user_task in user_tasks:
-            tasks_data[user_task["taskid"]]["succeeded"] = user_task["succeeded"]
-            tasks_data[user_task["taskid"]]["grade"] = user_task["grade"]
-
-            weighted_score = user_task["grade"]*tasks[user_task["taskid"]].get_grading_weight()
-            tasks_score[0] += weighted_score if tasks_data[user_task["taskid"]]["visible"] else 0
-        '''
-        course_grade = round(tasks_score[0]/tasks_score[1]) if tasks_score[1] > 0 else 0
-
-        '''
-        for user_task in user_tasks:
-            print(user_task)
-            if user_task.get_categories() in bases:
-                tasks_data[user_task["taskid"]]["visible"] = user_task.get_accessible_time().after_start() or is_admin
-            else:
-                for node in tree:
-                    if self.is_available(node, tree, courseid):
-                        tasks_data[user_task["taskid"]]["visible"] = user_task.get_accessible_time().after_start() or is_admin
-                    else:
-                        tasks_data[user_task["taskid"]]["visible"] = False
-            tasks_data[user_task["taskid"]]["succeeded"] = user_task["succeeded"]
-            tasks_data[user_task["taskid"]]["grade"] = user_task["grade"]
-            tasks_score[1] += user_task.get_grading_weight() if tasks_data[user_task["taskid"]]["visible"] else 0
-            weighted_score = user_task["grade"]*tasks[user_task["taskid"]].get_grading_weight()
-            tasks_score[0] += weighted_score if tasks_data[user_task["taskid"]]["visible"] else 0
-
-        course_grade = round(tasks_score[0]/tasks_score[1]) if tasks_score[1] > 0 else 0
-        '''
-        #print(tasks_data)
-        return {"grade": course_grade, "data": tasks_data}
+        return recommendations
 
     def show_page(self, course):
         """ Prepares and shows the course page """
@@ -138,35 +123,21 @@ class AdaptivePage(INGIniousAuthPage):
 
             for submission in last_submissions:
                 submission["taskname"] = tasks[submission['taskid']].get_name(self.user_manager.session_language())
-            '''
-            tasks_data = {}
-            user_tasks = self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})
-            is_admin = self.user_manager.has_staff_rights_on_course(course, username)
 
-            tasks_score = [0.0, 0.0]
+            get_data = self.get_data(course)
+            visible_grade = get_data["visible_grade"]
+            course_grade = get_data["course_grade"]
+            grade = {"visible_grade": visible_grade, "course_grade": course_grade}
+            tasks_data = get_data["data"]
+            #print(tasks_data)
 
-            for taskid, task in tasks.items():
-                tasks_data[taskid] = {"visible": task.get_accessible_time().after_start() or is_admin, "succeeded": False,
-                                       "grade": 0.0}
-                tasks_score[1] += task.get_grading_weight() if tasks_data[taskid]["visible"] else 0
-
-            for user_task in user_tasks:
-                tasks_data[user_task["taskid"]]["succeeded"] = user_task["succeeded"]
-                tasks_data[user_task["taskid"]]["grade"] = user_task["grade"]
-
-                weighted_score = user_task["grade"]*tasks[user_task["taskid"]].get_grading_weight()
-                tasks_score[0] += weighted_score if tasks_data[user_task["taskid"]]["visible"] else 0
-
-            course_grade = round(tasks_score[0]/tasks_score[1]) if tasks_score[1] > 0 else 0
-            '''
-
-            get_tasks_data = self.get_tasks_data(course)
-            course_grade = get_tasks_data["grade"]
-            tasks_data = get_tasks_data["data"]
+            tree = course.get_descriptor().get('adaptive', [])["tree"]
+            recommendations = self.get_recommendations(course, tree, tasks_data)
+            print(recommendations)
 
             tag_list = course.get_tags()
             user_info = self.database.users.find_one({"username": username})
-        return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, course_grade, tag_list)
+        return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list)
 
 def course_menu(course, template_helper):
     """ Displays the link to the adaptive view on the course page, if the plugin is activated for this course """
@@ -177,8 +148,16 @@ def course_menu(course, template_helper):
     else:
         return None
 
+'''
+def submission_done(submission, archive, newsub):
+    print(submission)
+    submission['state'] = {"zucc"}
+    print(submission)
+'''
+
 def init(plugin_manager, _, _2, _3):
     """ Init the plugin """
     page_pattern_course = r'/adaptive/([a-z0-9A-Z\-_]+)'
     plugin_manager.add_page(page_pattern_course, AdaptivePage)
     plugin_manager.add_hook('course_menu', course_menu)
+    #plugin_manager.add_hook('submission_done', submission_done)

@@ -1,9 +1,24 @@
-$def with (user_info, course, submissions, tasks, tasks_data, grade, tag_filter_list)
+$def with (user_info, course, submissions, tasks, tasks_data, recommendations, grade, tag_filter_list)
 
 $#
 $# This file is part of INGInious. See the LICENSE and the COPYRIGHTS files for
 $# more information about the licensing of this file.
 $#
+
+<style>
+    .bg-red {
+        background-color: rgba(256,0,0,0.7);
+    }
+
+    .bg-yellow {
+        /*background-color: rgba(240,173,78,1);*/
+        background-color: #f0ad4e;
+    }
+
+    .bg-blue {
+        background-color: rgba(91,192,222,0.7);
+    }
+</style>
 
 $var title: $:course.get_name(user_manager.session_language()) - Adaptive view
 $ registered = user_manager.course_is_user_registered(course)
@@ -11,11 +26,20 @@ $ staff = user_manager.has_staff_rights_on_course(course)
 $# Left column content
 $def ColumnF():
     $:template_helper.call('course_menu', course=course, template_helper=template_helper)
+    $ visible_grade = grade["visible_grade"]
+    $ course_grade = grade["course_grade"]
     $if registered or staff:
-        <h3>$:_("Current grade")</h3>
+        <h3>$:_("Grade for visible tasks")</h3>
         <div class="progress mb-3">
-            <div class="progress-bar bg-success" aria-valuenow="$int(grade)" aria-valuemin="0" aria-valuemax="100" style="width: $grade%">
-                $int(grade)%
+            <div class="progress-bar bg-success" aria-valuenow="$int(visible_grade)" aria-valuemin="0" aria-valuemax="100" style="width: $visible_grade%">
+                $int(visible_grade)%
+            </div>
+        </div>
+
+        <h3>$:_("Grade for total course")</h3>
+        <div class="progress mb-3">
+            <div class="progress-bar bg-success" aria-valuenow="$int(course_grade)" aria-valuemin="0" aria-valuemax="100" style="width: $course_grade%">
+                $int(course_grade)%
             </div>
         </div>
 
@@ -131,19 +155,118 @@ function filter_tag(tag) {
 }
 </script>
 
+<script>
+    function filter_priority(priority) {
+        priority = priority.value;
+        $$("a", ".list-group-flush").each(function(idx, elem) {
+            var task = $$(elem);
+            var found=false;
+            $$("div[id='priority']", task).each(function() {
+                if ($$(this).attr("data-tag-name") == priority){
+                    found=true;
+                }
+            });
+            if(found || priority == ""){
+                task.show();
+            }else{
+                task.hide();
+            }
+        });
+    }
+</script>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-8">$:_("Recommendations")</div>
+            <div class="col-md-4">
+                <select class="form-control input-sm" style="height: 25px; padding: 2px 5px; font-size: 12px; line-height: 1.5;" id="priority_filter" onchange="filter_priority(this)">
+                    <option value="">$:_("Show tasks by priority")</option>
+                    $for priority in recommendations:
+                        <option value="$priority">$:_(priority)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    $for priority, list in recommendations.items():
+        $if priority=='high':
+            <div class="card bg-danger">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">$priority</div>
+                    </div>
+                </div>
+            </div>
+        $if priority=='medium':
+            <div class="card bg-warning">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">$priority</div>
+                    </div>
+                </div>
+            </div>
+        $if priority=='low':
+            <div class="card bg-info">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">$priority</div>
+                    </div>
+                </div>
+            </div>
+        <div id="$priority" class="list-group-flush">
+            $for taskid, task in tasks.items():
+                $if taskid in list.keys():
+                    $ succeeded=tasks_data[taskid]["succeeded"]
+                    $ completion=tasks_data[taskid]["grade"]
+                    <a href="$get_homepath()/course/$course.get_id()/$taskid" class="list-group-item list-group-item-action
+                        $if not task.is_visible_by_students() or not task.get_accessible_time().is_open():
+                            disabled
+                        ">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-7 pl-1">
+                                <i style="color: $('#468847;' if succeeded else 'transparent')" class="fa fa-check"></i>
+                                $task.get_name(user_manager.session_language())
+                                $if not task.is_visible_by_students():
+                                    - <b>$:_("task hidden to students")</b>
+                                $if not task.get_accessible_time().is_open():
+                                    - <b>$:_("deadline reached")</b>
+                            </div>
+                            <div class="col-xs-12 col-md-5">
+                                $if registered:
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" aria-valuenow="$int(completion)" aria-valuemin="0" aria-valuemax="100" style="width: $completion%">
+                                            $(int(completion) if completion.is_integer() else completion)%
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div id="priority_of_task" style="display:none;">
+                            $if taskid in list.keys():
+                                <div id="priority" data-tag-name="$priority"></div>
+                        </div>
+                        <div id="tags_of_task" style="display:none;">
+                            $for category in task.get_categories():
+                                $ tag = tag_filter_list[category]
+                                $if tag.is_visible_for_student() or user_manager.has_staff_rights_on_course(course):
+                                    <div id="tag" data-tag-name="$:tag.get_id()"></div>
+                        </div>
+                    </a>
+        </div>
+</div>
+&nbsp;&nbsp;&nbsp;&nbsp;
 <div class="card">
     <div class="card-header">
         <div class="row">
             <div class="col-md-8">$:_("List of skills")</div>
-            $if tag_filter_list:
-                <div class="col-md-4">
-                    <select class="form-control input-sm" style="height: 22px; padding: 2px 5px; font-size: 12px; line-height: 1.5;" id="tag_filter" onchange="filter_tag(this)">
-                        <option value="">$:_("Show tasks by skills")</option>
-                        $for key, tag in tag_filter_list.items():
-                            $if tag.get_type() in [0, 2] and tag.is_visible_for_student():
-                                <option value="$tag.get_id()">$tag.get_name(user_manager.session_language())</option>
-                    </select>
-                </div>
+                $if tag_filter_list:
+                    <div class="col-md-4">
+                        <select class="form-control input-sm" style="height: 25px; padding: 2px 5px; font-size: 12px; line-height: 1.5;" id="tag_filter" onchange="filter_tag(this)">
+                            <option value="">$:_("Show tasks by skills")</option>
+                            $for key, tag in tag_filter_list.items():
+                                $if tag.get_type() in [0, 2] and tag.is_visible_for_student():
+                                    <option value="$tag.get_id()">$tag.get_name(user_manager.session_language())</option>
+                        </select>
+                    </div>
         </div>
     </div>
     $for key, tag in tag_filter_list.items():
@@ -155,8 +278,8 @@ function filter_tag(tag) {
                     </div>
                 </div>
             </div>
-            <!--<div id="tasks-list" class="list-group list-group-flush">-->
-            <div id="$key" class="list-group list-group-flush">
+            <div id="$key" class="list-group-flush">
+            <!--<div id="$key" class="list-group list-group-flush">-->
                 $for taskid, task in tasks.items()
                     $if (tasks_data[taskid]["visible"] and tag.get_id() in task.get_categories()):
                         $ succeeded=tasks_data[taskid]["succeeded"]
@@ -189,6 +312,11 @@ function filter_tag(tag) {
                                     $if tag.is_visible_for_student() or user_manager.has_staff_rights_on_course(course):
                                         <div id="tag" data-tag-name="$:tag.get_id()"></div>
                             </div>
+                            $for priority, list in recommendations.items():
+                                <div id="priority_of_task" style="display:none;">
+                                    $if taskid in list.keys():
+                                        <div id="priority" data-tag-name="$priority"></div>
+                                </div>
                         </a>
             </div>
 </div>
