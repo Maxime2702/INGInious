@@ -90,7 +90,7 @@ class AdaptivePage(INGIniousAuthPage):
             weighted_score = data["grade"]*tasks[data_id].get_grading_weight()
             tasks_score[0] += weighted_score if data["visible"] else 0
             tasks_score[1] += tasks[data_id].get_grading_weight() if data["visible"] else 0
-            tasks_score[2] += tasks[data_id].get_grading_weight() if tasks[data_id].get_accessible_time().after_start() else 0
+            tasks_score[2] += tasks[data_id].get_grading_weight() if tasks[data_id].get_accessible_time().after_start() and "test" not in tasks[data_id].get_categories() else 0
         visible_grade = round(tasks_score[0]/tasks_score[1]) if tasks_score[1] > 0 else 0
         course_grade = round(tasks_score[0]/tasks_score[2]) if tasks_score[2] > 0 else 0
         return {"visible_grade": visible_grade, "course_grade": course_grade, "data": tasks_data}

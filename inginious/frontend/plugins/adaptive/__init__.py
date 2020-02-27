@@ -8,17 +8,9 @@
 from inginious.frontend.plugins.adaptive.Adaptive_course import *
 from inginious.frontend.plugins.adaptive.Test_page import *
 
-def test_pass(course):
-    tasks = course.get_tasks()
-    # user_tasks = self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})
-
-    return True
-
 def course_menu(course, template_helper):
     """ Displays the link to the adaptive view on the course page, if the plugin is activated for this course """
     adaptive = course.get_descriptor().get('adaptive', [])
-
-    # username = self.user_manager.session_username()
 
     '''
     test ici if Test succedeed or not
