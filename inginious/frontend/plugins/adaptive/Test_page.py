@@ -7,7 +7,7 @@ from inginious.frontend.plugins.adaptive.Adaptive_course import AdaptivePage
 
 class TestPage(INGIniousAuthPage):
 
-    level_student = [2];
+    level_student = [3];
     prob_success = {}
     tasks_success = {}
     tasks_level = {}
@@ -22,13 +22,20 @@ class TestPage(INGIniousAuthPage):
 
         course = self.get_course(courseid)
 
-        if self.test_succeeded(course):
+        result_test, level_student = self.test_succeeded(course)
+        #print(result_test)
+        #print(level_student)
+
+        #if self.test_succeeded(course):
+        if result_test:
             #todo show course view
             #return self.show_page(course)
-            return AdaptivePage.show_page(AdaptivePage(), course, self.level_student)
             #url = 'http://localhost:8080/adaptive/'+courseid
             #webbrowser.open(url, new=2)
             #return "success"+str(self.level_student)
+            #return AdaptivePage.show_page2(AdaptivePage(), course, level_student)
+            return AdaptivePage.GET(AdaptivePage(), course.get_id(), level_student)
+
         else:
             #todo : continue test
             #return "Test failed"+str(self.level_student)
@@ -61,7 +68,7 @@ class TestPage(INGIniousAuthPage):
                     self.tasks_success[user_task["taskid"]] = -1
                 else:
                     self.tasks_success[user_task["taskid"]] = 0
-        print(self.tasks_success)
+        #print(self.tasks_success)
 
         if self.number_of_success[0] != self.number_of_success[1]:
             for taskid, task in tasks.items():
@@ -80,11 +87,11 @@ class TestPage(INGIniousAuthPage):
             for user_task in user_tasks:
                 if "test" in tasks[user_task["taskid"]].get_categories():
                     sum += (self.tasks_success[user_task["taskid"]])*(self.tasks_level[user_task["taskid"]])*(1-self.prob_success[user_task["taskid"]])
-                    print("sum : "+str(sum))
+                    #print("sum : "+str(sum))
                     tot += self.tasks_level[user_task["taskid"]]*(1-self.prob_success[user_task["taskid"]])
-                    print("tot : "+str(tot))
+                    #print("tot : "+str(tot))
             correction = sum/tot
-            print("correction : " +str(correction))
+            #print("correction : " +str(correction))
             new_level = self.level_student[-1] + correction
             self.level_student.append(new_level)
             #print(new_level)
@@ -94,17 +101,17 @@ class TestPage(INGIniousAuthPage):
             self.number_of_success[1] = 0
 
         if len(self.level_student) > 2 and math.pow(self.level_student[-1] - self.level_student[-2],2)<=0.1:
-            print("MSE")
+            #print("MSE")
             #return True
             return True, round(self.level_student[-1])
         else:
             if len(user_tasks) >= course.get_descriptor().get('adaptive', [])["minimal_questions"]:
-                for user_task in user_tasks:
+                '''for user_task in user_tasks:
                     if "test" in tasks[user_task["taskid"]].get_categories():
                         print(user_task)
                         if not user_task["succeeded"]:
-                            return False, round(self.level_student[-1])
-                print("all_quest")
+                            return False, round(self.level_student[-1])'''
+                #print("all_quest")
                 return True, round(self.level_student[-1])
             else:
                 return False, round(self.level_student[-1])
