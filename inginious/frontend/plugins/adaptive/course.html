@@ -218,7 +218,8 @@ function filter_tag(tag) {
                 $if taskid in list.keys():
                     $ succeeded=tasks_data[taskid]["succeeded"]
                     $ completion=tasks_data[taskid]["grade"]
-                    <a href="$get_homepath()/course/$course.get_id()/$taskid" class="list-group-item list-group-item-action
+                    <!--<a href="$get_homepath()/course/$course.get_id()/$taskid" class="list-group-item list-group-item-action-->
+                    <a href="$get_homepath()/adaptive/$course.get_id()/$taskid" class="list-group-item list-group-item-action
                         $if not task.is_visible_by_students() or not task.get_accessible_time().is_open():
                             disabled
                         ">

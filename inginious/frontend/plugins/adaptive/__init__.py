@@ -7,6 +7,7 @@
 #import web
 from inginious.frontend.plugins.adaptive.Adaptive_course import *
 from inginious.frontend.plugins.adaptive.Test_page import *
+from inginious.frontend.plugins.adaptive.TaskPage import *
 
 def course_menu(course, template_helper):
     """ Displays the link to the adaptive view on the course page, if the plugin is activated for this course """
@@ -24,7 +25,9 @@ def course_menu(course, template_helper):
 def init(plugin_manager, _, _2, _3):
     """ Init the plugin """
     page_pattern_course = r'/adaptive/([a-z0-9A-Z\-_]+)'
+    page_pattern_task = r'/adaptive/([a-z0-9A-Z\-_]+)/([a-z0-9A-Z\-_]+)'
     plugin_manager.add_page(page_pattern_course, AdaptivePage)
+    plugin_manager.add_page(page_pattern_task, TaskPage)
     plugin_manager.add_hook('course_menu', course_menu)
     #plugin_manager.add_hook('submission_done', submission_done)
 

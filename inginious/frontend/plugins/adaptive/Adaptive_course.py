@@ -179,6 +179,11 @@ class AdaptivePage(INGIniousAuthPage):
     def get_data2(self, course, level_student):
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
+
+        print(tasks)
+        print(dict(tasks))
+        print(list(tasks.keys()))
+
         user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
         tree = course.get_descriptor().get('adaptive', [])["tree"]
         bases = list(course.get_descriptor().get('adaptive', [])["bases"])
@@ -218,3 +223,4 @@ class AdaptivePage(INGIniousAuthPage):
         visible_grade = round(tasks_score[0]/tasks_score[1]) if tasks_score[1] > 0 else 0
         course_grade = round(tasks_score[0]/tasks_score[2]) if tasks_score[2] > 0 else 0
         return {"visible_grade": visible_grade, "course_grade": course_grade, "data": tasks_data}
+
