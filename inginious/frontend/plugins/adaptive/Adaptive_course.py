@@ -1,13 +1,31 @@
 from inginious.frontend.pages.utils import INGIniousAuthPage, INGIniousPage
 import web
+from collections import OrderedDict
+
+#todo: ajouter linked list pour tasks recommended
+class OrderedDictInsert(OrderedDict):
+    def insert(self, index, key, value):
+        self[key] = value
+        for ii, k in enumerate(list(self.keys())):
+            if ii >= index and k != key:
+                self.move_to_end(k)
+
+
+tasks_list = OrderedDictInsert()
+#recommendations.insert(0, 'first', "test")
 
 class AdaptivePage(INGIniousAuthPage):
+
 
     '''def GET(self, courseid):
         course = self.get_course(courseid)
         return self.show_page(course)'''
 
     def GET(self, courseid,student_level=3):
+        course = self.get_course(courseid)
+        return self.show_page2(course,student_level)
+
+    def POST(self, courseid,student_level=3):
         course = self.get_course(courseid)
         return self.show_page2(course,student_level)
 
@@ -117,7 +135,19 @@ class AdaptivePage(INGIniousAuthPage):
                 recommendations["medium"].update({taskid: task})
                 for task_p_id in task["tasks_parents"]:
                     recommendations["high"].update({task_p_id: tasks_data[task_p_id]})
-
+        #print(recommendations)
+        for priority, tasks in recommendations.items():
+            #print(priority)
+            #print(tasks)
+            for taskid, task in tasks.items():
+                #print(taskid)
+                #print(task)
+                tasks_list.update({taskid: course.get_tasks()[taskid]})
+            #for taskid in tasks:
+            #    print(taskid)
+                #print(task)
+            #    tasks_list.update({taskid : task})
+        #print(tasks_list)
         return recommendations
 
     def show_page(self, course):
@@ -150,8 +180,6 @@ class AdaptivePage(INGIniousAuthPage):
     def show_page2(self, course, level_student):
         """ Prepares and shows the course page """
 
-        print(level_student)
-
         username = self.user_manager.session_username()
         if not self.user_manager.course_is_open_to_user(course, lti=False):
             return self.template_helper.get_renderer().course_unavailable()
@@ -179,10 +207,6 @@ class AdaptivePage(INGIniousAuthPage):
     def get_data2(self, course, level_student):
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
-
-        print(tasks)
-        print(dict(tasks))
-        print(list(tasks.keys()))
 
         user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
         tree = course.get_descriptor().get('adaptive', [])["tree"]
@@ -224,3 +248,5 @@ class AdaptivePage(INGIniousAuthPage):
         course_grade = round(tasks_score[0]/tasks_score[2]) if tasks_score[2] > 0 else 0
         return {"visible_grade": visible_grade, "course_grade": course_grade, "data": tasks_data}
 
+    def get_tasks_list(self):
+        return None
