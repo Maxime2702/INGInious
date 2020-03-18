@@ -32,5 +32,5 @@ def init(plugin_manager, _, _2, _3):
     page_pattern_test = r'/adaptive/test/([a-z0-9A-Z\-_]+)'
     plugin_manager.add_page(page_pattern_test, TestPage)
 
-    plugin_manager.add_hook("submission_done", TaskAdaptivePage.submission_done)
+    #plugin_manager.add_hook("submission_done", TaskAdaptivePage.submission_done)
     #plugin_manager.add_hook("submission_done", submission_done(TaskAdaptivePage))

@@ -42,9 +42,6 @@ class BaseTaskPage(object):
         self.webterm_link = self.cp.webterm_link
         self.plugin_manager = self.cp.plugin_manager
 
-    def submission_done(submission, archive, newsub):
-        pass
-
     def set_selected_submission(self, course, task, submissionid):
         """ Set submission whose id is `submissionid` to selected grading submission for the given course/task.
             Returns a boolean indicating whether the operation was successful or not.
@@ -97,7 +94,6 @@ class BaseTaskPage(object):
         try:
             course = self.course_factory.get_course(courseid)
             course_global = course
-            print(course_global)
         except exceptions.CourseNotFoundException as ex:
             raise web.notfound(str(ex))
 
@@ -111,10 +107,6 @@ class BaseTaskPage(object):
         try:
             #tasks = OrderedDict((tid, t) for tid, t in course.get_tasks().items() if self.user_manager.task_is_visible_by_user(t, username, isLTI))
             tasks = Adaptive_course.tasks_list
-            #print(tasks)
-            #print(tasks)
-            #print(list(tasks))
-            #print(Adaptive_course.recommendations)
             task = tasks[taskid]
         except KeyError:
             raise web.notfound()
@@ -192,11 +184,11 @@ class BaseTaskPage(object):
 
     def POST(self, courseid, taskid, isLTI):
         """ POST a new submission """
-        print("post")
 
         username = self.user_manager.session_username()
 
         course = self.course_factory.get_course(courseid)
+        tasks = Adaptive_course.tasks_list
         if not self.user_manager.course_is_open_to_user(course, username, isLTI):
             return self.template_helper.get_renderer().course_unavailable()
 
@@ -205,6 +197,8 @@ class BaseTaskPage(object):
             return self.template_helper.get_renderer().task_unavailable()
 
         self.user_manager.user_saw_task(username, courseid, taskid)
+
+        tree = course.get_descriptor().get('adaptive', [])["tree"]
 
         is_staff = self.user_manager.has_staff_rights_on_course(course, username)
         is_admin = self.user_manager.has_admin_rights_on_course(course, username)
@@ -268,7 +262,34 @@ class BaseTaskPage(object):
                     "taskid": task.get_id(),
                     "username": {"$in": result["username"]}
                 })
-                #todo maybe insert new tasks in list
+
+                if result['result'] == "success":
+                    for node in tree:
+                        tags = task.get_categories()
+                        if node["node"] in tags:
+                            if Adaptive_course.AdaptivePage.is_available(Adaptive_course.AdaptivePage(), node, course):
+                                for child in node["content"]["child"]:
+                                    for task_c_id, task_c in course.get_tasks().items():
+                                        tags_c = task_c.get_categories()
+                                        if child in tags_c:
+                                            tasks.insert(list(tasks.keys()).index(taskid), task_c_id, task_c)
+                                            tasks.move_to_end(task_c_id, True)
+                    tasks.pop(taskid)
+                    Adaptive_course.tasks_list = tasks
+                elif result['result'] == "failed":
+                    #new_reco = taskid
+                    for node in tree:
+                        tags = task.get_categories()
+                        if node["node"] in tags:
+                            for parent in node["content"]["parent"]:
+                                for task_p_id, task_p in course.get_tasks().items():
+                                    tags_p = task_p.get_categories()
+                                    if parent in tags_p:
+                                        new_reco = task_p_id
+                                        index = list(tasks.keys()).index(taskid)
+                                        tasks.insert(index+2, task_p_id, task_p)
+                    tasks.move_to_end(taskid,True)
+                    Adaptive_course.tasks_list = tasks
 
                 default_submissionid = user_task.get('submissionid', None)
                 if default_submissionid is None:
@@ -463,21 +484,7 @@ class TaskPageStaticDownload(INGIniousPage):
 class TaskAdaptivePage(INGIniousPage):
 
     def GET(self, courseid, taskid):
-        #return Adaptive_course.recommendations
         return BaseTaskPage(self).GET(courseid, taskid, False)
 
     def POST(self, courseid, taskid):
-        #return Adaptive_course.recommendations
         return BaseTaskPage(self).POST(courseid, taskid, False)
-
-    def submission_done(submission, archive, newsub):
-        #print("submission_done")
-        #print(submission)
-        #print(submission['result'])
-        #print(course_global)
-        #tree = self.get_course(submission['courseid']) # course.get_descriptor().get('adaptive', [])["tree"]
-        #print(tree)
-        #return BaseTaskPage.submission_done(submission, archive, newsub)
-        #todo GROS TODO !!!
-        pass
-

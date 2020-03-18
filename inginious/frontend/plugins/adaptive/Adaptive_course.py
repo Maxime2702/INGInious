@@ -12,7 +12,6 @@ class OrderedDictInsert(OrderedDict):
 
 
 tasks_list = OrderedDictInsert()
-#recommendations.insert(0, 'first', "test")
 
 class AdaptivePage(INGIniousAuthPage):
 
@@ -135,19 +134,15 @@ class AdaptivePage(INGIniousAuthPage):
                 recommendations["medium"].update({taskid: task})
                 for task_p_id in task["tasks_parents"]:
                     recommendations["high"].update({task_p_id: tasks_data[task_p_id]})
-        #print(recommendations)
         for priority, tasks in recommendations.items():
-            #print(priority)
-            #print(tasks)
             for taskid, task in tasks.items():
-                #print(taskid)
-                #print(task)
                 tasks_list.update({taskid: course.get_tasks()[taskid]})
-            #for taskid in tasks:
-            #    print(taskid)
-                #print(task)
-            #    tasks_list.update({taskid : task})
-        #print(tasks_list)
+
+        if not tasks_list:
+            for taskid, task in course.get_tasks().items():
+                if 'test' not in task.get_categories():
+                    tasks_list.update({taskid: course.get_tasks()[taskid]})
+
         return recommendations
 
     def show_page(self, course):
@@ -167,11 +162,9 @@ class AdaptivePage(INGIniousAuthPage):
             course_grade = get_data["course_grade"]
             grade = {"visible_grade": visible_grade, "course_grade": course_grade}
             tasks_data = get_data["data"]
-            #print(tasks_data)
 
             tree = course.get_descriptor().get('adaptive', [])["tree"]
             recommendations = self.get_recommendations(course, tree, tasks_data)
-            #print(recommendations)
 
             tag_list = course.get_tags()
             user_info = self.database.users.find_one({"username": username})
@@ -198,7 +191,6 @@ class AdaptivePage(INGIniousAuthPage):
 
             tree = course.get_descriptor().get('adaptive', [])["tree"]
             recommendations = self.get_recommendations(course, tree, tasks_data)
-            #print(recommendations)
 
             tag_list = course.get_tags()
             user_info = self.database.users.find_one({"username": username})
