@@ -1,0 +1,13 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+def forbid_min(a, *b):
+    raise AttributeError(("Nice try! But built-in 'min' function has been disabled.\n"
+                         "\t\tPlease write an actual algorithm returning the minimum of the list."))
+
+min = forbid_min
+
+def minimum(a, b, c):
+@    @q1@@
+    return minima

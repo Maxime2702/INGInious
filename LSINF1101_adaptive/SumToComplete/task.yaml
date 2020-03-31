@@ -1,0 +1,69 @@
+accessible: true
+author: Tanguy De Bels
+categories:
+- For
+contact_url: ''
+context: |-
+    Complétez le fragment de code suivant:
+
+    .. code-block:: python
+
+        # Place dans sum la somme des n premiers entiers pairs strictement positifs
+
+        n = some_value
+        sum = 0
+        for ___ in ___________:
+            ______________
+
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 2: Somme à compléter'
+network_grading: false
+order: 10
+problems:
+    q1:
+        name: Implémentation
+        default: |-
+            n = some_value
+            sum = 0
+            for ___ in ___________:
+                ______________
+        type: code
+        header: ' '
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

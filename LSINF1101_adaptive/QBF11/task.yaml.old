@@ -1,0 +1,167 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    La gestion des corvées dans votre kot se fait à tour de rôle. Certains étudiants, plus disponibles, peuvent revenir plusieurs fois dans le tour de rôle.
+
+    *Par exemple:*
+
+        Siegfried, Charles, Sébastien, Siegfried, Kim, Charles, Siegfried, Charles, Sébastien, Siegfried, Kim, Charles, Siegfried, Charles, ...
+
+
+    Au fil du temps, des noms doivent être ajoutés ou retirés du tour de rôle. Afin d'écrire un programme pour gérer ce tour de rôle, on va utiliser une *liste circulaire* contenant des String, qui vont stocker les prénoms des étudiants. Cette liste est implémentée sous forme d'une structure chaînée circulaire dans la classe ``CircularLinkedList`` dont une implémentation incomplète vous est donné ci-après. On vous demande de :
+
+    * *Dessiner* la liste après exécution des instructions jusqu'aux lignes 5, 6, 7, 12 et 14 du programme ``TourDeRole`` présenté ci-dessous ;
+
+    * *Implémenter* la méthode ``remove`` qui permet de supprimer de la liste une occurrence d'un prénom donné, telle que spécifiée dans le code fourni ;
+
+    * *Spécifier* et *implémenter* une méthode ``removeAll`` qui permet de supprimer de la liste toutes les occurrences d'un prénom donné.
+
+    .. code-block:: python
+
+        class TourDeRole :
+
+            @classmethod
+            def main(cls):
+                l = CircularLinkedList()
+                l.add("Charles")
+                l.add("Kim")
+                l.add("Siegfried")
+                l.add("Sébastien")
+                l.add("Charles")
+                l.add("Siegfried")
+                l.remove("Kim")
+                l.add("Charles")
+                l.removeAll("Charles")
+
+        TourDeRole.main()
+
+    Voici une implémentation incomplète de la classe ``CircularLinkedList`` avec la spécification de la méthode ``remove``.
+
+    .. code-block:: python
+
+        class CircularLinkedList :
+
+            class Node:
+                def __init__(self,cargo=None,next=None):
+                    """ Initialises a new Node object. """
+                    self.__cargo = cargo
+                    self.__next  = next
+
+                def value(self):
+                    """ Returns the value of the cargo contained in this node. """
+                    return self.__cargo
+
+                def next(self):
+                    """ Returns the next node to which this node links. """
+                    return self.__next
+
+                def set_next(self,node):
+                    """ Sets the next node to which this node links to a new node. """
+                    self.__next = node
+
+            def __init__(self):
+                """ Initialises a new empty circular linked list.
+                @pre:  -
+                @post: A new circular linked list with no nodes has been initialised.
+                       The first pointer refers to None.
+                """
+                self.__first = None       # pointer to the first node
+                self.__last  = None       # pointer to the last node
+
+            def first(self):
+                """ Returns the first node of this circular linked list.
+                @pre:  -
+                @post: Returns a reference to the first node of this circular linked list,
+                       or None if the circular linked list contains no nodes.
+                """
+                return self.__first
+
+            def last(self):
+                """ Returns the last node of this circular linked list.
+                @pre:  -
+                @post: Returns a reference to the last node of this circular linked list,
+                       or None if the circular linked list contains no nodes.
+                """
+                return self.__last
+
+            def add(self, cargo):
+                """ Adds new Node with given cargo to front of this circular linked list.
+                @pre:  self is a (possibly empty) CircularLinkedList.
+                @post: A new Node object is created with the given cargo.
+                       This new Node is added to the front of the circular linked list.
+                       The head of the list now points to this new node.
+                       The last node now points to this new node.
+                """
+                node = self.Node(cargo,self.first())
+                self.__first = node
+                if self.last() == None :   # when this was the first element being added,
+                    self.__last = node     # set the last pointer to this new node
+                self.last().set_next(node)
+
+
+            def remove(self,cargo):
+                """ Removes a node with given cargo from the circular linked list.
+                @pre:  -
+                @post: A node with given cargo was removed from the circular linked list.
+                       The removed node, with next pointer set to None, is returned.
+                       In case multiple nodes with this cargo exist, only one is removed.
+                       The list is unchanged if no such node exists or the list is empty.
+                       In that case, None is returned as result.
+                """
+                # Code non fourni
+
+            def removeAll(self,cargo):
+                """ Removes all nodes with given cargo. """
+                # Code non fourni
+
+
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 11: QBF'
+network_grading: false
+order: 132
+problems:
+    q1:
+        default: ''
+        language: python
+        name: Implémentation
+        type: code
+        header: Implémentez les méthodes ``remove`` et ``removeAll`` de la classe
+            ``CircularLinkedList`` en Python.
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

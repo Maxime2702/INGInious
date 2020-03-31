@@ -1,0 +1,107 @@
+accessible: false
+author: François MICHEL
+categories: []
+contact_url: ''
+context: |-
+    Les équations du second degré sont des équations de la forme suivante:
+
+    $$ax^2 + bx + c = 0$$
+
+    avec :math:`a \neq 0`
+
+    Pour déterminer si l'équation dispose d'une solution, on calcule le nombre :math:`\rho = b^2-4ac`. Si :math:`\rho` est strictement positif, l'équation a exactement deux solutions. La première solution s'obtient via la formule suivante :
+
+    .. math::
+
+        \frac{-b + \sqrt{\rho}}{2a}
+
+    Et la seconde racine s'obtient via la formule suivante :
+
+    .. math::
+
+        \frac{-b - \sqrt{\rho}}{2a}
+
+    Si :math:`\rho` est nul, l'équation a exactement une solution, dont la valeur est égale à :math:`-b/(2a)`. Si :math:`\rho` est négatif, l'équation n'a aucune solution.
+
+    Pour montrer que vous maîtrisez la décomposition en sous-problèmes, vous devrez définir trois fonctions. Chacune d'entre elles prendra uniquement comme paramètres les valeurs de ``a``, ``b`` et ``c``. Tout d'abord, définissez et implémentez la fonction ``rho``, qui retourne la valeur du nombre :math:`\rho`.
+
+    Ensuite, définissez et implémentez la fonction ``n_solutions``, qui retourne le nombre de solutions de l'équation définie par `a`, `b` et `c`.
+
+    Finalement, définissez et implémentez la fonction ``solution``, qui retourne la solution d'une équation qui n'a qu'une seule solution et la plus petite solution d'une équation qui a deux solutions. La fonction ne sera jamais appelée pour une équation qui ne dispose pas de solution.
+
+    **Les fonctions** ``n_solutions`` **et** ``solution`` **doivent impérativement faire appel à la fonction** ``rho`` **.**
+
+    Pour résoudre l'exercice, vous aurez besoin de la fonction ``racine_carree``, décrite ci-dessous. Cette fonction est **déjà implémentée**, vous ne devez donc pas l'écrire vous-même.
+
+    .. code-block:: python
+
+        def racine_carree(n):
+            """
+            Calcule une racine carree
+            pre: n est un nombre réel
+                 n >= 0
+            post: retourne la racine carrée réelle de n
+            """
+
+    Voici un exemple d'utilisation des fonctions que vous devez implémenter, avec l'équation :math:`x^2 + 2x + 1 = 0` :
+
+    .. code-block:: python
+
+        rho(1, 2, 1)
+        >>> 0
+
+        n_solutions(1, 2, 1)
+        >>> 1
+
+        solution(1, 2, 1)
+        >>> -1.0
+
+
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 3: Q* Equations du second degré'
+network_grading: false
+order: 31
+problems:
+    q1:
+        name: Définissez et implémentez les fonction demandées
+        default: ''
+        type: code
+        header: ' '
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

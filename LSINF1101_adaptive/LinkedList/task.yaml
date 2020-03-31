@@ -1,0 +1,67 @@
+accessible: false
+author: Jacob Eliat-Eliat
+categories: []
+contact_url: ''
+context: |-
+    Create a class LinkedList that has an ``add`` method which takes a value as parameter, and a ``get_reverse`` method which returns the values of the linked list in reverse order.
+
+    If the ``add`` method is called like this:
+
+    .. code-block:: python
+
+      add("first")
+      add("second")
+      add("third")
+
+    Then ``get_reverse()`` should return *"thirdsecondfirst"*
+
+    Use another class ``Node`` with at least the methods ``get_value`` and ``get_next``
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 11: Q* LinkedList'
+network_grading: false
+order: 136
+problems:
+    q1:
+        header: Implement the class ``LinkedList`` with ``add`` and ``get_reverse``
+            functions, use a ``Node`` class with ``get_next`` and ``get_value``
+        name: Implementation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

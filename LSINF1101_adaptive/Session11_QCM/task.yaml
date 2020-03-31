@@ -1,0 +1,402 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    Ces questions se basent sur les classes ``LinkedList`` et ``Node`` de l'annexe `Appendix - Source code of linked lists  <https://syllabus-interactif.info.ucl.ac.be/syllabus/info1-theory/PART_III/appendix_code_linked_list>`_ partiellement reproduite ici :
+
+    .. code-block:: python
+
+        class LinkedList:
+
+            def __init__(self):
+                self.__length = 0
+                self.__head = None
+
+            def add(self, cargo):
+                node = Node(cargo,self.__head)
+                self.__head = node
+                self.__length += 1
+
+            def print(self):
+                print("[", end=" ")
+                if self.__head is not None:
+                    self.__head.print_list()
+                print("]")
+
+            #...
+
+        class Node:
+
+            def __init__(self, cargo=None, next=None):
+                self.__cargo = cargo
+                self.__next  = next
+
+            def value(self):
+                return self.__cargo
+
+            def __str__(self):
+                return str(self.value())
+
+            def print_list(self):
+                print(self, end="")   # print my head
+                tail = self.__next    # go to my next node
+                if tail is not None : # as long as end of list was not reached
+                    tail.print_list() # recursively print remainder of list
+
+            #...
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 11: QCM'
+network_grading: false
+order: 129
+problems:
+    q1:
+        header: On considère les classes ``LinkedList`` et ``Node``.  Parmi les affirmations
+            suivantes, laquelle est correcte?
+        choices:
+        -   feedback: |-
+                La classe ``LinkedList`` contient un attribut nommé head qui contient soit la valeur None quand la liste est encore vide, soit une instance / un objet de la classe ```Node``. Mais il est faut de dire que la classe ``Node`` même est un attribut de la classe ``LinkedList``.
+                (La phrase correcte serait: _la classe ``LinkedList`` contient un attribut qui peut être de type ``Node``._)
+            text: La classe ``Node`` est un attribut de la classe ``LinkedList``.
+        -   text: La classe ``LinkedList`` est un attribut de la classe ``Node``.
+            feedback: 'La classe ``Node`` ne contient aucune référence vers la classe
+                LinkedList. C''est plutôt la classe ``LinkedList`` qui fait référence
+                à la classe ``Node``. '
+        -   valid: true
+            feedback: Il est correct que chaque instance de ``LinkedList`` peut créer
+                un nombre quelconque d'instances de la classe ``Node``. En fait, chaque
+                appel de la méthode ``add`` sur une liste chainée (instance de la
+                classe ``LinkedList``) aura comme effet qu'un nouvel objet de type
+                ``Node`` est créé et inséré en tête de la liste.
+            text: Chaque instance de ``LinkedList`` peut créer un nombre quelconque
+                d'instances de ``Node``.
+        -   text: Dans la méthode ``add``, on utilise ``node = new Node(cargo)`` pour
+                créer une nouvelle instance de ``Node``.
+            feedback: L'instruction ``node = Node(cargo)`` crée une nouvelle instance
+                de ``Node``, il ne faut pas avoir le mot clé ``new``.
+        -   text: Dans une classe autre que la classe ``LinkedList``, on ne peut pas
+                créer d'instance de ``Node``.
+            feedback: 'La classe ``Node`` existe et est visible globalement, donc
+                peut en principe être utilisé par n''importe quelle autre classe.  '
+        name: Classes et instances
+        limit: 0
+        type: multiple_choice
+    q2:
+        choices:
+        -   text: La classe ``Node`` est une sous-classe de la classe ``LinkedList``.
+            feedback: '``Node`` n''est pas une sous-classe de la classe ``LinkedList``.
+                Elles ne sont pas liées par l''héritage.'
+        -   feedback: '``LinkedList`` n''est pas une sous-classe de la classe ``Node``.
+                Elles ne sont pas liées par l''héritage.'
+            text: La classe ``LinkedList`` est une sous-classe de la classe ``Node``.
+        -   feedback: Une instance de ``LinkedList`` ne contient pas d'instances de
+                ``Node`` lors de sa création, mais elle peut éventuellement en créer
+                lors de l'appel de la méthode ``add``.
+            text: Chaque instance de ``LinkedList`` contient une instance de ``Node``.
+        -   valid: true
+            feedback: Dans une classe autre que la classe ``LinkedList``, on peut
+                utiliser l'instruction ``Node()`` pour créer une instance de ``Node``.
+            text: Dans une classe autre que la classe ``LinkedList``, on peut utiliser
+                l'instruction ``Node()`` pour créer une instance de ``Node``.
+        limit: 0
+        header: On considère les classes ``LinkedList`` et ``Node``.  Parmi les affirmations
+            suivantes, laquelle est correcte?
+        name: Classes, sous-classes et instances
+        type: multiple_choice
+    q3:
+        choices:
+        -   valid: true
+            text: |-
+                * ``lst.first().value()`` vaut ``30``.
+                * ``lst.first().next().value()`` vaut ``20``.
+                * ``lst.first().next().next()`` est une instance de ``Node``.
+                * ``lst.first().next().next().next()`` vaut ``None``.
+        -   text: |-
+                * ``lst.first().value()`` vaut ``30``.
+                * ``lst.first().next().value()`` vaut ``20``.
+                * ``lst.first().next().next()``  vaut ``10``.
+                * ``lst.first().next().next().next().value()`` vaut ``None``.
+            feedback: |-
+                * ``lst.first().next().next()`` est une instance de la classe ``Node``, pas un ``int``.  Même si ``print(lst.first().next().next())`` affichera ``10``.
+                * ``lst.first().next().next().next().value()`` provoque une erreur.
+        -   feedback: |-
+                * Même si ``print(lst.first())`` affichera ``30``, ``lst.first()`` ne vaut pas 30. Si on fait ``type(lst.first())`` on constatera que ``lst.first()`` est une instance de la classe ``Node``, pas un ``int``.
+                * ``lst.first().next()`` est un ``Node``, pas un ``int``. Même raisonnement.
+            text: |-
+                * ``lst.first()`` vaut ``30``.
+                * ``lst.first().next()`` vaut ``20``.
+                * ``lst.first().next().next()`` est une instance de ``Node``.
+                * ``lst.first().next().next().next()`` vaut ``None``.
+        -   text: |-
+                * ``lst.first()`` vaut ``30``.
+                * ``lst.first().next().value()`` vaut ``20``.
+                * ``lst.first().next().next()``  vaut ``10``.
+                * ``lst.first().next().next().next()`` vaut ``None``.
+            feedback: |-
+                * Même si ``print(lst.first())`` affichera ``30``, ``lst.first()`` ne vaut pas 30. Si on fait ``type(lst.first())`` on constatera que ``lst.first()`` est une instance de la classe ``Node``, pas un ``int``.
+                * ``lst.first().next().next()`` est une instance de la classe ``Node``, pas un ``int``.  Même si ``print(lst.first().next().next())`` affichera ``10``.
+        limit: 0
+        header: |-
+            Considérez que dans le code des classes ``LinkedList`` et ``Node`` on a les méthodes accesseurs suivants:
+
+            .. code-block:: python
+
+                class LinkedList:
+
+                    def size(self):
+                        return self.__length
+
+                    def first(self):
+                        return self.__head
+
+                class Node:
+
+                    def value(self):
+                        return self.__cargo
+
+                    def next(self):
+                        return self.__next
+
+            Dans un programme qui utilise la classe ``LinkedList``, on exécute le code suivant :
+
+            .. code-block:: python
+
+                lst = LinkedList()
+                lst.add(10)
+                lst.add(20)
+                lst.add(30)
+
+            Parmi les groupes d'affirmation suivantes, lequel est correct après avoir exécuté ce code?
+        name: Méthodes accesseurs
+        type: multiple_choice
+    q4:
+        header: |-
+            Dans la classe ``LinkedList``, quelle serait une définition correcte de la méthode ``remove`` qui supprime l'élément en tête de la liste? Si la liste contient au moins un élément, la méthode supprime cet élément; si la liste est déjà vide, la méthode ne fait rien.
+
+            Vous pouvez supposer que la méthode suivante a été ajoutée à ``Node``.
+
+            .. code-block:: python
+
+                def next(self):
+                    return self.__next
+        choices:
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    def remove(self):
+                        if self.__head is not None:
+                            self.__length -= 1
+                            self.__head = self.__head.next()
+        -   text: |-
+                .. code-block:: python
+
+                    def remove(self):
+                        if self.__head.next() is None:
+                            self.__length -= 1
+                            self.__head = self.__head.next()
+            feedback: |-
+                La condition est incorrecte. Cette condition vérifie qu'il n'y ait plus qu'un élément dans la liste, mais la méthode ``remove`` doit fonctionner même si on a plusieurs éléments.
+                Cette méthode ne fonctionnera pas non plus si la liste est déjà vide.
+        -   text: |-
+                .. code-block:: python
+
+                    def remove(self):
+                        self.__length -= 1
+                        self.__head = self.__head.next()
+            feedback: Ce code donnera une erreur si la liste est déjà vide.
+        -   feedback: Après avoir exécuté cette méthode il n'y aurait plus aucun noeud
+                restant, même s'il y en avait plus qu'un dans la liste.
+            text: |-
+                .. code-block:: python
+
+                    def remove(self):
+                        self.__length = 0
+                        self.__head = None
+        limit: 0
+        name: Supprimer le premier noeud d'une liste chaînée
+        type: multiple_choice
+    q5:
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    def sum(self):
+                        node = self.first()
+                        sum = 0
+                        while node != None:
+                            node = node.next()
+                            sum += node.value()
+                        return sum
+            feedback: La condition est incorrecte. On ne doit pas utilise ``!=`` pour
+                comparer avec ``None``.
+        -   feedback: Cette méthode donne lieu à une boucle infinie car on avance
+                jamais au noeud suivant.
+            text: |-
+                .. code-block:: python
+
+                    def sum(self):
+                        node = self.first()
+                        sum = 0
+                        while node is not None:
+                            sum += node.value()
+                        return sum
+        -   text: |-
+                .. code-block:: python
+
+                    def sum(self):
+                        node = self.first()
+                        sum = 0
+                        while node is not None:
+                            node = node.next()
+                            sum += node.value()
+                        return sum
+            feedback: Ce code est presque correct, mais regardez bien, il reste un
+                soucis important avec l'ordre des instructions.
+        -   feedback: Code incorrect. Au lie de ``first()`` il faut écrire ``self.first()``
+            text: |-
+                .. code-block:: python
+
+                    def sum(self):
+                        sum = 0
+                        node = first()
+                        while node is not None:
+                            node = node.next()
+                            sum += node.value()
+                        return sum
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    def sum(self):
+                        node = self.first()
+                        sum = 0
+                        while node is not None:
+                            sum += node.value()
+                            node = node.next()
+                        return sum
+        -   text: |-
+                .. code-block:: python
+
+                    def sum(self):
+                        sum = 0
+                        while self.__head is not None:
+                            sum += self.__head.value()
+                            self.__head = self.__head.next()
+                        return sum
+            feedback: Cette solution calcule la somme correctement mais elle détruit
+                la structure interne de la liste chaînée en réassignant ``self.__head``
+                chaque fois.
+        header: Dans la classe ``LinkedList``, quelle serait une implémentation correcte
+            d'une méthode ``sum`` qui calcule la somme des cargos des noeuds dans
+            la liste ?
+        name: Parcours d'une liste chaînée
+        limit: 0
+        type: multiple_choice
+    q6:
+        name: Manipulation de structures chaînées
+        choices:
+        -   feedback: L'ordre des instructions est incorrect, une liste avec une boucle
+                infinie est crée.
+            text: |-
+                .. code-block:: python
+
+                    def swap(self) :
+                        first = self.first()
+                        if (first is not None) and (first.next() is not None) :
+                            self.__head = first.next()
+                            self.first().set_next(first)
+                            first.set_next(self.first().next())
+        -   text: |-
+                .. code-block:: python
+
+                    def swap(self) :
+                        first = self.first()
+                        if (first is not None) and (first.next() is not None) :
+                            first.set_next(first.next().next())
+                            self.__head = first.next()
+                            self.first().set_next(first)
+            feedback: Le deuxième noeud est perdu, et une liste avec une boucle infinie
+                de deux noeuds est crée.
+        -   feedback: L'ordre des instructions est incorrect; une liste avec une boucle
+                infinie de deux noeuds est crée.
+            text: |-
+                .. code-block:: python
+
+                    def swap(self) :
+                        first = self.first()
+                        if (first is not None) and (first.next() is not None) :
+                            first.set_next(self.first().next())
+                            self.__head = first.next()
+                            self.__head.set_next(first)
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    def swap(self) :
+                        first = self.first()
+                        if (first is not None) and (first.next() is not None) :
+                            self.__head = first.next()
+                            first.set_next(self.first().next())
+                            self.first().set_next(first)
+        -   text: |-
+                .. code-block:: python
+
+                    def swap(self) :
+                        first = self.first()
+                        if (first is not None) and (first.next() is not None) :
+                            first.set_next(first.next().next())
+                            first.next().set_next(first.next())
+                            first = first.next()
+            feedback: Le deuxième noeud est perdu, et une liste infinie est créée.
+        type: multiple_choice
+        limit: 0
+        header: |-
+            Considérez que dans le code de la classe ``Node`` on a la méthode mutateur (qui change l'état d'un de ses attributs) suivante:
+
+            .. code-block:: python
+
+                class Node:
+
+                    def set_next(self,node):
+                        self.__next = node
+
+            Dans la classe ``LinkedList``, quel serait une définition correcte d'une méthode ``swap`` qui échange les deux noeuds au début de la liste ?
+            (Si la liste ne contient pas au moins deux noeuds, la méthode ``swap`` ne fait rien.)
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

@@ -1,0 +1,66 @@
+accessible: true
+author: Olivier Goletti, Siegfried Nijssen
+categories:
+- Array_List
+contact_url: ''
+context: |-
+    Écrivez une fonction ``ajoute ( l, v )`` qui pour une liste donnée ``l``, ajoute le nombre ``v`` à la fin de la liste, *si ce nombre n'est pas encore présent dans la liste*. Si le nombre apparaît déjà, la liste doit rester non modifiée. Pour ce code:
+
+    .. code-block:: python
+
+       l = [ 3, 1, 5, 4 ]
+       ajoute ( l, 4 )
+       ajoute ( l, 6 )
+       ajoute ( l, 7 )
+       ajoute ( l, 6 )
+       print ( l )
+
+    Le programme doit imprimer ``[ 3, 1, 5, 4, 6, 7 ]``. La fonction ``ajoute`` ne retourne rien.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 4: Ajoute'
+network_grading: false
+order: 37
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        type: code
+        header: Implement the function ``ajoute(l,v)`` in Python.
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

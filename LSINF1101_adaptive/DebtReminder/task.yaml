@@ -1,0 +1,109 @@
+accessible: false
+author: Simon Gustin
+categories: []
+contact_url: ''
+context: |-
+    You and your friends often **lend each other money**.
+    Rather than using convenient applications to remember who owes how much money to who,
+    you decide to make your own Python program for this task.
+
+    Specifically, you would like to have a way to
+
+    * tell **who owes money to whom**;
+
+    * **change the money counts** when someone pays someone else back or when someone lends money to someone else;
+
+    * **add a person** that borrows and/or lends money;
+
+    * compute the **sum of all the money currently borrowed**.
+
+    Note that at all times, any money lent to someone should be borrowed by the lender.
+    In other words, if *Woody* has lent *3€* to *Buzz*, your program should say that *Buzz owes 3€ to Woody* and that *Woody owes -3€ to Buzz*.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 7: Q* Debt reminder'
+network_grading: false
+order: 85
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        type: code
+        header: |-
+            To do this, you will use a **dictionary of dictionaries** called ``borrowed_money``, indexed by the **names of the people** (as strings).
+            The first index will be the name of the "borrower"; the second the name of the "lender".
+
+            For example, if *Woody* has lent *3€* to *Buzz*, your dictionary should be as follows:
+
+            .. code-block:: python
+
+                borrowed_money["Buzz"]["Woody"] == 3  # Read "Buzz owes Woody 3€"
+                borrowed_money["Woody"]["Buzz"] == -3
+
+            Consequently, you can get a dictionary which contains all the money Buzz borrows anyone:
+
+            .. code-block:: python
+
+               borrowed_money["Buzz"] == {"Woody": 3, "Hamm": 60, "Rex": -5}
+
+            **Make a function** ``give_money(borrowed_money, from_person, to_person, amount)``
+            which would be called when ``from_person`` gives ``amount`` € to ``to_person``
+            (either because ``from_person`` lends money to ``to_person`` or because they pay back the money they borrowed).
+            If any of the 2 people aren't already keys in the dictionary, they should be added to it.
+            You should raise a ``ValueError`` in case someone tries to give money to themself.
+
+            **Make another function** ``total_money_borrowed(borrowed_money)``
+            which will return the total amount of money borrowed at that time in the group
+            (that is, the sum of the positive amounts of money in the dictionaries).
+
+            *Note: you should raise a* ``ValueError`` *if any of the arguments fed to those functions
+            are invalid (i.e. if names are not strings, if* ``borrowed_money`` *is not a dictionary or if the amount of money is not an integer or a float).
+            You can test if a variable is of the right type in the following way:*
+
+            .. code-block:: python
+
+               variable = 5
+               type(variable) == int  # returns True
+               # OR
+               isinstance(variable, int)  # returns True
+
+            Finally, **implement the example** that Mark lends Bill and Steve 2 000 000€,
+            Serguei lends Bill 5 000 000€, Bill lends Larry 6 000 000€ and Larry lends Linus 5.5€.
+            Then, Steve pays Mark back. This should be using the variable ``borrowed_money``.
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

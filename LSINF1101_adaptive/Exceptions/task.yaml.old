@@ -1,0 +1,67 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Ajoutez un bloc ``try ... except`` pour attraper les exceptions d'une façon générique. Donnez un message générique ``There was an error`` dans ce cas. Assurez-vous que le fichier est aussi correctement fermé en cas d'erreur!
+
+    Modifiez aussi le code tel que dans le cas d'une commande qui n'existe pas, une exception est lancée.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 6: Traitement d''exceptions'
+network_grading: false
+order: 62
+problems:
+    q1:
+        type: code
+        name: Implémentation
+        language: python
+        header: |-
+            ::
+
+                command = input('Enter your command: ')
+        default: |-
+            parameters = command.split ()
+            if parameters[0] == "divide":
+                print ( "The value of your division is: {0}".format ( float(parameters[1])/float(parameters[2])))
+            elif parameters[0] == "showfile":
+                file = open ( parameters[1] )
+                print ( file.read () )
+                file.close ()
+            else:
+                print ( "Command not recognized")
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

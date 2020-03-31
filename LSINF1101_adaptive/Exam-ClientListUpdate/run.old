@@ -1,0 +1,151 @@
+#! /usr/bin/python3
+# -*- coding: utf-8 -*-
+
+import subprocess
+import shlex
+import sys
+import os
+import re
+
+from inginious import feedback
+from inginious import rst
+from inginious import input
+
+
+# This runner suits for exam exercises of LSINF1101/FSAB1401
+# Should be adapted if used in another occasion
+# Structure used:
+#  -One folder : src with a proposer answer, the tests and a subdirectory containing the templates
+#  -A run file
+#  -A task file
+# Note that beside this structure we use the global folder common containing:
+#  -The compiler script
+#  -The tests runner script
+
+
+def compute_code(exam):
+    """
+        Fills the template file with the student answer
+        Returns the task's number of questions
+        
+        :param exam: the code is running during exam
+    """
+    file = {True: 'q', False: 'qtest'}[exam]
+    input.parse_template('./src/Templates/' + file, './student/q.py')
+    data = input._load_input()
+    return len([k for k in data['input'].keys() if '@' not in k])
+
+
+def compile_code():
+    """
+        Compiles both the student code and the exercise code
+        Provides feedback if there is any compilation error
+    """
+    pyc_cmd = "python3 ../course/common/compiler.py "
+
+    with open('log.out', 'w+', encoding="utf-8") as f:
+        subprocess.call(shlex.split(pyc_cmd + './student/'), universal_newlines=True, stderr=f)
+        f.seek(0)
+        out_student = f.read()
+
+    if out_student != "":
+        rawhtml = rst.get_codeblock("", out_student)
+        feedback.set_global_result('failed')
+        feedback.set_global_feedback("Quelque chose s'est mal déroulé.\n" + rst.get_codeblock("python", rawhtml))
+        sys.exit(0)
+
+    with open('logTests.out', 'w+', encoding="utf-8") as f:
+        subprocess.call(shlex.split(pyc_cmd + './src/'), universal_newlines=True, stderr=f)
+        f.seek(0)
+        out_tests = f.read()
+
+    if out_tests != "":
+        rawhtml = rst.get_codeblock("", out_tests)
+        feedback.set_global_result('failed')
+        feedback.set_global_feedback("The program does not compile for external reasons,"
+                                       "please contact an administrator asap: \n " + rawhtml + "\n")
+        sys.exit(0)
+
+    with open('logRunner.out', 'w+', encoding="utf-8") as f:
+        subprocess.call(shlex.split(pyc_cmd + '../course/common/'), universal_newlines=True, stderr=f)
+        f.seek(0)
+        out_runner = f.read()
+
+    if out_runner != "":
+        rawhtml = rst.get_codeblock("", out_runner)
+        feedback.set_global_result('failed')
+        feedback.set_global_feedback("The program does not compile for external reasons,"
+                                       "please contact an administrator asap: \n " + rawhtml + "\n")
+        sys.exit(0)
+
+
+def cleanup_output(error_content):
+    """
+        Provides a cleaner output from the error trace
+
+        :param error_content: string returned by the unittest failures
+    """
+    cleaned_lines = []
+    indexes = [match.start() for match in re.finditer('AssertionError: ', error_content)]
+    for i in indexes:
+        cleaned_lines.append('Test échoué:\n' + '='*13 + '\n')
+        cleaned_lines.append(error_content[i + len("AssertionError: "): error_content.find("=" * 70, i)])
+    return ''.join(cleaned_lines) if len(indexes) > 0 else error_content
+
+
+def run_code(n_exercises, exam):
+    """
+        Runs the student code with the tests
+        Provides feedback if it contains errors
+
+        :param n_exercises: the task's number of exercices
+        :param exam: the code is running during exam
+    """
+    with open('err.txt', 'w+', encoding="utf-8") as f:
+        os.chdir('./student')
+        py_cmd = "run_student python3.5 ExamRunner.pyc " + str(exam)
+        try:
+            resproc = subprocess.Popen(shlex.split(py_cmd), universal_newlines=True, stderr=f, stdout=subprocess.PIPE)
+            out, err = resproc.communicate()
+            result = resproc.returncode
+        except (IOError, BrokenPipeError):
+            result = 252
+        f.flush()
+        f.seek(0)
+        errors = f.read()
+        print(errors)
+        outerr = rst.get_codeblock("python", cleanup_output(errors))
+
+    # expected error code: 252=outofmemory, 253=timedout
+    # 127 = code returned by our runner
+    if result == 252:
+        feedback.set_global_result('overflow')
+        feedback.set_global_feedback("La limite de mémoire de votre programme est dépassée")
+        sys.exit(0)
+    elif result == 253:
+        feedback.set_global_result('timeout')
+        feedback.set_global_feedback("La limite de temps d'exécution de votre programme est dépassée")
+        sys.exit(0)
+    if exam:
+        feedback.set_global_result('success')
+        if errors:
+            feedback.set_global_feedback("Bravo, votre code compile.Voici la sortie de votre méthode de test:"+rst.get_codeblock("python", errors) + "\n")
+        else:
+            if out:
+               out = rst.get_codeblock("python", out)
+            feedback.set_global_feedback("Bravo, votre code compile.Voici la sortie de votre méthode de test:" + out + "\n")
+               
+        
+    else:     
+        if result == 127:
+            feedback.set_global_result('success')
+        else:
+            feedback.set_global_result('failed')
+            feedback.set_global_feedback("Il semblerait que vous ayez fait des erreurs dans votre code…\n\n" + outerr + "\n")
+
+
+if __name__ == '__main__':
+    during_exam = True     #Variable à modifier
+    num_exercises = compute_code(during_exam)
+    compile_code()
+    run_code(num_exercises, during_exam)

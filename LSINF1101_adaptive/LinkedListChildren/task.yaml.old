@@ -1,0 +1,71 @@
+accessible: false
+author: Damien Gonze
+categories: []
+context: |-
+    You are the manager of a vacation camp. To make sure you don't lose any children in your visit of a local forest, every children must look to a buddy, which will look to another buddy, etc. Until every children has a buddy and is the buddy of someone.
+
+    You are sure that if you take a children, and follow the trail of buddies, you will visit all children.
+    To check if every child is here, you just need to check that every children has his buddy, and check that for all children.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 11 : Q* Lost Children'
+network_grading: false
+order: 131
+problems:
+    q1:
+        default: ''
+        language: python
+        name: Check the children
+        type: code
+        header: |-
+            You have to check if every children is here. To do so, you have acces to the first child with the variable ``first_child`` (instance of the class Child). The class Child has the function is_next_valid to check if it has his buddy, and the function next_child to get his buddy.
+
+            .. code-block:: python
+
+                class Child:
+                    def is_next_valid()  #return a boolean
+                    def next_child()     #return a Child
+
+
+            Don't forget to stop checking once you have checked every children.
+            You have to complete the body of the function, and return true if all the children are here, and false if not.
+
+            .. code-block:: python
+
+                def is_every_child_here(first_child):
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

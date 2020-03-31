@@ -1,0 +1,5 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+def merge(first_list, second_list):
+@    @q1@@

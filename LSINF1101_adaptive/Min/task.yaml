@@ -1,0 +1,62 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    Suppose the variables ``a``, ``b`` and ``c`` contain a natural number.
+
+    Write a code fragment that assigns to the variable ``min`` the smallest of these numbers.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 2: Q* Minimum'
+network_grading: false
+order: 15
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        type: code
+        header: |-
+            .. code-block:: python
+
+                a = ... #variable to evaluate
+                b = ... #variable to evaluate
+                c = ... #variable to evaluate
+                minima = ... #store in this variable the smallest of the three variables
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

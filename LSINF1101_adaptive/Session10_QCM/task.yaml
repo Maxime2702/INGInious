@@ -1,0 +1,619 @@
+accessible: false
+author: Tanguy DE BELS, Kim Mens
+categories: []
+contact_url: ''
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 9: QCM'
+network_grading: false
+order: 118
+problems:
+    qcm1:
+        type: multiple_choice
+        choices:
+        -   valid: true
+            text: |-
+                #. ``C1`` est une super-classe indirecte de ``C3``
+                #. ``C2`` est une classe-fille de ``C1``
+                #. Toute instance de ``C3`` est une instance de ``C1``
+        -   valid: true
+            text: |-
+                #. ``C3`` est une sous-classe de ``C2``
+                #. ``C2`` est la classe-mère de ``C3``
+                #. Toute instance de ``C2`` est une instance de ``C1``
+        -   text: |-
+                #. ``C1`` est une sous-classe de ``C3``
+                #. ``C2`` est une classe-fille de ``C1``
+                #. Toute instance de ``C2`` est une instance de ``C1``
+            feedback: '``C1`` n''est pas une sous-classe de ``C3``.'
+        -   text: |-
+                #. ``C1`` est une super-classe indirecte de ``C3``
+                #. ``C2`` est une classe-fille de ``C3``
+                #. Toute instance de ``C3`` est une instance de ``C1``
+            feedback: '``C2`` n''est pas une classe-fille de ``C3``; c''est l''inverse.'
+        -   feedback: Toute instance de ``C1`` n'est pas une instance de ``C3``; c'est
+                l'inverse
+            text: |-
+                #. ``C2`` est une classe-fille de ``C1``
+                #. Toute instance de ``C1`` est une instance de ``C3``
+                #. ``C3`` est une sous-classe de ``C2``
+        -   feedback: '`C2`` n''est pas la classe-fille de ``C3``; c''est l''inverse.'
+            text: |-
+                #. ``C2`` est une classe-fille de ``C1``
+                #. Toute instance de ``C3`` est une instance de ``C1``
+                #. ``C1`` est une sous-classe de ``C2``
+        -   feedback: Toute instance de ``C2`` n'est pas une instance de ``C3``; c'est
+                l'inverse.
+            text: |-
+                #. ``C2`` est une classe-fille de ``C1``
+                #. ``C3`` est une sous-classe de ``C2``
+                #. Toute instance de ``C2`` est une instance de ``C3``
+        -   feedback: |-
+                ``C1`` est une super-classe de ``C2`` qui est une super-classe de ``C3``.
+                ``C1`` est donc une super-classe indirecte de ``C3``, mais pas une super-classe directe.
+            text: |
+                #. ``C1`` est une super-classe directe de ``C3``
+                #. ``C2`` est une classe-fille de ``C1``
+                #. Toute instance de ``C3`` est une instance de ``C1``
+        multiple: true
+        limit: 0
+        header: |
+            Soit les classes ``C1``, ``C2`` et ``C3`` définies comme suit :
+
+            .. code-block:: python
+
+                class C1:
+                    pass
+
+                class C2(C1):
+                    pass
+
+                class C3(C2):
+                    pass
+
+            En d'autres mots, la classe ``C3`` hérite de la classe ``C2``, qui hérite elle-même la classe ``C1``.
+            Quel groupes d'affirmations suivantes sont corrects ?
+        name: 'Héritage : vocabulaire'
+    qcm2:
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    class B(A) :
+
+                        def __init__(self,s,n) :
+                            super().__init__(s,n)
+                            self.n2 = n
+
+                        def m(self) :
+                            return ( super().m() + self.n2 * self.n2 )
+            valid: true
+        -   feedback: 'Cette réponse est correcte MAIS il aurait été préférable de
+                réutiliser le code de la super-classe en définissant le corps de la
+                méthode ``m()`` comme: ``return ( super().m() + self.n2 * self.n2
+                )``'
+            text: |-
+                .. code-block:: python
+
+                    class B(A) :
+
+                        def __init__(self,s,n) :
+                            super().__init__(s,n)
+                            self.n2 = n
+
+                        def m(self) :
+                            return ( self.n * self.n + self.n2 * self.n2 )
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                    class B(A) :
+
+                        def __init__(s,n) :
+                            super().__init__(s,n)
+                            self.n2 = n
+
+                        def m() :
+                            return ( super().m() + self.n2 * self.n2 )
+            feedback: 'Il faut ajouter ``self`` comme premier paramètre dans la définition
+                des méthodes: ``def __init__(self,s,n)`` et ``def m(self)``.'
+        -   feedback: Il est aussi préférable d'utiliser ``super().m()`` pour référer
+                à une méthode ``m()`` de la classe-mère et non ``A.m()``. Il manque
+                aussi le passage de  ``self`` en argument à ``A.__init__(s,n)``.
+            text: |-
+                .. code-block:: python
+
+                    class B(A) :
+
+                        def __init__(self,s,n) :
+                            A.__init__(s,n)
+                            self.n2 = n
+
+                        def m(self) :
+                            return (A.m() + self.n2 * self.n2)
+        -   text: |-
+                .. code-block:: python
+
+                    class B :
+
+                        def __init__(self,s,n) :
+                            super().__init__(s,n)
+                            self.n2 = n
+
+                        def m(self) :
+                            return ( super().m() + self.n2 * self.n2 )
+            feedback: La déclaration de la classe ne mentionne pas que ``B`` hérite
+                de ``A``.
+        -   feedback: La déclaration ``class A(B)`` veut dire que ``A`` hérite de
+                ``B``, tandis qu'on devait définir une classe ``B``qui héritait de
+                ``A``.
+            text: |-
+                .. code-block:: python
+
+                    class A(B) :
+
+                        def __init__(s,n) :
+                            super().__init__(s,n)
+                            self.n2 = n
+
+                        def m() :
+                            return ( super().m() + self.n2 * self.n2 )
+        -   feedback: |-
+                En Python 2, où la fonction ``super()`` n'existait pas encore, ceci aurait été une réponse correcte.
+                En Python 3, par contre, même si ce code sera encore accepté pour des soucis de rétro-compatibilité, il est préférable et fortement conseillé de ne pas écrire ``A.__init__(self,s,n)`` pour appeler la méthode ``__init__`` sur la super-classe, mais d'utiliser ``super().__init__(self, s, n)``.
+            text: |-
+                .. code-block:: python
+
+                    class B(A) :
+
+                        def __init__(self,s,n) :
+                            A.__init__(self,s,n)
+                            self.n2 = n
+
+                        def m(self) :
+                            return (super().m() + self.n2 * self.n2)
+            valid: true
+        -   feedback: |-
+                Même si ce code sera accepté par Python, il y a un soucis avec la définition de la méthode ``m()``.
+                Dans le corps de la méthode ``m()`` elle appelle ``self.m()`` ce qui va donner lieu à une récursivité infinie lorsqu'on appelle ``m()`` sur un objet de la classe ``B``.
+                Ce que le programmeur a probablement voulu faire c'est de définir la méthode ``m()`` dans la sous-classe ``B``, en se basant sur la définition de la méthode ``m`` dans la super-classe ``A`` mais alors il faut faire un appel à ``super()`` et pas un appel à ``self``.
+                Il faut utiliser ``super().methode()`` pour référer à une méthode de la classe-mère.
+            text: |-
+                .. code-block:: python
+
+                    class B(A) :
+
+                        def __init__(self,s,n) :
+                            super().__init__(s,n)
+                            self.n2 = n
+
+                        def m(self) :
+                            return ( self.m() + self.n2 * self.n2 )
+        -   feedback: On a oublié ``self.`` pour accéder aux attributs ``n2``.
+            text: |-
+                .. code-block:: python
+
+                    class B(A) :
+
+                        def __init__(self,s,n) :
+                            super().__init__(s,n)
+                            n2 = n
+
+                        def m(self) :
+                            return ( super().m() + n2 * n2 )
+        -   text: |-
+                .. code-block:: python
+
+                    class B(A) :
+
+                        def __init__(self,s,n) :
+                            self.n2 = n
+
+                        def m(self) :
+                            return ( super().m() + self.n2 * self.n2 )
+            feedback: 'Dans la méthode d''initialisation de ``B``, il faut appeler
+                la méthode d''initialisation de la super-classe ``A``, sinon les attributs
+                ``s`` et ``n`` ne seront pas initialisés pour des instance de la classe
+                ``B``, ce qui provoquera des erreurs de type ``AttributeError: ''B''
+                object has no attribute ''n''`` lorsqu''on appel ma méthode ``m()``
+                sur une instance de la classe ``B``.'
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    class B(A) :
+
+                        def __init__(self,s,n) :
+                            self.n2 = n
+                            super().__init__(s,n)
+
+                        def m(self) :
+                            return ( super().m() + self.n2 * self.n2 )
+            feedback: Même si cette réponse peut être considéré comme correcte, il
+                est préférable de mettre l'appel à la méthode d'initialisation de
+                la super-classe, comme première instruction de la méthode d'initialisation
+                de la sous-classe. Ainsi, toutes les initialisations définies plus
+                hautes dans l'hiérarchie seront faites avant les initialisations des
+                variables ajoutés par la sous-classe. Donc il vaut mieux mettre ``super().__init__(s,n)``
+                comme première instruction de la méthode ``__init__``.
+        type: multiple_choice
+        name: Héritage d'une classe
+        header: |-
+            Soit la classe ``A`` définie comme suit :
+
+            .. code-block:: python
+
+                class A:
+
+                    def __init__(self,s,n):
+                        self.s = s
+                        self.n = n
+
+                    def m(self) :
+                        return self.n * self.n
+
+            Quelle définition suivante définit correctement une classe ``B`` qui hérite de la classe ``A`` ? (Essayez de bien choisir la *meilleure* solution.)
+        limit: 0
+    qcm3:
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    1
+                    12
+                    312
+                    4
+            valid: true
+        -   feedback: Les appels à ``super()`` vont aussi appeler la méthode __str__
+                sur la class mère.
+            text: |-
+                .. code-block:: python
+
+                    1
+                    2
+                    3
+                    4
+        -   text: |-
+                .. code-block:: python
+
+                    1
+                    12
+                    321
+                    4
+            feedback: Presque correct mais vérifiez l'ordre dans lequel les choses
+                seront imprimés.
+        -   text: |-
+                .. code-block:: python
+
+                    1
+                    12
+                    312
+                    412
+            feedback: La méthode ``__str__`` dans la classe ``D4`` ne fait pas appel
+                à ``super()``.
+        -   feedback: La méthode ``__str__`` dans la classe ``D4`` ne fait pas appel
+                à ``super()``.
+            text: |-
+                .. code-block:: python
+
+                    1
+                    12
+                    321
+                    421
+        header: |-
+            Soit les classes ``D1``, ``D2``, ``D3`` et ``D4`` définies comme suit :
+
+            .. code-block:: python
+
+                    class D1 :
+                        def __str__(self) :
+                            return "1"
+
+                    class D2(D1) :
+                        def __str__(self) :
+                           return super().__str__() + "2"
+
+                    class D3(D2) :
+                        def __str__(self) :
+                            return "3" + super().__str__()
+
+                    class D4(D2) :
+                        def __str__(self) :
+                            return "4"
+
+
+            Et les objets définis comme suit :
+
+            .. code-block:: python
+
+                    d1 = D1()
+                    d2 = D2()
+                    d3 = D3()
+                    d4 = D4()
+
+            Que sera imprimé par les instructions suivantes?
+
+            .. code-block:: python
+
+                    print(d1)
+                    print(d2)
+                    print(d3)
+                    print(d4)
+        limit: 0
+        type: multiple_choice
+        name: Appel à super
+    qcm5:
+        limit: 0
+        choices:
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    class MyTrue() :
+
+                        def xor_(self,b) :
+                            if type(b) == MyFalse :
+                                return true
+                            else:
+                                return false
+
+                    class MyFalse() :
+
+                        def xor_(self,b) :
+                            if type(b) == MyFalse :
+                                return false
+                            else:
+                                return true
+        -   text: |-
+                .. code-block:: python
+
+                    class MyTrue() :
+
+                        def xor_(self,b) :
+                            return b.not_()
+
+                    class MyFalse() :
+
+                        def xor_(self,b) :
+                            return b
+            valid: true
+        -   feedback: |-
+                Que renverait:
+
+                .. code-block:: python
+
+                    true.xor_(true)
+                    false.xor_(true)
+            text: |-
+                .. code-block:: python
+
+                    class MyTrue() :
+
+                        def xor_(self,b) :
+                            return b
+
+                    class MyFalse() :
+
+                        def xor_(self,b) :
+                            return b.not_()
+        -   text: |-
+                .. code-block:: python
+
+                    class MyTrue() :
+
+                        def xor_(self,b) :
+                            if type(b) == MyFalse :
+                                return false
+                            else:
+                                return true
+
+                    class MyFalse() :
+
+                        def xor_(self,b) :
+                            if type(b) == MyFalse :
+                                return true
+                            else:
+                                return false
+            feedback: |-
+                .. code-block:: python
+
+                    true.xor_(false)
+
+                Est supposé renvoyer true.
+        -   feedback: |-
+                .. code-block:: python
+
+                    true.xor_(true)
+
+                Est supposé renvoyer false.
+            text: |-
+                .. code-block:: python
+
+                    class MyTrue() :
+
+                        def xor_(self,b) :
+                            if not (type(b) == MyFalse) :
+                                return true
+                            else:
+                                return false
+
+                    class MyFalse() :
+
+                        def xor_(self,b) :
+                            if not(type(b) == MyFalse) :
+                                return false
+                            else:
+                                return true
+        name: Implémenter les Booléens
+        success_message: Réponse correcte
+        header: |-
+            En programmation orienté objet, on pourrait implémenter les booléens avec deux classes ``MyTrue`` et ``MyFalse``, définies comme suit :
+
+            .. code-block:: python
+
+                    class MyTrue() :
+
+                        def not_(self) :
+                            return false
+                        def and_(self,b) :
+                            return b
+                        def or_(self,b) :
+                            return true
+
+                    class MyFalse() :
+
+                        def not_(self) :
+                            return true
+                        def and_(self,n) :
+                            return false
+                        def or_(self,b) :
+                            return b
+
+                    true = MyTrue()
+                    false = MyFalse()
+
+            Avec ces définitions on peut vérifier par exemple que :
+
+            .. code-block:: python
+
+                    true.or_(false) == true
+                    false.not_() == true
+                    false.and_(true) == false
+
+            Comment pouvez-vous implémenter une méthode ``xor_`` sur ``MyTrue`` et ``MyFalse``
+            afin que:
+
+            .. code-block:: python
+
+                    true.xor_(false) == true
+                    false.xor_(true) == true
+                    true.xor_(true) == false
+                    false.xor_(false) == false
+        type: multiple_choice
+        multiple: true
+    qcm9:
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                        def __eq__(self,other):
+                            if type(other) is Point :
+                                return self.x == other.x and self.y == other.y
+                            return False
+            valid: true
+        -   feedback: Cette méthode ``__eq__``produit une erreur si ``other`` n'est
+                pas une instance de ``Point`` (ou compatible).
+            text: |
+                .. code-block:: python
+
+                        def __eq__(self,other):
+                            return self.x == other.x and self.y == other.y
+        -   feedback: |-
+                En Python, le premier paramètre d'une méthode fait référence à l'objet même.
+                Par convention on nomme ce paramètre toujours self, mais il est possible de lui donner un autre nom aussi. Ici, on l'a appelé ``p1``. Ce code est donc correct, même s'il est fortement préférable de nommer le premier paramètre ``self``.
+                On observe aussi que la première partie de la condition ``type(p1) is Point`` est redondant et pourrait être supprimé car l'objet même sera toujours de type Point.
+            valid: true
+            text: |-
+                .. code-block:: python
+
+                        def __eq__(p1,p2):
+                            if type(p1) is Point and type(p2) is Point :
+                                return p1.x == p2.x and p1.y == p2.y
+                            return False
+        -   text: |-
+                .. code-block:: python
+
+                        def __eq__(other):
+                            if type(other) is Point :
+                                return self.x == other.x and self.y == other.y
+                            return False
+            feedback: Ceci n'est pas correct. On a oublié de mettre l'argument ``self``comme
+                premier argument de la méthode ``__eq__``.
+        -   text: |
+                .. code-block:: python
+
+                        def __eq__(self,other):
+                            if type(other) is Point :
+                                return x == other.x and y == other.y
+                            return False
+            feedback: Ceci n'est pas correct. On a oublié de mettre ``self.`` avant
+                l'accès à ``x`` et ``y``.
+        -   feedback: Ceci n'est pas correct. On a oublié de mettre l'argument ``self``
+                comme premier argument de la méthode ``__eq__``.
+            text: |-
+                .. code-block:: python
+
+                        def __eq__(other):
+                            if type(other) is Point :
+                                return x == other.x and y == other.y
+                            return False
+        header: |-
+            Soit la classe ``Point`` définie comme suit :
+
+            .. code-block:: python
+
+                    class Point :
+
+                        def __init__(self,x,y) :
+                            self.x = x
+                            self.y = y
+
+            Et les variables ``p1``, ``p2`` et ``p3`` assignées comme suit :
+
+            .. code-block:: python
+
+                    p1 = Point(1,2)
+                    p2 = Point(1,2)
+                    p3 = 4
+
+            Dans cette classe, laquelle des définitions suivantes de la méthode magique ``__eq__``
+            re-définirait correctement le comportement de l'opérateur ``==`` sur des instances
+            de la classe ``Point`` afin que:
+
+
+            .. code-block:: python
+
+                    p1 == p2    retourne    True
+                    p1 is p2    retourne    False
+                    p1 == p3    retourne    False
+                    p1 is p3    retourne    False
+        multiple: true
+        limit: 0
+        name: La méthode magique __eq__
+        type: multiple_choice
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

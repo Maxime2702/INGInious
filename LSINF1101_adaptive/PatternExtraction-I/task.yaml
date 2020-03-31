@@ -1,0 +1,70 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    `Anonymous <https://en.wikipedia.org/wiki/Anonymous_(group)>`_ just hired you on the dark web for a dangerous task. They've been trying to crack a code for a few days but didn't achieve anything... yet!
+
+    They want you to build a function that will analyze each character in a given code and determine its nature. The goal is simple, they intend to use the information you will provide to look for a pattern in the code.
+
+    Create a function ``extract(code)`` to provide information regarding the nature of each element of the code:
+
+    For example, when given the code ``'AeB7'`` as input the function should produce ``'vowel-up vowel-low consonant-up number'`` as output. In general :
+
+    * Add ``number`` to the answer if the element of the code is a digit.
+    * Add ``vowel`` to the answer if the element of the code is a vowel.
+    * Add ``consonant`` to the answer if the element of the code is a consonant.
+    * Follow it by ``-up`` if the vowel or consonant is in upper case.
+    * Follow it by ``-low`` if the vowel or consonant is in lower case.
+
+    *Example*:
+
+    With the code ``'65AeBc7'`` the function would output ``number number vowel-up vowel-low consonant-up consonant-up number``.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 4: Q* Anonymous - Information extraction'
+network_grading: false
+order: 49
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        type: code
+        header: Implement the function ``extract(code)`` in Python.
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

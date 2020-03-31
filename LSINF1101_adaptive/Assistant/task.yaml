@@ -1,0 +1,75 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    On vous demande de fournir une fonction d'assistance qui renverra des fonctions **lambda** correspondantes à celles que vous demanderez.
+
+    Pour ce faire, implémentez la fonction ``asked_fun(fun_name)`` qui prendra en argument un string correspondant au nom d'une fonction.
+
+    Celle-ci doit pouvoir fournir 3 fonctions:
+
+    * ``square``: renvoyant le carré d'un argument
+
+    * ``add2``: renvoyant l'addition d'un argument avec 2
+
+    * ``mul3``: renvoyant la multiplication d'un argument par 3
+
+    *Par exemple:*
+
+    Pour un cas avec seulement une fonction ``sub4`` demandée voici une implémentation possible:
+
+    .. code-block:: python
+
+        def asked_fun(fun_name):
+            if fun_name == 'sub4':
+                return lambda x: x-4
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session X: High Order - Lambda'
+network_grading: false
+order: 92
+problems:
+    q1:
+        header: Implémentez la fonction ``asked_fun(fun_name)`` renvoyant les 3 fonctions
+            lambda demandées.
+        name: Implémentation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

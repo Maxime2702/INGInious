@@ -1,0 +1,62 @@
+accessible: true
+author: Olivier Goletti, Siegfried Nijssen
+categories:
+- Array_List
+contact_url: ''
+context: |-
+    Écrivez une fonction ``recherche ( m, v )`` qui pour un nombre entier donné ``v``, retourne ``True`` si ce nombre apparaît dans la matrice, et ``False`` sinon. Par exemple, pour la matrice suivante et la valeur ``v=4``, le résultat doit être ``False``. Pour la valeur ``v=3`` le résultat doit être ``True``.
+
+    .. code-block:: python
+
+       [ [  0,  3,  2,  8 ],
+         [  6,  5,  2,  1 ],
+         [  7,  0,  3,  2 ] ]
+
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 4: Recherche'
+network_grading: false
+order: 38
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        type: code
+        header: Implement the function ``recherche(m,v)`` in Python.
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

@@ -1,0 +1,518 @@
+accessible: false
+author: ''
+categories: []
+contact_url: ''
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 8: QCM'
+network_grading: false
+order: 106
+problems:
+    qcm1:
+        error_message: Réponse incorrecte
+        type: multiple_choice
+        choices:
+        -   text: |-
+                * Ce code définit un objet ``PairOfDice``.
+                * ``die1`` est une variable d'instance de la classe ``PairOfDice``.
+                * ``roll()`` est une méthode d'instance de la classe ``PairOfDice``.
+            feedback: La première phrase est fausse. Ce code ne définit pas un objet
+                mais une classe.
+        -   valid: true
+            text: |-
+                * Ce code définit une classe ``PairOfDice``.
+                * Chaque instance de ``PairOfDice`` a sa propre valeur pour ``die1``.
+                * ``roll()`` est une méthode d'instance de la classe ``PairOfDice``.
+        -   text: |-
+                * Une instance de ``PairOfDice`` est un objet.
+                * ``die1`` est une variable d'instance de la classe ``PairOfDice``.
+                * L'effet de l'exécution de la méthode ``roll()`` est indépendant de l'instance à laquelle elle s'applique.
+            feedback: La troisième phrase est fausse. L'effet de l'exécution de la
+                méthode roll() dépend de l'instance à laquelle elle s'applique, et
+                plus particulièrement des valeurs contenues dans les variables d'instance.
+        limit: 0
+        header: |-
+            Soit le code Python suivant:
+
+            .. code-block:: python
+
+                from random import randint  # librairie pour générer des nombres aléatoires
+
+                class PairOfDice :
+
+                    def __init__(self, val1, val2):
+                        """
+                            pre:  val1 et val2 sont des nombres entiers.
+                            post: Retourne un objet qui représente un pair de dés, le premier dé
+                                  montre la valeur val1 et le deuxième la valeur val2.
+                        """
+                        self.die1 = val1;
+                        self.die2 = val2;
+
+                    def roll(self):
+                        """
+                            post: Change (de manière aléatoire) la valeur affiché par chaque dé,
+                                  ce méthode représente le lancement des dés.
+                        """
+                        self.die1 = randint(0, 5) + 1
+                        self.die2 = randint(0, 5) + 1
+
+            Laquelle des propositions ci-dessous est correcte ?
+        success_message: Réponse correcte
+        name: Classes, objets et instances
+    qcm2:
+        error_message: Réponse incorrecte
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    class Fraction :
+
+                        def __init__(self, n, d):
+                            """
+                                pre:  n (int) est le numérateur
+                                      d (int) est le dénominateur
+                                post: Retourne un objet qui représente la fraction n sur d.
+                            """
+                            self.num = n; # numérateur
+                            self.den = d; # denominator.
+
+                        def value():
+                            """
+                                post: Retourne le rapport n sur d.
+                            """
+                            return float(num) / float(den)
+            feedback: |-
+                Cette définition est incorrecte.
+                Dans la méthode `value()` on a oublié le paramètre `self`
+                ainsi que les références vers `self` pour accéder aux attributs.
+        -   feedback: Well done, this is indeed the corrrect answer.
+            text: |-
+                .. code-block:: python
+
+                    class Fraction :
+
+                        def __init__(self, n, d):
+                            """
+                                pre:  n (int) est le numérateur
+                                      d (int) est le dénominateur
+                                post: Retourne un objet qui représente la fraction n sur d.
+                            """
+                            self.num = n; # numérateur
+                            self.den = d; # dénominateur
+
+                        def value(self):
+                            """
+                                post: Retourne le rapport n sur d.
+                            """
+                            return float(self.num) / float(self.den)
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                    class Fraction :
+
+                        def __init__(self, n, d):
+                            """
+                                pre:  n (int) est le numérateur
+                                      d (int) est le dénominateur
+                                post: Retourne un objet qui représente la fraction n sur d.
+                            """
+                            self.num = n; # numérateur
+                            self.den = d; # dénominateur
+                            return Fraction(n,d)
+
+                        def value(self):
+                            """
+                                post: Retourne le rapport n sur d.
+                            """
+                            return float(self.num) / float(self.den)
+            feedback: |-
+                Cette version est incorrecte.
+                L'erreur est qu'on a ajouté l'instruction `return Fraction(n,d)`
+                à la fin de la méthode d'initialisation.
+                Ceci va créer une boucle infinie. Pourquoi?
+        type: multiple_choice
+        name: 'Définition de classe '
+        header: |-
+            Laquelle des définitions suivantes définit correctement une classe dont les instances représentent des fractions (num / den), telle que les instructions:
+
+            .. code-block:: python
+
+                f = Fraction(3,4)
+                print(f.value())
+
+            impriment le résultat 0.75 ?
+        success_message: Réponse correcte
+        limit: 0
+    qcm3:
+        choices:
+        -   text: |-
+                #.  Imprime la référence vers un objet de type fraction, par exemple: `<__main__.Fraction object at 0x103f48550>`
+                #.  Imprime `0.75`
+                #.  Imprime une référence vers la méthode `value` définie dans la classe `Fraction`, par exemple: `<bound method Fraction.value of <__main__.Fraction object at 0x104b48518>>`
+                #.  Renvoie `3`
+                #.  Renvoie une erreur pour dire que l'objet de type `Fraction` ne contient pas d'attribut nommé `'n'`: `AttributeError: 'Fraction' object has no attribute 'n'`
+            valid: true
+        -   feedback: La troisième et dernière phrase sont fausses.
+            text: |-
+                #. Imprime la référence vers un objet de type `Fraction`, par exemple: `<__main__.Fraction object at 0x103f48550>`
+                #. Imprime `0.75`
+                #. Renvoie une erreur que l'objet de type `Fraction` ne contient pas d'attribut nommé `value`
+                #. Renvoie `3`
+                #. Renvoie `3`
+        -   text: |-
+                #. Renvoie une erreur que l'objet `f` n'est pas initialisé
+                #. Imprime `0.75`
+                #. Renvoie une erreur que l'objet de type `Fraction` ne contient pas d'attribut nommé `value`
+                #. Renvoie `3`
+                #. Renvoie une erreur pour dire que l'objet de type `Fraction` ne contient pas d'attribut nommé `n`
+            feedback: La première et troisième phrase sont fausses.
+        header: |-
+            Sur base de la seule définition correcte de la question précédente, que se passe-t-il
+            si on tente de compiler et d'exécuter la suite d'instructions suivante ?
+
+            .. code-block:: python
+
+                f = Fraction(3, 4)
+                print(f)            # instruction 1
+                print(f.value())    # instruction 2
+                print(f.value)      # instruction 3
+                print(f.num)        # instruction 4
+                print(f.n)          # instruction 5
+        limit: 0
+        error_message: Réponse incorrecte
+        success_message: Réponse correcte
+        type: multiple_choice
+        name: 'Accès aux attributs et méthodes d''un objet '
+    qcm4:
+        type: multiple_choice
+        choices:
+        -   feedback: |-
+                Faux. Les instructions 2 et 4 donnent une erreur.
+                Attention: la dernière instruction 5 ne donne pas d'erreur car l'attribut `d` vient d'être assigné juste avant.
+            text: |-
+                #. Imprime 3
+                #. Imprime 3
+                #. Imprime 5
+                #. Imprime 5
+                #. Imprime 6
+        -   text: |-
+                #. Imprime 3
+                #. AttributeError: 'Fraction' object has no attribute 'n'
+                #. Imprime 5
+                #. AttributeError: 'Fraction' object has no attribute 'd'
+                #. Imprime 6
+            feedback: |-
+                Il est peut être surprenant que la cinquième instruction ne produit pas une erreur.
+                Il est en effet possible en Python, d'ajouter dynamiquement des variables d'instance.
+                L'instruction `f.d = 6` a assigné la valeur `6` à un nouvel attribut `d` de l'objet `f`.
+                Néanmoins, ce n'est pas une bonne pratique de le faire.
+            valid: true
+        -   feedback: |-
+                L'instruction 3 est fausse car doit imprimer 5 au lieu de 4.
+                Bizarrement, l'instruction 5 ne donne pas d'erreur non plus.
+                La raison est que l'attribut d vient d'être assigné juste avant.
+                On peut donc dynamiquement ajouter des attributs à des objets existants.
+                Néanmoins, ce n'est pas une bonne pratique de le faire.
+            text: |-
+                #. Imprime 3
+                #. AttributeError: 'Fraction' object has no attribute 'n'
+                #. Imprime 4
+                #. AttributeError: 'Fraction' object has no attribute 'd'
+                #. AttributeError: 'Fraction' object has no attribute 'd'
+        success_message: Réponse correcte
+        limit: 0
+        header: |-
+            Sur base de la définition correcte de la classe `Fraction` (cf. question 2),
+            que se passe-t-il si on tente de compiler et d'exécuter
+            la suite d'instructions suivante ?
+
+            .. code-block:: python
+
+                f = Fraction(3, 4)
+                print(f.num)    # instruction 1
+                print(f.n)      # instruction 2
+                f.den = 5
+                print(f.den)    # instruction 3
+                print(f.d)      # instruction 4
+                f.d = 6
+                print(f.d)      # instruction 5
+        error_message: Réponse incorrecte
+        name: 'Lire et modifier l''état d''un objet '
+    qcm5:
+        limit: 0
+        choices:
+        -   feedback: Faux. On doit assigner à `self.nom`, `self.matricule`, etc.
+            text: |-
+                .. code-block:: python
+
+                    class Etudiant:
+                        def __init__(self,n,m):
+                            nom = n
+                            matricule = m
+                            bisseur = False
+        -   feedback: Faux. On a oublié le paramètre `self` de la méthode `__init__`
+            text: |-
+                .. code-block:: python
+
+                    class Etudiant:
+                        def __init__(n,m):
+                            self.nom = n
+                            self.matricule = m
+                            self.bisseur = False
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    class Etudiant:
+                        def __init__(self,n,m):
+                            self.nom = n
+                            self.matricule = m
+                            self.bisseur = False
+        -   text: |-
+                .. code-block:: python
+
+                    class Etudiant:
+                        def __init__(self,n,m,bisseur = False):
+                            self.nom = n
+                            self.matricule = m
+            feedback: |-
+                Ce code est incorrect, mais c'est assez subtil.
+                L'argument `bisseur = False` correspond à une assignation implicite dans le corps de la méthode.
+                Le problème est qu'on assigne `False` à `bisseur` au lieu de à `self.bisseur`.
+        -   feedback: Faux. Une méthode d'initialisation ne doit pas avoir un `return`.
+            text: |-
+                .. code-block:: python
+
+                    class Etudiant:
+                        def __init__(self,n,m):
+                            self.nom = n
+                            self.matricule = m
+                            self.bisseur = False
+                            return self
+        name: 'Méthode d''initialisation '
+        success_message: Réponse correcte
+        header: |
+            Parmi les définitions de méthodes d'initialisation suivantes, laquelle est correcte pour une classe `Etudiant` telle que le code suivant affiche le texte suivant :
+
+            .. code-block:: python
+
+                >>> e = Etudiant("Quentin Delaunois","19552508")
+                >>> print(e.nom)
+                Quentin Delaunois
+                >>> print(e.matricule)
+                19552508
+                >>> print(e.bisseur)
+                False
+        type: multiple_choice
+        error_message: Réponse incorrecte
+    qcm6:
+        type: multiple_choice
+        choices:
+        -   text: |-
+                * 15 20
+                * 25 40
+                * 25 0
+        -   text: |-
+                * 15 20
+                * 40 40
+                * 40 0
+            valid: true
+        -   text: |-
+                * 15 20
+                * 20 40
+                * 20 0
+        error_message: Réponse incorrecte
+        limit: 0
+        success_message: Réponse correcte
+        header: |-
+            Soit la classe `Compteur` suivante
+
+            .. code-block:: python
+
+                class Compteur:
+
+                    def __init__(self,n):
+                        self.compte = n
+
+                    def __str__(self):
+                        return str(self.valeur())
+
+                    def ajout(self,n):
+                        self.compte += n
+
+                    def valeur(self):
+                        return self.compte
+
+            Qu'imprime le programme suivant
+
+            .. code-block:: python
+
+                c1 = Compteur(10)
+                c2 = Compteur(20)
+                c1.ajout(5)
+                print(c1,c2)
+                c1.ajout(10)
+                c1 = c2
+                c2.ajout(20)
+                print(c1,c2)
+                c2 = Compteur(0)
+                print(c1,c2)
+        name: Références
+    qcm7:
+        header: |-
+            Comment écrirait-on une méthode pour la classe `Etudiant` de la question 5,
+            telle que le code suivant affiche le texte suivant :
+
+            .. code-block:: python
+
+                >>> e = Etudiant("Quentin Delaunois","19552508")
+                >>> print(e)
+                "Quentin Delaunois (19552508) non-bisseur"
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    def __str__(self):
+                        print(self.nom + " (" + self.matricule + ")")
+                        if self.bisseur : print(" bisseur")
+                        else : print(" non-bisseur")
+            feedback: |-
+                Cette solution est incorrecte.
+                La méthode est supposé de renvoyer un string, pas d'imprimer elle même.
+                Une erreur est produit car il n'y a pas d'instruction `return` dans cette méthode.
+        -   feedback: |-
+                Cette solution est incorrecte.
+                La méthode ne renvoie pas l'information si l'étudiant est bisseur ou pas.
+                Le problème est que après la première instruction `return`, on sort de la méthode et on n'atteint donc jamais la condition `if` qui contient l'autre instruction `return`.
+            text: |-
+                .. code-block:: python
+
+                    def __str__(self) :
+                        return self.nom + " (" + self.matricule + ")"
+                        if self.bisseur :
+                            return " bisseur"
+                        else :
+                            return " non-bisseur"
+        -   text: |-
+                .. code-block:: python
+
+                    def __str__(self) :
+                        s = self.nom + " (" + self.matricule + ")"
+                        if self.bisseur :
+                            s += " bisseur"
+                        else :
+                            s += " non-bisseur"
+                        return s
+            valid: true
+        limit: 0
+        name: 'Méthode de conversion vers string '
+        error_message: Réponse incorrecte
+        success_message: Réponse correcte
+        type: multiple_choice
+    qcm8:
+        choices:
+        -   feedback: La ligne **1** renverra False car ``d2`` réfère à l'objet Drapeau
+                d1 qui a été mis à ``False``
+            text: La ligne **1** imprime ``True``.
+        -   text: La ligne **1** imprime ``False``.
+            valid: true
+        -   text: La ligne **2** imprime ``True``.
+            valid: true
+        -   text: La ligne **2** imprime ``False``.
+            feedback: La valeur affectée à ``d2`` est la valeur primitive stockée
+                dans ``d1`` et non une référence. Le changement de ``d1`` n'a donc
+                aucun impact sur ce que contient ``d2``
+        -   text: La ligne **3** imprime ``True``.
+            feedback: La ligne 3 imprime la référence vers l'objet car nous n'appelons
+                pas une fonction de représentation et n'accédons pas à l'un  de ses
+                attributs.
+        -   text: La ligne **3** imprime ``False``.
+            feedback: La valeur passée lors de la création de l'objet ``d1`` est une
+                valeur primitive. Par la suite, la réaffectation de la valeur de``b1``
+                n'a donc pas d'impact car ce n'était pas la référence qui avait été
+                stockée.
+        name: 'Références '
+        error_message: Réponse incorrecte. (Avez-vous bien coché tous les choix corrects?)
+        header: |-
+            Considérons la classe ``Drapeau`` suivante:
+
+            .. code-block:: python
+
+                class Drapeau:
+                    """
+                    Une classe simple avec un objet contenant un booléen.
+                    """
+                    def __init__ (self, b):
+                        """
+                        @pre :  -
+                        @post : un objet de type Drapeau est crée et représente le booléen passé en argument
+                        """
+                        self.drapeau = b
+
+            Et les trois suites d'instructions suivantes:
+
+            .. code-block:: python
+
+                    d1 = Drapeau(True)
+                    d2 = Drapeau(True)
+                    d2 = d1
+                    d1.drapeau = False
+                    print(d2.drapeau)  ##1##
+
+                    b1 = True
+                    b2 = False
+                    b2 = b1
+                    b1 = False
+                    print(b2)          ##2##
+
+                    b1 = True
+                    d1 = Drapeau(b1)
+                    b2 = False
+                    d2 = Drapeau(b2)
+                    b2 = b1
+                    b1 = False
+                    print(d1)          ##3##
+
+            Lesquelles des affirmations suivantes sont vraies?
+        limit: 0
+        type: multiple_choice
+        success_message: Réponse correcte
+        multiple: true
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

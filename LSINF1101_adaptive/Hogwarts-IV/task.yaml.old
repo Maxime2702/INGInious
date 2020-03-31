@@ -1,0 +1,64 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    The rules of *Quidditch* were established in 1750 by the **Department of Magic Games and Sports**. And it is nowhere said that the referee can't use a bit of help.
+
+    **Madam Hooch** is quite busy already looking for *blatching*, *blurting*, *blagging* and many other nasty quidditch faults. So she thought you could design a program that would decide the winner of a match based on the list of the points.
+
+    The scores list would be provided as a file. The content of this file would follow this format:
+
+    - Two first lines: **Names of the teams**
+    - Lines after: **Team_scoring** *points*
+
+    In case of error, just raise it.
+
+    Remember that the catch of the *golden snitch* (150 points) means the end of the match.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 6: Q* Hogwarts - Quidditch'
+network_grading: false
+order: 66
+problems:
+    q1:
+        type: code
+        name: Implementation
+        language: python
+        header: Implement the function ``referee(score_file)`` in Python.
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

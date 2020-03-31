@@ -1,0 +1,60 @@
+accessible: true
+author: Simon Gustin
+categories:
+- String
+contact_url: ''
+context: |-
+    You are a programmer and want to **say hello** to the user of your program. The user's name is stored in a **variable** called ``name``
+    and you want to store your greeting in a **variable** called ``hello``.
+    This string will have the **following form**: "Hello, ``name``!"
+
+    For example, if ``name`` is assigned "Charles", your code would put "Hello, Charles!" in the variable ``hello``.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 4: Hello'
+network_grading: false
+order: 33
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        type: code
+        header: Store your greeting string in ``hello`` (with ``name`` the user's
+            name)
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

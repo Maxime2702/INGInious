@@ -1,0 +1,71 @@
+accessible: true
+author: Simon Gustin
+context: |-
+    Lucie wants to take a bath, but her bathtub has a hole in it.
+    When she opens the tap, **12L** water flows in the bathtub **every minute**, and **1L** flows out of the hole **every minute**.
+
+    You would like to know **how many minutes** she would have to wait until the bathtub is filled with at least **80L** of water,
+    and would also like to **simulate the growth of volume of water** in Python.
+
+    First, compute the number of minutes needed to have **exactly 80L** in the bathtub (as a floating point number)
+    and store it in a variable called ``filled_time``.
+    Then, store the current volume of water in a variable called ``water_vol`` (starting at 0) and use a ``for`` loop
+    in which, at each iteration (representing each minute), the volume of water would be added/removed the volume of water flowing out the tap/hole.
+    In other word, on each iteration, ``water_vol`` should **increase by 12L and decrease by 1L**.
+
+    The ``for`` loop should stop on the first iteration where the volume of water is larger than 80L.
+    This can be computed from ``filled_time``.
+
+    *Note: you can round a floating point number to the first larger integer using the following code:*
+
+    .. code-block:: python
+
+        import math
+        float_nb = 3.14
+        int_nb = math.ceil(float_nb)  # `int_nb` is equal to 4
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 1: Q* Bathtub with a hole'
+network_grading: false
+order: 9
+problems:
+    q1:
+        language: python
+        name: Implementation
+        header: ' '
+        type: code
+        default: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

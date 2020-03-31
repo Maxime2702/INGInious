@@ -1,0 +1,63 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+class Client:
+    """
+    Un client. Chaque client a un nom d'utilisateur (supposé unique,
+    par exemple adresse email) et un code pin qui est stocké comme un entier.
+    """
+    def __init__(self, name, pin):
+        self.userName = name
+        self.pin = pin
+
+    def getUserName(self):
+        return self.userName
+
+    def getPin(self):
+        return self.pin
+
+    def setPin(self, pin):
+        self.pin = pin
+
+    def __str__(self):
+        return self.userName + "(" + str(self.pin) + ")"
+
+class ClientList:
+    """Une liste de clients"""
+
+    # un noeud de la liste
+    class Node:
+        def __init__(self, client, prev):
+            self.data = client
+            self.link = prev
+
+    def __init__(self):
+        self.last = None
+
+    def __str__(self):
+        r = ["["]
+        current = self.last
+        slow = current
+        skip = True
+        start = True
+        while current is not None:
+            if not start: r.append(",")
+            r.append(str(current.data))
+            current = current.link
+            start = False
+            # detect loops: `slow` advances at half speed
+            if not skip:
+                slow = slow.link
+            skip = not skip
+            # if `current` catches `slow`, there is a loop
+            if slow == current:
+                r.append(",...(loop)")
+                current = None
+        r.append("]")
+        return "".join(r)
+
+    def update(self, name, pin):
+@        @question@@
+
+

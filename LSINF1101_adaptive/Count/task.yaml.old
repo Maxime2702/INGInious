@@ -1,0 +1,58 @@
+accessible: 2018-10-19 12:00:00/
+author: Tanguy De Bels
+context: |-
+    Une liste d'événements qui ont lieu à certaines coordonnées est donnée.
+    Un exemple d'une telle liste est la suivante:
+
+    .. code-block:: python
+
+      events = [(0,1),(2,3),(0,1),(4,5),(1,2),(0,1),(1,1),(0,2),(1,1)]
+
+    En paramètre une coordonnée ``(i,j)`` est donnée, créez une fonction ``count(events,i,j)`` pour compter le
+    nombre d'événement sur cette coordonnée et renvoyez la.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 5: Compteur d''événement'
+network_grading: false
+order: 48
+problems:
+    q1:
+        name: Implémentation
+        type: code
+        header: Implémentez la fonction ``count(events, i, j)`` en Python.
+        language: python
+        default: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

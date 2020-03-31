@@ -1,0 +1,64 @@
+accessible: 2018-10-12 12:00:00/
+author: Tanguy De Bels
+context: |-
+    Since your work was quite remarkable, `Anonymous <https://en.wikipedia.org/wiki/Anonymous_(group)>`_ contacted you again with another dangerous task. They're short-handed and would like you to treat the data you've been providing them.
+
+    They want you to build a a function that will transform your precedent ouput into something easier and quickier to process. It is up to you to transform the data into an usable pattern!
+
+    Create a function ``treatment(data)`` to transform the data you previously returned into a pattern:
+
+    Each suite of common elements should be indicated by the nature of the element followed by '*' and its occurence without other elements in between.
+
+    *Example*:
+
+    With the code ``'66AeB7'`` your precedent function would output 'number number vowel-up vowel-low consonant-up number'.
+
+    With this output as input ``treatment`` would output the string 'number*2 vowel-up*1 vowel-low*1 consonant-up*1 number*1'
+
+    Do not hesitate to use as many submethods as you judge necessary.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 4: Q* Anonymous - Information treatment'
+network_grading: false
+order: 46
+problems:
+    q1:
+        type: code
+        name: Implementation
+        header: Implement the function ``treatment(data)`` in Python.
+        language: python
+        default: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

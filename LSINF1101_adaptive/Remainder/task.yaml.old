@@ -1,0 +1,61 @@
+accessible: true
+author: Tanguy De Bels
+context: |-
+    Suppose the variables ``a`` and ``b`` contain a natural number.
+
+    Write a code fragment that assigns the remainder of their division in the variable ``rest``.
+
+    To implement your solution, use only a ``while`` loop and subtractions (the simple solution ``rest = a % b`` is not allowed; we want to test if you are capable of implementing such an operation yourself).
+
+    Note that you should not allow division by 0 and assign the value ``None`` to ``rest`` if this would occur.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 2: Q* Reste d''une division entière'
+network_grading: false
+order: 18
+problems:
+    q1:
+        language: python
+        name: Implementation
+        header: |-
+            .. code-block:: python
+
+                a = ... #variable to evaluate
+                b = ... #variable to evaluate
+                rest = ... #store in this variable the remainder of the division a/b
+        type: code
+        default: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

@@ -1,0 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+def compute_sum_even(matrix):
+@    @q1@@
+    return sum_even

@@ -1,0 +1,259 @@
+accessible: false
+author: Tanguy De Bels & Siegfried Nijssen
+categories: []
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 7: QCM'
+network_grading: false
+order: 69
+problems:
+    q1:
+        choices:
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    d = {}
+                    d["Louvain-la-Neuve"] = "Brabant wallon"
+                    d["Liege"] = "Liege"
+        -   text: |-
+                .. code-block:: python
+
+                    d = {}
+                    d["Brabant wallon"] = "Louvain-la-Neuve"
+                    d["Liege"] = "Liege"
+            feedback: Il faut changer l'ordere des noms afin d'avoir les bonnes clés
+                et valeurs associées à celles-ci.
+        -   text: |-
+                .. code-block:: python
+
+                    l = [("Louvain-la-Neuve", "Brabant wallon"), ("Liege", "Liege")]
+                    for a, b in l:
+                      d[a] = b
+            feedback: Il faut d'abord initialiser le dictionnaire (d={})
+        -   text: |-
+                .. code-block:: python
+
+                    l = [("Louvain-la-Neuve", "Brabant wallon"), ("Liege", "Liege")]
+                    for a, b in l:
+                      d[b] = a
+            feedback: Il faut initialiser le dictionnaire (d={}); d[b]=a n'est pas
+                correct, les clés et valeurs seraient inversées.
+        type: multiple_choice
+        name: Créer un dictionnaire
+        multiple: true
+        limit: 0
+        header: |-
+            On veut créer le dictionnaire suivant:
+
+            .. code-block:: python
+
+                  d = {"Louvain-la-Neuve" : "Brabant wallon", "Liege": "Liege"}
+
+            Lesquels des programmes suivants créent ce dictionnaire?
+    q2:
+        multiple: true
+        choices:
+        -   feedback: On imprime "Louvain-la-Neuve" ici.
+            text: |-
+                .. code-block:: python
+
+                    for name in d.items():
+                      print(name)
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    for value in d.values():
+                      print(value)
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    for name in d:
+                      print(d[name])
+        -   feedback: Si on utilise un dictionnaire de cette façon dans un boucle
+                for, on n'obtient pas de tuples pour chaque paire clé:valeur.
+            text: |-
+                .. code-block:: python
+
+                    for name, value in d:
+                      print(value)
+        -   feedback: On imprime "Louvain-la-Neuve" ici.
+            text: |-
+                .. code-block:: python
+
+                    for name in d:
+                      print(name)
+        type: multiple_choice
+        header: |-
+            On a le dictionnaire suivant:
+
+            .. code-block:: python
+
+                  d = {"Louvain-la-Neuve" : "Brabant wallon", "Liege": "Liege"}
+
+            On veut imprimer la liste suivante:
+
+            .. code-block:: python
+
+                  Brabant wallon
+                  Liege
+
+            Lesquels des programmes y parviennent?
+        limit: 0
+        name: Imprimer un dictionnaire
+    q3:
+        multiple: true
+        choices:
+        -   feedback: Le dictionnaire n'a pas un élément 2, seulement des tuples
+            text: |-
+                .. code-block:: python
+
+                    d[2][3] = 4
+        -   text: |-
+                .. code-block:: python
+
+                    d[(2,3)] = 4
+            valid: true
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    if 2 in d:
+                      print("2 is in d")
+            feedback: Il n'est en effet pas nécessaire que toutes les clés aient le
+                même type!
+        -   valid: true
+            feedback: Il n'est en effet pas nécessaire que toutes les clés aient le
+                même type!
+            text: |-
+                .. code-block:: python
+
+                    if (2,3) in d:
+                      print("(2,3) is in d")
+        -   feedback: 'Il n''est en effet pas nécessaire que toutes les clés aient
+                le même type! On crée un dictionnaire "d = {(1,2): 1, (1,3): 2, (2,3):
+                1, 2:3 }"  ici.'
+            text: |-
+                .. code-block:: python
+
+                    d[2] = 3
+            valid: true
+        name: Erreurs
+        type: multiple_choice
+        header: |-
+            Ce dictinnaire est donné:
+
+            .. code-block:: python
+
+                d = {(1,2): 1, (1,3): 2, (2,3): 1}
+
+            Lesquels des programmes suivants ne génèrent pas d'erreur ?
+        limit: 0
+    q4:
+        choices:
+        -   valid: true
+            text: La fonction get_val(i,j) dans programme 1 est plus rapide que la
+                fonction get_val(i,j) dans programme 2.
+        -   feedback: La fonction get_val(i,j) dans programme 2 doit chercher une
+                valeur; dans programme 1 il ne faut pas chercher.
+            text: La fonction get_val(i,j) dans programme 2 est plus rapide que la
+                fonction get_val(i,j) dans programme 1.
+        -   text: Programme 1 consomme moins de mémoire que programme 2.
+            feedback: Programme 1 consomme ~1000x1000 élément de la mémoire de l'ordinateur;
+                programme 2 stocke seulements un élément.
+        -   text: Programme 2 consomme moins de mémoire que programme 1.
+            valid: true
+        multiple: true
+        type: multiple_choice
+        name: Performances
+        limit: 0
+        header: |-
+            Considérez les deux programmes suivants:
+
+            .. code-block:: python
+
+                    # Programme 1
+                    m = [[0 for i in range(1000)] for j in range(1000)]
+                    m[400][400] = 1
+
+                    def get_val(i, j):
+                      return m[i][j]
+
+                    # Programme 2
+                    m = {}
+                    m[(400,400)] = 1
+
+                    def get_val(i, j):
+                      return m.get((i,j), 0)
+
+            Quelles phrases sont correctes?
+    q5:
+        choices:
+        -   valid: true
+            text: '``d = [[0, 1, 2], [2, 1, 0]]``'
+        -   text: '``d = [[0, 1, 2], [2, 3, 4]]``'
+            feedback: La valeur 4 n'est pas dans la première liste imbriquée.
+        -   text: '``d = {(1,2): 1, 0: [1]}``'
+            feedback: Il n'y pas un clé 1 dans le dictionnaire d. Ce code donne une
+                erreur.
+        -   text: '``d = {0: {1: 3}, 1: {2: 1}}``'
+            feedback: d[1][2] a comme valeur 1; 1 est présente dans le dictionnaire
+                imbriqué pour 0.
+            valid: true
+        -   valid: true
+            text: '``d = {0: [1, 2, 4], 1: [0, 1, 2]}``'
+        -   valid: true
+            text: '``d = {0: {1: 1, 4: 1}, 1: [0, 2, 4]}``'
+        -   feedback: La valeur 2 n'est pas présente dans le dictionnaire pour 0.
+            text: '``d = {0: {1: 1, 4: 1}, 1: [0, 1, 2]}``'
+        header: |-
+            Vous rencontrez le code suivante dans un programme:
+
+            .. code-block:: python
+
+                if d[1][2] in d[0]:
+                    print ( "Found ")
+
+            Pour quelles structures de données est-ce programme imprime ``Found``?
+        type: multiple_choice
+        multiple: true
+        name: Reconnaîtres des structures de données
+        limit: 0
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

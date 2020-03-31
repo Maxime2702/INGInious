@@ -1,0 +1,80 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    Comment feriez-vous pour écrire dans la classe ``LinkedList`` (cf. l'annexe `Appendix - Source code of linked lists  <https://syllabus-interactif.info.ucl.ac.be/syllabus/info1-theory/PART_III/appendix_code_linked_list>`_ ) la méthode ``insert`` dont la spécification est la suivante:
+
+    .. code-block:: python
+
+        def insert(self,s):
+        """
+        @pre  s est un string à insérer dans la liste chainée;
+              self est une liste chaînée dont les noeuds contiennent des strings;
+              les noeuds de la liste sont ordonnées en ordre croissant selon les valeurs (strings)
+              qu'ils contiennent.
+        @post Un noeud contenant le String s a été inséré dans la liste de façon
+              à ce qu'après l'insertion celle-ci soit toujours en ordre croissant.
+        """
+
+    Pour rappel, en Python on peut facilement comparer un string avec un autre avec l'opérateur ``<``.
+    Vous pouvez aussi considérez que la classe ``Node`` se trouve maintenant à l'intérieur de la classe ``LinkedList`` et possède la méthode mutateur suivante:
+
+    .. code-block:: python
+
+        class LinkedList:
+            #...
+
+            class Node:
+
+                def set_next(self,node):
+                    self.__next = node
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 11: LinkedList - insert'
+network_grading: false
+order: 132
+problems:
+    q1:
+        header: Implémentez la fonction ``insert`` de la classe ``LinkedList`` en
+            Python.
+        name: Implémentation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

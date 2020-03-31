@@ -1,0 +1,66 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Your citizen band radio tinder worked quite well and you're now able to speak with a lot of interesting people. Even more interesting, a wonderfull creature just contacted you and achieved to send you an image through points and spaces (God bless Morse code).
+
+    You definitely want to speak with her and other future matchs but it occured to you that you didn't study foreign language well enough. Fortunately you've got dictionnaries in your computer (which apparently had downloaded the whole internet). You know just have to code a translator!
+
+    Note that if the word you're looking to translate isn't registered in your dictionnary, you should let the word in its original language.
+
+    *Example*:
+
+    - "I'm fond of Dean" would become in french with the dictionnary ``fr``: "je suis amoureux de doyen"
+
+    Note that we do not excpect you to provide an exact translation but a word to word one. Moreover the keys are stored in lowercase in the dictionnaries.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 7: Q* Apocalypse - Language translation'
+network_grading: false
+order: 80
+problems:
+    q1:
+        type: code
+        name: Implementation
+        language: python
+        header: |-
+            Implement the function ``translate(data, lan)`` in Python.
+
+            With ``data`` as the string you wish to translate and dictionnaries named according to ``lan`` usable to do the translations in the target language.
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

@@ -1,0 +1,64 @@
+accessible: 2018-10-12 12:00:00/
+author: Tanguy De Bels
+context: |-
+    The method ``diff_count(lst)`` returns the number of different elements contained in the list ``lst``.
+
+
+    *For example:*
+
+    - If ``lst`` equals ``[3, 5, 3]`` then the method should return 2.
+
+    - If all the elements are the same, it should return 1.
+
+    - If the list ``lst`` is empty, it should return 0.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 4: Q* Difference counter'
+network_grading: false
+order: 42
+problems:
+    q1:
+        name: Implementation
+        type: code
+        header: |-
+            Provide the body of the following method:
+
+            .. code-block:: python
+
+                def diff_count(lst):
+        language: python
+        default: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

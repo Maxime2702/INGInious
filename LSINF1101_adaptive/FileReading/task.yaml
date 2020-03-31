@@ -1,0 +1,75 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 6: Manipulation de fichiers'
+network_grading: false
+order: 64
+problems:
+    q1:
+        name: Compteur de lignes
+        default: ''
+        type: code
+        header: Créez une fonction ``line_count(filename)`` qui retourne, pour le
+            nom d'un fichier donné, le nombre de lignes dans le fichier.
+        language: python
+    q2:
+        language: python
+        name: Compteur de caractères
+        header: Créez une fonction ``char_count(filename)`` qui retourne, pour le
+            nom d'un fichier donné, le nombre de caractères dans le fichier.
+        default: ''
+        type: code
+    q4:
+        header: Créez une fonction ``space(filename,n)`` qui crée un nouveau fichier
+            ``filename`` qui se compose seulement de ``n`` espaces.
+        name: Création de fichiers
+        type: code
+        default: ''
+        language: python
+    q5:
+        language: python
+        default: ''
+        name: Mise en majuscule
+        type: code
+        header: Créez une fonction ``capitalize(filename_in,filename_out)`` qui crée,
+            pour le fichier ``filename_in``, un nouveau fichier ``filename_out``,
+            dans lequel tous les caractères sont en majuscule.
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

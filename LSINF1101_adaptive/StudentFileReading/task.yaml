@@ -1,0 +1,78 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    Dans cet exercice, il vous est demandé de créer une fonction créant des instances de la classe ``Student`` basées sur les informations contenus dans un fichier et les renvoyant dans une liste. Ceci afin de récupérer les notes de l'interro des différents participants.
+
+    Voici le constructeur de la classe ``Student``:
+
+    .. code-block:: python
+
+        class Student:
+            def __init__(self, firstname, surname, mark):
+            ''' crée une instance de Student où firstname et surname sont des str et mark un int
+            '''
+                self.firstname = firstname
+                self.surname = surname
+                self.mark = mark
+
+    Le fichier suit le format suivant:
+
+    .. code-block:: python
+
+        Kim Mens 12
+        Charles Pecheur 13
+        Siegfried Nijssen 18
+
+
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 8: Q* Création d''objets depuis un fichier'
+network_grading: false
+order: 113
+problems:
+    q1:
+        header: Implémentez la fonction ``marks_from_file(filename)`` qui lit, ligne
+            par ligne, le fichier nommé ``filename``, et qui retourne une liste d'instances
+            de la classe ``Student``, correspondant aux différents lignes du fichier.
+        name: Implémentation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

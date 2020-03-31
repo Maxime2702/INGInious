@@ -1,0 +1,72 @@
+accessible: 2018-10-19 12:00:00/
+author: Tanguy De Bels
+context: |-
+    Vous pouvez soumettre ici votre phase de réalisation pour la Mission 5.
+
+    Nous attendons les fichiers :
+
+    * sorted_belgian_communes.py  (`Squelette du fichier </course/LSINF1101-PYTHON/REAL05/sorted_belgian_communes.py>`_)
+
+    * test.py
+
+    * README.TXT
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 5: Phase de réalisation'
+network_grading: false
+order: 54
+problems:
+    q1:
+        allowed_exts:
+        - .py
+        name: 'Phase de réalisation de la Mission 5: sorted_belgian_communes.py'
+        header: Soumettez ici votre programme.
+        type: file
+    q2:
+        header: Soumettez ici votre fichier de tests.
+        allowed_exts:
+        - .py
+        type: file
+        name: 'Phase de réalisation de la Mission 5: test.py'
+    q3:
+        allowed_exts:
+        - .txt
+        - .TXT
+        type: file
+        name: 'Phase de réalisation de la Mission 5: README.TXT'
+        header: Soumettez ici la documentation destinée aux utilisateurs de votre
+            programme et vos notes dans le fichier README.txt.
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

@@ -1,0 +1,76 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    Ajoutez à la classe ``LinkedList`` (cf. l'annexe `Appendix - Source code of linked lists  <https://syllabus-interactif.info.ucl.ac.be/syllabus/info1-theory/PART_III/appendix_code_linked_list>`_ ) une méthode ``remove()`` pour supprimer le noeud en tête de la liste. Si la liste chaînée était déjà vide, cette méthode ne fait rien.
+
+    .. code-block:: python
+
+        l = LinkedList()
+        l.add(3)
+        l.add(2)
+        l.add(1)
+        l.print()
+        # [ 1 2 3 ]
+        l.remove()
+        l.print()
+        # [ 2 3 ]
+        l.remove()
+        print(l.length)
+        # 1
+        l.remove()
+        l.print()
+        # [ ]
+        l.remove()
+        l.print()
+        # [ ]
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 11: LinkedList - remove'
+network_grading: false
+order: 131
+problems:
+    q1:
+        header: Implémentez la fonction ``remove`` de la classe ``LinkedList`` en
+            Python.
+        name: Implémentation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

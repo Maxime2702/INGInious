@@ -1,0 +1,350 @@
+accessible: false
+author: Tanguy De Bels & Siegfried Nijssen
+categories: []
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 6: QCM'
+network_grading: false
+order: 59
+problems:
+    q1:
+        choices:
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    file = open ( "streets.txt", "w" )
+                    file.write ( "Rue Neuve\nBoulevard de Waterloo\nRue Charlemagne\n")
+                    file.close ()
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    file = open("streets.txt", "w")
+                    l = ["Rue Neuve\n", "Boulevard de Waterloo\n", "Rue Charlemagne\n"]
+                    for line in l:
+                      file.write(line)
+                    file.close()
+        -   text: |-
+                .. code-block:: python
+
+                    file = open("streets.txt", "w")
+                    l = ["Rue Neuve", "Boulevard de Waterloo", "Rue Charlemagne"]
+                    for line in l:
+                      file.write(line)
+                    file.close()
+            feedback: Tous les noms sont imprimés sur la même ligne!
+        -   text: |-
+                .. code-block:: python
+
+                    file = open("streets.txt", "w")
+                    l = ["Rue Neuve", "Boulevard de Waterloo", "Rue Charlemagne"]
+                    for line in l:
+                      file.write(line + "\n")
+                    file.close()
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                    file = open("streets.txt", "w")
+                    l = ["Rue Neuve\n", "Boulevard de Waterloo\n", "Rue Charlemagne\n"]
+                    for line in l:
+                      file.write(line + "\n")
+                    file.close()
+            feedback: Il a y trop de nouvelles lignes dans ce fichier!
+        type: multiple_choice
+        name: Créer un fichier
+        multiple: true
+        limit: 0
+        header: |-
+            On veut créer un fichier ``streets.txt`` avec les lignes suivantes:
+
+            .. code-block:: python
+
+                  Rue Neuve
+                  Boulevard de Waterloo
+                  Rue Charlemagne
+
+            Ici, il y a un caractère nouvelle ligne après la dernière ligne.
+            Lesquels des programmes suivants créent ce fichier?
+    q2:
+        multiple: true
+        choices:
+        -   feedback: Les caractères nouvelles lignes \n doivent être enlevés.
+            text: |-
+                .. code-block:: python
+
+                    file = open ( "streets.txt", "r" )
+                    l = []
+                    for line in file:
+                      l.append ( line )
+                    file.close ()
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    file = open ( "streets.txt", "r" )
+                    l = []
+                    for line in file:
+                      l.append ( line.strip () )
+                    file.close ()
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    file = open ( "streets.txt", "r" )
+
+                    for line in file.readlines ():
+                      l.append ( line.strip () )
+                    file.close ()
+        -   feedback: Les caractères nouvelles lignes \n doivent être enlevés.
+            text: |-
+                .. code-block:: python
+
+                    file = open ( "streets.txt", "r" )
+                    l = file.readlines ():
+                    file.close ()
+        -   text: |-
+                .. code-block:: python
+
+                    file = open ( "streets.txt", "r" )
+                    f = file.read ()
+                    l = f.split ( "\n" ) [:-1]
+                    file.close ()
+            valid: true
+        type: multiple_choice
+        header: |-
+            On veut lire un fichier ``streets.txt`` avec les lignes suivantes:
+
+            .. code-block:: python
+
+                  Rue Neuve
+                  Boulevard de Waterloo
+                  Rue Charlemagne
+
+            Ici, il y a un caractère nouvelle ligne après la dernière ligne.
+            Lesquels des programmes créent la liste ``l = ["Rue Neuve", "Boulevard de Waterloo", "Rue Charlemagne"]``?
+        limit: 0
+        name: Lire un fichier de strings
+    q3:
+        multiple: true
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    file = open("numbers.txt", "r")
+                    l = []
+                    for line in file.readlines():
+                      l.append(int(line))
+                    file.close()
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                    file = open("numbers.txt", "r")
+                    l = []
+                    for line in file.readlines ():
+                      l.append(int(line.strip()))
+                    file.close()
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                    file = open("numbers.txt", "r")
+                    l = []
+                    for line in file.readlines():
+                      l.append(line.strip())
+                    file.close()
+            feedback: Ce code mets de chaînes de caractères dans la liste, pas des
+                nombres entiers
+        -   feedback: Ce code mets de chaînes de caractères dans la liste, pas des
+                nombres entiers
+            text: |-
+                .. code-block:: python
+
+                    file = open("numbers.txt", "r")
+                    l = file.readlines():
+                    file.close()
+        name: Lire un fichier de nombres
+        type: multiple_choice
+        header: |-
+            On veut lire un fichier ``numbers.txt`` avec les lignes suivantes:
+
+            .. code-block:: python
+
+                  14
+                  18
+                  10
+
+            Lesquels des programmes créent la liste ``l = [14, 18, 10]``?
+        limit: 0
+    q4:
+        choices:
+        -   valid: true
+            text: 'Ligne 1: le fichier ``streets.txt`` n''existe pas.'
+        -   feedback: le boucle n'est pas parcouru, mais le code ne donne pas une
+                exception.
+            text: 'Ligne 2: le fichier est vide; il n''y a pas de lignes dans le fichier.'
+        -   text: 'Ligne 3: il n''y pas de ``","`` dans la chaîne caractères lu du
+                fichier; ``split`` produit une erreur.'
+            feedback: split retourne la chaîne de caractères si le séparateur n'est
+                pas présent.
+        -   text: 'Ligne 4: la liste ``l`` n''a pas une élément sur position 0.'
+            feedback: split retourne la chaîne de caractères d'origine si le séparateur
+                n'est pas présent, ce qui veut dire que la liste a au moins 1 élément.
+        -   valid: true
+            text: 'Ligne 5: la liste ``l`` n''a pas une élément sur position 1.'
+        -   feedback: Il n'y pas une exception liée à la fermeture d'un fichier si
+                on lit le fichier. (C'est différent quand on crée un nouveau fichier.)
+            text: 'Ligne 6: Le fichier ``streets.txt`` ne peut pas être fermé.'
+        multiple: true
+        type: multiple_choice
+        name: Erreurs
+        limit: 0
+        header: |-
+            Indiquez quelles erreurs peuvent se produire pendant l'exécution du program suivant, donnant une exception.
+
+            .. code-block:: python
+
+                    file = open ( "streets.txt", "r" )
+                    for line in f:
+                      l = line.split (",")
+                      print ( l[0] )
+                      print ( l[1] )
+                    file.close ()
+    q5:
+        choices:
+        -   feedback: Cela aurait fonctionné si l'on avait passé "12.3" en argument
+                et non "12,3".
+            text: Ce code imprime ``-11,3``.
+        -   text: Ce code imprime "An error occurred" puisqu'on ne peut pas diviser
+                par zéro.
+            feedback: On ne divise pas par zéro dans ce code.
+        -   text: Ce code imprime "An error occurred" puisqu'on ne peut pas convertir
+                "12,30" en float.
+            valid: true
+        -   text: Ce programme s'arrête sans message "An error occurred" puisqu'on
+                ne peut pas convertir "12,30" en float et qu'il n'y a pas de code
+                pour traiter cette situation dans la fonction create_float.
+            feedback: Il n'est pas nécessaire d'avoir un ``bloc try ... except`` dans
+                la fonction qui cause l'erreur.
+        -   feedback: Il n'est pas nécessaire d'avoir un bloc try ... except dans
+                la fonction qui cause l'erreur.
+            text: Ce programme s'arrête sans message "An error occurred" puisqu'on
+                ne peut pas diviser par zéro  et il n'y pas de code pour traiter cette
+                situation dans la fonction calc.
+        header: |-
+            Que se passe-t-il pendant l'exécution du code suivante?
+
+                .. code-block:: python
+
+                    def calc ( a, b ):
+                      return a / b
+
+                    def create_float ( a ):
+                      return float(a) - 1
+
+                    def process ( a, b ):
+                      return calc ( create_float ( a ), create_float ( b ) )
+
+                    try:
+                      print ( process ( "12,30", "0" ) )
+                    except:
+                      print ( "An error occurred" )
+        type: multiple_choice
+        multiple: true
+        name: Exceptions
+        limit: 0
+    q6:
+        name: 'Lecture d''un fichier '
+        type: multiple_choice
+        choices:
+        -   feedback: |-
+                Cette solution est incorrecte.
+                Elle imprime une liste contenant toutes les lignes.
+                Il faut encore parcourir cette liste pour imprimer ces éléments (lignes) un par un.
+            text: |-
+                .. code-block:: python
+
+                    file = open('sonnet.txt')
+                    lines = file.readlines()
+                    print(lines, end='')
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    with open('sonnet.txt') as file:
+                        for line in file.readlines():
+                            print(line, end='')
+            feedback: |-
+                Cette solution est correcte.
+                Remarquez que si l'on avait utilisé `print(line)` au lieu de `print(line,end='')`,
+                cela aurait résulté en une ligne vide après chaque instruction `print`.
+        -   text: |-
+                .. code-block:: python
+
+                    file = open('sonnet.txt')
+                    for line in file.readlines():
+                        print(line, end='')
+            feedback: |-
+                Cette solution est correcte.
+                Elle utilise la commande `with`.
+                La commande `with` est conseillée si on a beaucoup d'instructions différentes à exécuter sur un même fichier, ce qui est souvent le cas avec la manipulation des fichiers.
+                Remarquez que si l'on avait utilisé `print(line)` au lieu de `print(line,end='')`, cela aurait résulté en une ligne vide après chaque instruction `print`.
+            valid: true
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    with open('sonnet.txt') as file:
+                        for char in file.read():
+                            print(char, end='')
+            feedback: |-
+                Cette solution est également correcte.
+                Cette solution est très proche d'une autre, à la différence que l'on lira caractère par caractère au lieu de par ligne.
+                Remarquez que si l'on avait utilisé `print(line)` au lieu de `print(line,end='')`, cela aurait résulté en une ligne vide après chaque instruction `print`.
+        header: |-
+            Parmi les portions de programme suivantes, lesquelles permettent d'imprimer à la console, ligne par ligne, le contenu d'un fichier nommé `'sonnet.txt'` ?
+
+            Remarques:
+
+            * plusieurs choix peuvent être correctes
+
+            * dans les réponses proposées nous utilisons `print(x,end='')` plutôt que `print(x)` pour éviter qu'il y ait un retour à la ligne après chaque instruction `print`.
+        limit: 0
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

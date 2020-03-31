@@ -1,0 +1,75 @@
+accessible: true
+author: Tanguy De Bels
+categories:
+- Méthodes_instance
+contact_url: ''
+context: |-
+    Un étudiant a écrit la classe ``Pair`` ci-dessous. Il aimerait y ajouter la méthode ``__eq__`` permettant de savoir si deux objets ``Pair`` sont dans le même état, mais il ne sait pas bien comment s'y prendre et vous demande votre aide pour y arriver.
+
+    Voici la classe ``Pair`` :
+
+    .. code-block:: python
+
+        class Pair:
+
+            def __init__(self, x, y):
+                self.a = x
+                self.b = y
+
+            def __eq__ (self, p):
+                """
+                @pre    -
+                @post   Retourne true si la paire p est égale à l'objet.
+                        Retourne false sinon
+                """
+                # À implémenter
+
+    Aidez cet étudiant en détresse et implémentez la méthode ``__eq__`` dont les spécifications sont fournies ci-dessus. Pensez à gérer le cas où ``p == None``, car les préconditions ne font aucune supposition.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 8: __eq__()'
+network_grading: false
+order: 109
+problems:
+    q1:
+        header: Implémentez ici la méthode ``__eq__()`` avec sa signature.
+        name: Implementation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

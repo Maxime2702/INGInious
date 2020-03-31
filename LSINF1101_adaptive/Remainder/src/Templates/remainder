@@ -1,0 +1,7 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+def remainder(a, b):
+@    @q1@@
+    return rest

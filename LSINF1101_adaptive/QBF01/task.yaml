@@ -1,0 +1,65 @@
+accessible: true
+author: Tanguy De Bels
+categories:
+- Algorithme
+contact_url: ''
+context: |-
+    La suite de Syracuse
+    --------------------
+
+    La suite de Syracuse est une suite d’entiers naturels définie de la
+    manière suivante. Le premier entier naturel de la suite est n’importe
+    quel entier plus grand que zéro, notons le :math:`s_0`. On peut ensuite
+    calculer la suite d’entiers en appliquant la formule suivante :
+
+
+    -   :math:`s_{i+1}` = :math:`s_i / 2` si :MATH:`s_i` est pair,
+    -   :math:`s_{i+1}` = :math:`3 s_i + 1` sinon.
+
+    Par exemple, en partant de 11, on obtient :
+    ``11 34 17 52 26 13 40 20 10 5 16 8 4 2 1 4 2`` …
+
+    Remarquez qu’une fois que le nombre 1 est atteint, la suite
+    ``1 4 2 1 4 2`` …se répète indéfiniment. La *conjecture de Collatz* est
+    l’hypothèse mathématique selon laquelle toutes les suites de Syracuse de
+    tous les nombres strictement positifs atteignent toujours 1. Il
+    s’agit actuellement d’un conjecture, c’est-à-dire qu’aucune preuve
+    mathématique n’a pu être élaborée. Tous les tests effectués actuellement
+    n’ont néanmoins pas permis de trouver un nombre :math:`s_0` tel que la
+    suite de Syracuse en découlant n’atteigne pas 1.
+
+    Afin d’aider les mathématiciens à éventuellement trouver un
+    contre-exemple, écrivez un programme Python qui permet de calculer la
+    suite de Syracuse pour n’importe quel entier strictement positif
+    :math:`s_0`. Le programme s’arrête bien entendu lorsque la suite
+    atteint 1. Les nombres de la suite doivent être affichés un nombre par ligne, sur
+    la sortie standard avec ``print``.
+    **Le programme ne doit plus rien afficher de la suite après avoir affiché le premier 1.**
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 1: QBF'
+network_grading: false
+order: 4
+problems:
+    q1:
+        name: Implémentation
+        default: ''
+        type: code
+        header: |-
+            .. code-block:: python
+
+                s0 = ...    #Entier de départ
+        language: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

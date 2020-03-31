@@ -1,0 +1,81 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Écrivez une fonction ``table(filename_in, filename_out, width)`` qui crée pour un fichier donné un autre fichier dans lequel toutes les lignes ont été mises dans un tableau. Pour cet exemple:
+
+    ::
+
+        Mons
+        Bruxelles
+        Ottignies
+        Jean Charles
+
+    le résultat avec ``width = 8`` doit être:
+
+    ::
+
+        +----------+
+        | Mons     |
+        | Bruxelle |
+        | Ottignie |
+        | Jean Cha |
+        +----------+
+
+    Remarquez qu'il y a un espace avant et après chaque ligne. Considérez l'utilisation des méthodes suivantes de ``string``:
+
+    * la méthode *format*
+
+    * la méthode *rstrip*
+
+    Consultez la documentation de Python si vous ne connaissez pas encore ces méthodes.
+    Vous pouvez présumer que le fichier ``filename_in`` existe.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 6: Q* Représentation de tableau'
+network_grading: false
+order: 64
+problems:
+    q1:
+        type: code
+        name: Implémentation
+        language: python
+        header: Implémentez la fonction ``table(filename_in, filename_out, width)``
+            en python.
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

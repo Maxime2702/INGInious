@@ -1,0 +1,9 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+def maximum_index(lst):
+    if len(lst) == 0: return None
+    return lst.index(min(lst))
+
+@@q1@@

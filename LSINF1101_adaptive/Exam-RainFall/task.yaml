@@ -1,0 +1,58 @@
+accessible: true
+author: ''
+categories: []
+contact_url: ''
+context: |-
+    Ecrivez le corps de la fonction ``rainfall(l)`` qui retourne la moyenne des relevés des précipitations présents dans la liste ``l`` jusqu'à la valeur ``9999`` non comprise. Attention que les précipitations négatives sont considérées comme nulles.  Par exemple,
+
+    ``rainfall([3, 5, -2, 4, 9999, 10])``
+
+    retourne ``3.0`` (moyenne de 3, 5, 0 et 4).
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Examen à blanc: problème des précipitations'
+network_grading: false
+order: 145
+problems:
+    question:
+        default: ''
+        type: code
+        language: python
+        name: rainfall
+        header: |-
+            Ecrivez ici le corps de la méthode ``rainfall``.
+
+            .. code-block:: python
+
+                def rainfall(l):
+                    """
+                    pre: l est une liste de nombres, len(l) > 0, l contient un élément 9999.
+                    post: retourne la moyenne des éléments dans la liste l jusqu'à l'élément 9999
+                        non compris.  Si des éléments sont négatifs, ils sont traités comme valant 0.
+                    """
+                    ### VOTRE REPONSE
+    ztest:
+        default: ''
+        language: python
+        optional: 'on'
+        name: Tests
+        header: |-
+            Insérez votre code de test optionnel ci-dessous. Vous pouvez utiliser ``print`` pour tester votre programme. Votre code de test est exécuté à la suite de la définition de ``rainfall``.  Exemple:
+
+            .. code-block:: python
+
+                 print(rainfall([100,50,50,250,200,9999]))                # 130.0
+        type: code
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

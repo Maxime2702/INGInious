@@ -1,0 +1,51 @@
+accessible: false
+author: Olivier Goletti
+categories:
+- session10
+context: 'Implémentez une classe de tests unitaires ``MyClassTest`` qui hérite de
+    ``unittest.TestCase`` qui teste la méthode ``carre_parfait`` du module ``totest``. '
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 10 : Test this'
+network_grading: false
+order: 16
+problems:
+    q1:
+        header: |-
+            Soit la méthode ``carre_parfait`` du module ``totest`` ayant pour spécifications :
+
+            .. code-block:: python
+
+                def carre_parfait (x) :
+                '''
+                retourne true si l'entier en argument est un carré parfait, false sinon
+                '''
+                # CODE NON FOURNI
+        name: 'Implémentez '
+        language: python
+        type: code
+        default: |
+            import totest
+            import unittest
+
+            class MyClassTest(unittest.TestCase) :
+
+            # todo
+
+
+
+            if __name__ == '__main__':
+                unittest.main()
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

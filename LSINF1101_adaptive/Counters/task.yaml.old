@@ -1,0 +1,83 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Créez une classe ``Counters`` avec deux méthodes:
+
+    .. code-block:: python
+
+        class Counters:
+            def __init__ ( self, number ):
+
+            def next(self, number):
+
+    La méthode ``__init__`` initialise la structure de données ``Counters`` telle qu'elle peut maintenir ``number`` compteurs, qui commencent à 0.
+
+    La méthode ``next`` doit retourner la valeur pour le compteur avec nombre ``number`` et incrémenter sa valeur. Par exemple, on peut exécuter les méthodes comme suit avec les résultats indiqués:
+
+    .. code-block:: python
+
+        >>>> nc = Counters ( 10 )
+        >>>> nc.next ( 2 )
+        0
+        >>>> nc.next ( 2 )
+        1
+        >>>> nc.next ( 2 )
+        2
+        >>>> nc.next ( 1 )
+        0
+        >>>> nc.next ( 2 )
+        3
+        >>>> nc.next ( 5 )
+        0
+
+    Si le numéro du compteur demandé n’est pas dans les compteurs de la structure de donnée, le code doit jeter une erreur du type ``IndexError``.
+
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 12: Type de Données Abstrait'
+network_grading: false
+order: 134
+problems:
+    q1:
+        default: ''
+        language: python
+        name: Implémentation
+        type: code
+        header: Implémentez la classe ``Counters`` en python.
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

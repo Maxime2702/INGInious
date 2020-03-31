@@ -1,0 +1,61 @@
+accessible: false
+author: Simon Gustin
+categories: []
+contact_url: ''
+context: |-
+    You want to use your computer to easily compute a polynomial with the following form:
+    :math:`y = a x^6 + b x^2 + c`. We give you the coefficients (stored in ``a``, ``b`` and ``c``)
+    and the variable ``x`` and ask you to put the value of the polynomial at abscissa :math:`x` inside a variable named ``y``.
+
+    *Note: there is a way to make this shortly in only one line of code.*
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 1: Q* Polynomial'
+network_grading: false
+order: 6
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        type: code
+        header: |-
+            .. code-block:: python
+
+               y = ...  # Value of the polynomial at abscissa `x`
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

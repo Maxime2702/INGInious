@@ -1,0 +1,67 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    Write a program allowing to play the game `fizzbuzz <https://en.wikipedia.org/wiki/Fizz_buzz>`_.
+    You receive a number (stored in variable ``i``).
+    We will implement a simplified version of the game. For a given integer ``i``, the game will :
+
+    - Store the string "``fizz``" in the variable ``temp`` if the number is divisible by  3.
+    - Store the string "``buzz``" in the variable ``temp`` if the number is divisible by 5.
+    - Store the string "``fizzbuzz``" in the variable ``temp`` if the number is divisible by 3 and by 5.
+    - Store the string "``no``" in the variable ``temp`` if the number is not divisible by 3 nor by 5.
+
+    .. code-block:: python
+
+        i = ...    # the number to check (i >= 1)
+        temp = ... # "fizz", "buzz", "fizzbuzz" or "no" depending on i's value
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 2: Q* FizzBuzz'
+network_grading: false
+order: 17
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        type: code
+        header: '``i`` is provided and you need to store the adequate return value
+            in ``temp``'
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

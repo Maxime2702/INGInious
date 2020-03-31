@@ -1,0 +1,10 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+knowledge = [['Gryffindor', ['brave', 'strong', 'bold']],
+             ['Ravenclaw', ['smart', 'wise', 'curious']],
+             ['Hufflepuff', ['loyal', 'patient', 'hard-working']],
+             ['Slytherin', ['cunning', 'wily', 'malignant']]]
+
+@@q1@@

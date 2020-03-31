@@ -1,0 +1,54 @@
+accessible: true
+author: ''
+categories: []
+contact_url: ''
+context: |+
+    ------------
+    Introduction
+    ------------
+
+    Cet *examen à blanc* rassemble des questions représentatives de celles de l'examen.  Chaque question est indépendante des autres et comporte son propre contexte si nécessaire.  La disposition (parties, soumission) est la même que celle de l'examen.  Les matières couvertes dans les questions **NE** couvrent **PAS** toutes les matières de l'examen!  Le nombre de questions **NE** correspond **PAS** nécessairement au nombre de questions de l'examen.
+
+    --------------
+    Ressources
+    --------------
+
+    |syllabus_theory|
+
+    .. |syllabus_theory| raw:: html
+
+       <a href="https://syllabus-interactif.info.ucl.ac.be/index/info1-theory" target="_blank">Syllabus du cours</a>
+
+
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Examen à blanc: énoncé'
+network_grading: false
+order: 143
+problems:
+    sandbox:
+        type: code
+        header: |-
+            Insérez du code de test optionnel ci-dessous. Vous pouvez utiliser ``print`` pour tester votre programme. Votre code de test est exécuté en Python, en dehors de toute autre définition.
+
+            Vous pouvez utiliser cette zone pour obtenir la documentation Python avec la fonction ``help``.  Exemple:
+
+            .. code-block:: python
+
+                 help(print)
+        language: python
+        default: ''
+        name: Tests et aide
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

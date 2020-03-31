@@ -1,0 +1,81 @@
+accessible: false
+author: Tanguy De Bels
+context: |-
+    Memoization refers to remembering results of method calls based on the method inputs and then returning the remembered result rather than computing the result again. You can think of it as a cache for method results.
+
+    The use of this practice will enable you to boost the speed of yout programs when you need to call a function with the same parameters multiple times.
+
+    You will now implement a function that will store the calls of a function in a dedicated dictionnary and use it in later calls.
+
+    Note that besides the ``memoization`` function, you should also implement the methods ``factorial`` and ``fibonacci`` able to make use of the memoization principle.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    time: '30'
+    memory: '100'
+name: 'Session 8: Memoization'
+network_grading: false
+order: 100
+problems:
+    q1:
+        type: code
+        name: Memoization implementation
+        default: ''
+        header: |-
+            Implement the function ``memoization(fun, n)`` in Python.
+
+            With ``fun`` as the function on which the memoization will be used and ``n`` the argument of the function.
+
+            A dictionnary ``mapping`` is provided and should be used to map each function to its corresponding dictionnary.
+
+            Note that the dictionaries have not yet enough entries to pass the tests.
+
+            .. code-block:: python
+
+                mapping = {fibonacci: fibo, factorial: fact, ...}
+        language: python
+    q2:
+        language: python
+        type: code
+        name: Fibonacci implementation
+        header: Implement a function ``fibonacci(n)`` in Python which will be used
+            by and use  ``memoization``.
+        default: ''
+    q3:
+        header: Implement a function ``factorial(n)`` in Python which will be used
+            by and use ``memoization``.
+        type: code
+        default: ''
+        name: Factorial implementation
+        language: python
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

@@ -1,0 +1,96 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Vous pouvez soumettre ici votre phase de réalisation pour la Mission 12.
+
+    Nous attendons les fichiers :
+
+    * mission12.py
+
+    * test.py
+
+    * README.TXT
+
+    * portfolio.zip
+
+    Les fichiers exemples:
+
+    * `exemples.zip </course/LSINF1101-PYTHON/REAL12/exemples.zip>`_
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 12: Phase de réalisation'
+network_grading: false
+order: 135
+problems:
+    mission12:
+        header: Soumettez ici votre programme.
+        allowed_exts:
+        - .py
+        name: 'Phase de réalisation de la Mission 12: mission12.py'
+        type: file
+    test:
+        allowed_exts:
+        - .py
+        header: Soumettez ici votre fichier de tests.
+        name: 'Phase de réalisation de la Mission 12: test.py'
+        type: file
+    README:
+        allowed_exts:
+        - .txt
+        - .TXT
+        header: Soumettez ici la documentation destinée aux utilisateurs de votre
+            programme et vos notes dans le fichier README.txt.
+        name: 'Phase de réalisation de la Mission 12: README.TXT'
+        type: file
+    portfolio:
+        allowed_exts:
+        - .zip
+        - .ZIP
+        - .png
+        - .PNG
+        - .jpg
+        - .JPG
+        - .jpeg
+        - .JPEG
+        name: 'Phase de réalisation de la Mission 12: portfolio'
+        type: file
+        header: Soumettez ici les résultats de votre programme. Cela peut être une
+            archive (zip) ou une image (png ou jpg).
+        max_size: 25000000
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+def extract(code):
+    pattern = ""
+    for c in code:
+        if c.isdigit(): pattern += "number "
+        elif c in "aeiouy":
+            if c.isupper(): pattern += "vowel-up "
+            else: pattern += "vowel-low "
+        else:
+            if c.isupper(): pattern += "consonant-up "
+            else: pattern += "consonant-low "
+    return pattern
+
+def treatment(data):
+    pattern = ""
+    current = data.split()[0]
+    count = 0
+    for c in data.split():
+        if c == current:
+            count += 1
+        else:
+            pattern += current + '*' + str(count) + ' '
+            count = 1
+            current = c
+    return pattern
+
+@@q1@@

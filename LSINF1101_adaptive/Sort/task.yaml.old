@@ -1,0 +1,57 @@
+accessible: 2018-10-19 12:00:00/
+author: Tanguy De Bels
+context: |-
+    In computer science, a sorting algorithm is an algorithm that puts the elements of a list in a certain order. The most-used orders are numerical order and lexicographical order. Efficient sorting is important for optimizing the use of other algorithms (such as search and merge algorithms) which require input data to be in sorted lists; it is also often useful for canonicalizing data and for producing human-readable output. More formally, the output must satisfy two conditions:
+
+    * The output is in nondecreasing order (each element is no smaller than the previous element according to the desired total order);
+    * The output is a permutation (reordering but with all of the original elements) of the input.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 5: Q* Tri de liste'
+network_grading: false
+order: 56
+problems:
+    q1:
+        default: ''
+        language: python
+        name: Implementation
+        type: code
+        header: |-
+            .. code-block:: python
+
+                a_list = ... #list to sort
+                sorted_list = ... #store in this variable the sorted version of the list
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

@@ -1,0 +1,84 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Ajoutez à la classe ``LinkedList`` une méthode ``remove()`` pour supprimer le noeud en tête de la liste. Si la liste chaînée était déjà vide, cette méthode ne fait rien.
+
+    .. code-block:: python
+
+        l = LinkedList()
+        l.add(3)
+        l.add(2)
+        l.add(1)
+        l.print()
+        # [ 1 2 3 ]
+        l.remove()
+        l.print()
+        # [ 2 3 ]
+        l.remove()
+        print(l.length)
+        # 1
+        l.remove()
+        l.print()
+        # [ ]
+        l.remove()
+        l.print()
+        # [ ]
+
+    Vous pouvez considérez que la classe ``Node`` possède la méthode mutateur suivante:
+
+    .. code-block:: python
+
+        class Node:
+
+            def next(self):
+                return self.__next
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 11: LinkedList - remove'
+network_grading: false
+order: 124
+problems:
+    q1:
+        default: ''
+        language: python
+        name: Implémentation
+        type: code
+        header: Implémentez la fonction ``remove`` de la classe ``LinkedList`` en
+            Python.
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

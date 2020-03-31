@@ -1,0 +1,76 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 6: Coordonnées'
+network_grading: false
+order: 61
+problems:
+    q1:
+        type: code
+        name: Ecriture de coordonnées
+        language: python
+        header: |-
+            On donne des listes contenant des paires de coordonnées comme ``[(0.5,0.5),(0.1,0.3),(0.4,0.5)]``.
+
+            Ecrivez une fonction ``write_coordinates(filename, l)`` pour créer un fichier qui contient les coordonnées de la liste ``l`` dans le format suivant:
+
+            ::
+
+                0.5,0.5
+                0.1,0.3
+                0.4,0.5
+        default: ''
+    q2:
+        name: Lecture de coordonnées
+        language: python
+        header: |-
+            Écrivez une fonction ``read_coordinates(filename)`` qui lit les coordonnées du fichier ``filename``, dans le format ci-dessus, et retourne une liste de tuples, comme donnée.
+
+            Considérez l'utilisation de méthodes de ``string`` telles que :
+
+            * ``format``
+            * ``split``
+            * ``strip``
+            * ``rstrip``
+
+            Voyez la documentation de ces méthodes dans `le manuel de référence de Python <https://docs.python.org/3>`_.
+        default: ''
+        type: code
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

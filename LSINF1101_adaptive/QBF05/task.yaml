@@ -1,0 +1,125 @@
+accessible: true
+author: Tanguy De Bels
+categories:
+- Méthodes
+- Array_List
+contact_url: ''
+context: |-
+    Une trace GPS peut être stockée dans une liste comme la suivante:
+
+    .. code-block:: python
+
+        [(1.0,(10.10,20.0)),(3.0,(10.50,20.30)),(5.0,(11.0,21))]
+
+    Ici on a des tuples ``(t,(x,y))``, où ``t`` indique un point de temps, et ``(x,y)`` une coordonnée visitée. Par exemple, au temps **1.0**, la coordonnée **(10.10,20.0)** a été visitée. Les tuples sont triés par points de temps.
+
+    Si on a plusieurs traces, on peut les mettre dans une autre liste:
+
+    .. code-block :: python
+
+        trace1 = [(1.0,(10.10,20.0)),(3.0,(10.50,20.30)),(5.0,(11.0,21))]
+        trace2 = [(1.0,(15.00,15.0)),(2.0,(12.00,17.00)),(3.0,(10.50,20)),(4.0,(12.0,21.0))]
+        trace3 = [(1.0,(15.00,15.0)),(3.0,(16.0,21.0)),(5.0,(20.0,21.0))]
+        l = [trace1,trace2,trace3]
+
+    Pour deux traces ``trace1`` et ``trace2``, nous disons qu'ils se croisent s'il existe des tuples ``(t_1,(x_1,y_1))`` dans ``trace1``, ``(t_2,(x_2,y_2))`` dans ``trace2``, tel que ``t_1-t_2`` <= ``theta_1`` (il n'y a pas trop de temps entre les deux tuples) et la distance euclidienne entre ``(x_1,y_1)`` et ``(x_2,y_2)`` est inférieure à ``theta_2``.
+
+    Dans l'exemple, ``trace1`` et ``trace2`` se croisent pour les paramètres ``theta_1=0.0`` et ``theta_2=1.0``: dans ``trace1`` on trouve **(3.0,(10.50,20.30))** et dans ``trace2`` on trouve **(3.0,(10.50,20))**, qui sont proches les uns des autres.
+
+    Écrivez une fonction dont la spécification est la suivante :
+
+    .. code-block:: python
+
+        def matrix_for_traces(l,theta_1,theta_2):
+        """
+        pre :  une liste de traces
+        post : retourne une matrice dans laquelle il est indiquée si les traces i et j
+               se croisent; valeur matrix[i][j] indique si traces i et j se
+               croisent, selon paramètres theta1 et theta2.
+        """
+
+    À titre d'exemple, le code ci-dessous :
+
+    .. code-block:: python
+
+        trace1 = [(1.0,(10.10,20.0)),(3.0,(10.50,20.30)),(5.0,(11.0,21))]
+        trace2 = [(1.0,(15.00,15.0)),(2.0,(12.00,17.00)),(3.0,(10.50,20)),(4.0,(12.0,21.0))]
+        trace3 = [(1.0,(15.00,15.0)),(3.0,(16.0,21.0)),(5.0,(20.0,21.0))]
+        print(matrix_for_traces([trace1,trace2,trace3],0.0,1.0))
+
+    Affiche la valeur **[[1,1,0],[1,1,1],[0,1,1]]**.
+
+
+
+    Vous pouvez présumer que les fonctions suivantes sont déjà implementées:
+
+    .. code-block:: python
+
+        def search_time(l,t):
+        """
+        pre :  une liste d'événements l, un temps t
+        post : l'index du premier élément dans l supérieur où égal à t; len(l) si un tel élément n'existe pas
+        """
+
+        def absolute(v1,v2):
+        """
+        pre  : v1 et v2 deux nombres
+        post : la fonction retourne |v1-v2|
+        """
+
+        def euclidian_distance(c1,c2):
+        """
+        pre  : deux coordonnées c1=(x1,y1) et c2=(x2,y2)
+        post : la fonction retourne la distance euclidienne entre c1 et c2
+        """
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 5: QBF'
+network_grading: false
+order: 62
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        type: code
+        header: |-
+            Implémentez la fonction ``matrix_for_traces`` en Python.
+
+            Ajoutez également toute autre fonction nécessaire.
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

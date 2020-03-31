@@ -1,0 +1,61 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Soit une structure de données comparable à la suivante:
+
+    .. code-block:: python
+
+        l = [{"City": "Bruxelles", "Country": "Belgium"}, \
+            {"City": "Berlin", "Country": "Germany"}, \
+            {"City": "Paris", "Country": "France"}]
+
+    Écrivez une fonction ``get_country(l,name)`` qui, pour le nom d'une ville ``name`` et une structure de données ``l``, retourne le nom du pays dans lequel la ville est localisée. La fonction retourne ``False`` si la ville n'est pas dans ``l``.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 7: Utilisation des clés'
+network_grading: false
+order: 74
+problems:
+    q1:
+        type: code
+        name: Implémentation
+        language: python
+        header: Implémentez la fonction ``get_country(l, name)`` en Python.
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

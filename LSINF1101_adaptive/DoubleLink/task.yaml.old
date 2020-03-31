@@ -1,0 +1,105 @@
+accessible: false
+author: Luis Tascon Gutierrez
+categories: []
+context: |-
+    A student in the 3rd year Bachelor told you, he learned about the *Turing Machine* in his course of *Calculability*.
+
+    The *Turing Machine* works with a memory tape. It's an infinitly long tape with character in it. He told you, that it's really complicated but he tends to exaggerate all the time.
+
+    You want to prove him that it's not so complicated and you'll implement a tape like the *Turing Machine*.
+
+    You have to create a LinkedList where each ``Node`` has a link with the previous and the next ``Node``.
+
+    You have in all time a pointer to a ``Node`` and you can move the pointer to the left and to the right. This pointer allow you to read the string in the node you're looking at.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 11 : Q* Double Link'
+network_grading: false
+order: 130
+problems:
+    q1:
+        default: ''
+        language: python
+        name: Node
+        type: code
+        header: |-
+            Create the class ``Node`` with at least the following methods:
+
+            .. code-block:: python
+
+                def __init__(s)
+                def get_text()
+                def set_text(s)
+
+            The ``Node`` has a link with the previous and the next ``Node``.
+            Each ``Node`` contains its own ``value``, a string.
+
+            The methods ``get_text`` return the string in the ``Node``.
+            And ``set_text`` change the string by ``s``.
+    q2:
+        header: |-
+            Create the class ``Tape`` with at least the following methods:
+
+            .. code-block:: python
+
+                def __init__()
+                def next()
+                def previous()
+                def get_length()
+                def add(s)
+                def write(s)
+                def read()
+
+            * The ``next()`` method advance of one node and after give the value of the ``Node`` reached.
+
+            * The ``previous()`` method step back of one node and give the value of the ``Node`` reached.
+
+            * The ``next()`` and ``previous()`` methods return ``None`` and doesn't move if there is no ``Node`` to reach.
+
+            * The ``get_length()`` method return the *number of Nodes* in the ``Tape``.
+
+            * The ``add(s)`` method add a new ``Node`` with the string ``s`` in last place. To call this method with no *Node* put the pointer on the *first Node*. To call this method when there is already a *Node* doesn't change the position of the pointer.
+
+            * The ``write(s)`` method change the string of the actual node with ``s``. If There is no node, it does nothing.
+
+            * The ``read()`` method return the string of the actual node. If There is no node, it return ``None``.
+        type: code
+        language: python
+        default: ''
+        name: Double LinkedList
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

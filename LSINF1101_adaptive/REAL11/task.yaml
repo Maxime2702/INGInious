@@ -1,0 +1,105 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    Vous pouvez soumettre ici votre phase de réalisation pour la Mission 11.
+
+    Nous attendons les fichiers :
+
+    * classement.py
+    * orderedlinkedlist.py
+    * classementtest.py
+    * orderedlinkedlisttest.py
+    * README.txt
+
+    Vous disposez des fichiers suivants afin de vous aider:
+
+    * `classement.py </course/LSINF1101-PYTHON/REAL11/classement.py>`_
+
+    * `coureur.py </course/LSINF1101-PYTHON/REAL11/coureur.py>`_
+
+    * `main.py </course/LSINF1101-PYTHON/REAL11/main.py>`_
+
+    * `resultat.py </course/LSINF1101-PYTHON/REAL11/resultat.py>`_
+
+    * `temps.py </course/LSINF1101-PYTHON/REAL11/temps.py>`_
+
+    * `test_coureur.py </course/LSINF1101-PYTHON/REAL11/test_coureur.py>`_
+
+    * `linked_list.py </course/LSINF1101-PYTHON/REAL11/linked_list.py>`_
+
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 11: Phase de réalisation'
+network_grading: false
+order: 133
+problems:
+    README:
+        name: 'Phase de réalisation de la Mission 11: README.TXT'
+        type: file
+        header: Soumettez ici la documentation destinée aux utilisateurs de votre
+            programme et vos notes dans le fichier README.txt.
+        allowed_exts:
+        - .txt
+        - .TXT
+    classement:
+        header: Soumettez ici votre programme.
+        allowed_exts:
+        - .py
+        name: 'Phase de réalisation de la Mission 11: classement.py'
+        type: file
+    orderedlinkedlist:
+        type: file
+        name: 'Phase de réalisation de la Mission 11: orderedlinkedlist.py'
+        header: Soumettez ici votre programme.
+        allowed_exts:
+        - .py
+    test:
+        header: Soumettez ici votre fichier de tests.
+        name: 'Phase de réalisation de la Mission 11: classementtest.py'
+        type: file
+        allowed_exts:
+        - .py
+    orderedlinkedlisttest:
+        allowed_exts:
+        - .py
+        header: Soumettez ici votre fichier de tests.
+        type: file
+        name: 'Phase de réalisation de la Mission 11: orderedlinkedlisttest.py'
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

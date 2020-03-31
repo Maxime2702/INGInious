@@ -1,0 +1,396 @@
+accessible: 2018-10-12 12:00:00/
+author: Tanguy De Bels & Siegfried Nijssen
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: mcq
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 4: QCM'
+network_grading: false
+order: 32
+problems:
+    q1:
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                   def f():
+                      return "Numéro: " + str(12) + "." + str(33)
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                   def f():
+                      return "Numéro: " + str(12.330)
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                   def f():
+                      return "Numéro: {0}".format ( 12.33 )
+            valid: true
+        -   feedback: 'Le résultat est "Numéro: 12.333333333333334"'
+            text: |-
+                .. code-block:: python
+
+                   def f():
+                      return "Numéro: {0}".format ( 12 + 1/3 )
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                   def f():
+                      return "Numéro: {0:.2f}".format ( 12 + 1/3 )
+        -   text: |-
+                .. code-block:: python
+
+                   def f():
+                      return "Numéro: {0:.4f}".format ( 12 + 1/3 )
+            feedback: 'Vérifiez ``.4f``; le résultat est "Numéro: 12.3333"'
+        -   text: |-
+                .. code-block:: python
+
+                   def f():
+                      return "Numéro: {0:<.2}".format ( 12 + 1/3 )
+            feedback: Vérifiez ``:<.2``; cela n'est pas une expression valide.
+        name: Chaînes (1)
+        header: |-
+            Python offre plusieurs approches pour créer des chaînes de caractères.
+            On veut créer la chaîne ``"Numéro: 12.33"``. Lesquelles
+            des fonctions ci-dessous retourne cette chaîne de caractères?
+        multiple: true
+        limit: 0
+        type: multiple_choice
+    q2:
+        choices:
+        -   feedback: Vérifiez les indexes, ce programme renvoit juste ``e``.
+            text: |-
+                .. code-block:: python
+
+                    def f():
+                        s = "abcdefegh"
+                        return s[4:5]
+        -   text: |-
+                .. code-block:: python
+
+                    def f():
+                        s = "abcdefegh"
+                        return s[4:6]
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                    def f():
+                        s = "abcdefegh"
+                        return s[-3:-4]
+            feedback: Vérifiez les indexes, ce code renvoit un string vide.
+        -   text: |-
+                .. code-block:: python
+
+                    def f():
+                        s = "abcdefegh"
+                        return s[-3:-5]
+            feedback: Vérifiez les indexes, ce code renvoit un string vide.
+        -   feedback: Vérifiez les indexes, ce code renvoit un ``f``.
+            text: |-
+                .. code-block:: python
+
+                    def f():
+                        s = "abcdefegh"
+                        return s[-4:-3]
+        -   text: |-
+                .. code-block:: python
+
+                    def f():
+                        s = "abcdefegh"
+                        return s[-5:-3]
+            valid: true
+        limit: 0
+        multiple: true
+        type: multiple_choice
+        header: Quel fonction retourne la chaîne ``"ef"``?
+        name: Chaînes (2)
+    q3:
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                   def ab(s):
+                     return s == "ab"
+            feedback: Cette fonction accepte seulement "ab"
+        -   feedback: Cette fonction va seulement accepter les chaînes "a" et "b",
+                mais pas "ab", "ba", ...
+            text: |-
+                .. code-block:: python
+
+                   def ab(s):
+                     return ( s in ["a","b"] )
+        -   text: |-
+                .. code-block:: python
+
+                   def ab(s):
+                     for c in s:
+                       if c in "ab":
+                         return True
+                     return False
+            feedback: 'Qu''en est-il pour la chaîne: ``''aecba''``?'
+        -   text: |-
+                .. code-block:: python
+
+                   def ab(s):
+                     for c in s:
+                       if c in ["a","b"]:
+                         return True
+                     return False
+            feedback: 'Vérifiez si la fonction s''arrête dans les conditions requises.
+                Qu''en est-il pour la chaîne: ``''aecba''``?'
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                   def ab(s):
+                     for c in s:
+                       if c not in ["a","b"]:
+                         return False
+                     return True
+        -   text: |-
+                .. code-block:: python
+
+                   def ab(s):
+                     for c in s:
+                       if c not in "ab":
+                         return False
+                     return True
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                   def ab(s):
+                     for c in s:
+                       if c != "a" and c !="b":
+                         return False
+                     return True
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                   def ab(s):
+                     for c in s:
+                       if c == "a" or c =="b":
+                         return True
+                     return False
+            feedback: 'Vérifiez si la fonction s''arrête dans les conditions requises.
+                Qu''en est-il pour la chaîne: ``''aecba''``?'
+        type: multiple_choice
+        header: |
+            Laquelle des fonctions ci-dessous est une implémentation de la spécification suivante
+
+            .. code-block:: python
+
+             """
+             pre: une chaîne s
+             post: retourne True lorsque s contient une chaîne composée de caractères a et b; sinon, False
+             """
+        limit: 0
+        multiple: true
+        name: Fonctions retournant un booléen
+    q4:
+        multiple: true
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                   def ranget2(n):
+                      return list(range(n+1)) * 2
+            feedback: Ce code execute, mais a un tout autre résultat. Il renverra
+                [0, ..., n, 0, ..., n]
+        -   text: |-
+                .. code-block:: python
+
+                   def ranget2(n):
+                     l = []
+                     for i in range(n+1):
+                       l = l + i * 2
+                     return l
+            feedback: On ne peut pas ajouter un nombre entier à une liste. On peut
+                seulement ajouter des listes à des listes (``l = l + [ i * 2 ]`` serait
+                correcte)
+        -   text: |-
+                .. code-block:: python
+
+                   def ranget2(n):
+                     l = []
+                     for i in range(n+1):
+                       l.add ( i * 2 )
+                     return l
+            feedback: Vérifie que la fonction ``add`` existe.
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                   def ranget2(n):
+                     l = []
+                     for i in range(n+1):
+                       l.append ( i * 2 )
+                     return l
+        -   text: |-
+                .. code-block:: python
+
+                   def ranget2(n):
+                     return [ i * 2 for i in range(n+1) ]
+            valid: true
+        header: |4
+
+            Laquelle des fonctions ci-dessous est une implémentation de la spécification suivante
+
+            .. code-block:: python
+
+             """
+             pre: un nombre entier n >= 0
+             post: retourne la liste [0,2,4,...,n*2]
+             """
+        limit: 0
+        name: Retourner une liste
+        type: multiple_choice
+    q5:
+        choices:
+        -   feedback: Une liste de caractères n'est pas une chaîne...
+            text: |-
+                .. code-block:: python
+
+                    def replace(c,a,b):
+                      if c == a:
+                        return b
+                      else:
+                        return c
+
+                    def modify(l,a,b):
+                      for i in range(len(l)):
+                        l[i] = [ replace(c,a,b) for c in l[i] ]
+        -   text: |-
+                .. code-block:: python
+
+                    def replace(c,a,b):
+                      if c == a:
+                        return b
+                      else:
+                        return c
+
+                    def modify(l,a,b):
+                      for i in range(len(l)):
+                        l[i] = "".join ( [ replace(c,a,b) for c in l[i] ] )
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                    def replace(s,a,b):
+                      new_s = ""
+                      for c in s:
+                        if c == a:
+                          new_s = new_s + b
+                        else:
+                          new_s = new_s + a
+                      return new_s
+
+                    def modify(l,a,b):
+                      for i in range(len(l)):
+                        l[i] = replace(l[i],a,b)
+            feedback: On souhaite se débarasser des caractères a. Est-ce réellement
+                le cas ici?
+        -   text: |-
+                .. code-block:: python
+
+                    def replace(s,a,b):
+                      new_s = ""
+                      for c in s:
+                        if c == a:
+                          new_s = new_s + b
+                        else:
+                          new_s = new_s + a
+                      return new_s
+
+                    def modify(l,a,b):
+                      new_l = []
+                      for s in l:
+                        new_l.append(replace(s,a,b))
+                      return new_l
+            feedback: Est-ce que cette fonction modifie la liste donnée? Est-ce que
+                ``replace`` est correcte?
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    def replace(s,a,b):
+                      new_s = ""
+                      for c in s:
+                        if c == a:
+                          new_s = new_s + b
+                        else:
+                          new_s = new_s + c
+                      return new_s
+
+                    def modify(l,a,b):
+                      for i in range(len(l)):
+                        l[i] = replace(l[i],a,b)
+        -   feedback: Est-ce que cette fonction modifie la liste donnée?
+            text: |-
+                .. code-block:: python
+
+                    def replace(s,a,b):
+                      new_s = ""
+                      for c in s:
+                        if c == a:
+                          new_s = new_s + b
+                        else:
+                          new_s = new_s + c
+                      return new_s
+
+                    def modify(l,a,b):
+                      new_l = []
+                      for s in l:
+                        new_l.append(replace(s,a,b))
+                      return new_l
+        header: |
+            Laquelle des fonctions ``modify`` ci-dessous est une implémentation de la spécification suivante
+
+            .. code-block:: python
+
+             """
+             pre: une liste de chaînes l, un caractère a et un caractère b
+             post: la liste l est modifié tant que chaque occurrence de caractère a dans les chaînes est remplacé par caractère b
+             """
+        multiple: true
+        type: multiple_choice
+        limit: 0
+        name: Modifiez une liste de chaînes
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

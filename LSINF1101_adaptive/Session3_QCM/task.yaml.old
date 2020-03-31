@@ -1,0 +1,300 @@
+accessible: 2018-10-05 12:00:00/
+author: Tanguy De Bels
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: mcq
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 3: QCM'
+network_grading: false
+order: 19
+problems:
+    q1:
+        name: Les nombres amicaux
+        header: |-
+            Deux nombres entiers positifs sont dits `amicaux <http://fr.wikipedia.org/wiki/Nombre_amical>`_ si la somme des diviseurs entiers de l'un est égal à la somme des diviseurs entiers de l'autre. Pour vérifier si deux nombres sont amicaux, le plus simple est d'utiliser une fonction qui calcule la somme des diviseurs entiers d'un nombre et d'ensuite comparer les deux sommes. Supposons que cette fonction existe et est définie comme suit :
+
+
+
+            .. code-block:: python
+
+                def sdiv(n):
+                    """
+                    pre : n>0
+                    post : retourne la somme des diviseurs entiers de n
+                    """
+                    # code non fourni
+
+            Laquelle des fonctions ci-dessous retourne-t-elle ``true`` lorsque les deux nombres passés en argument sont amicaux et ``false``  sinon ?
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                   def amical(a, b):
+                      sdiv1=sdiv(a)
+                      sdiv2=sdiv(b)
+                      return sdiv1==sdiv2
+            valid: true
+        -   feedback: Cette méthode ne renvoit rien.
+            text: |-
+                .. code-block:: python
+
+                   def amical(a, b:
+                      sdiv1=sdiv(a)
+                      sdiv2=sdiv(b)
+        -   text: |-
+                .. code-block:: python
+
+                   def amical(a, b:
+                      sdiv1=sdiv(a)
+                      sdiv2=sdiv(b)
+                      print(sdiv1==sdiv2)
+            feedback: Cette méthode ne renvoit rien, elle print juste.
+        limit: 0
+        type: multiple_choice
+    q2:
+        choices:
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    def affiche(n):
+                        caract = 'X'
+                        print(caract*n)
+        -   text: |-
+                .. code-block:: python
+
+                    def affiche(n):
+                        caract = 'X'
+                        return caract*n
+            feedback: Cela affiche-t-il quoi que ce soit?
+        -   text: |-
+                .. code-block:: python
+
+                    def affiche(n)
+                        caract = 'X'
+                        print(caract*n)
+            feedback: Ne manque-t-il pas un point important de la définition d'une
+                fonction?
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    def affiche(n):
+                        caract = 'X'
+                        line = ''
+                        for j in range(n):
+                            line += caract
+                        print(line)
+        -   feedback: Cela affiche-t-il quoi que ce soit? Et l'appel à la fonction
+                ``affiche`` va-t-il réellement faire quelque chose?
+            text: |-
+                .. code-block:: python
+
+                    def afiche(n):
+                        caract = 'X'
+                        return caract*n
+        limit: 0
+        type: multiple_choice
+        header: |-
+            Un étudiant souhaite une fonction ``affiche`` permettant d'afficher ``n`` fois le caractère ``X`` à l'écran. La spécification de cette méthode est
+
+            .. code-block:: python
+
+             """
+             pre: n>0
+             post: affiche n fois le caractère 'X' sur une ligne
+             """
+
+
+            Il souhaite pouvoir utiliser cette fonction de la façon suivante :
+
+
+
+            .. code-block:: python
+
+                n=17
+                affiche(n)
+
+            Lors de son exécution, cette fonction affiche à l'écran
+
+            .. code-block:: python
+
+                XXXXXXXXXXXXXXXXX
+
+            Parmi les fonctions définies ci-dessous, laquelle est une implémentation (entête et corps) correct de cette fonction ``affiche`` ?
+        name: Fonctions permettant d'afficher
+    q3:
+        type: multiple_choice
+        choices:
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                   def pair(n):
+                     reste=n%2
+                     return (reste==0)
+        -   text: |-
+                .. code-block:: python
+
+                   def pair(n):
+                     reste=n%2
+                     pair = reste==0
+                     return pair
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                   def pair(n):
+                     reste=n%2
+                     return (reste!=0)
+            feedback: Cette fonction fait l'inverse de ce qui est demandé.
+        -   text: |-
+                .. code-block:: python
+
+                   def pair(n):
+                     reste=n%2
+                     return (reste=0)
+            feedback: '``reste=0`` est une affectation et non une expression booléenne
+                que l''on peut passer comme argument à ``return``.'
+        -   feedback: Cette fonction fait l'inverse de ce qui est demandé et ne renverra
+                jamais ``True``.
+            text: |-
+                .. code-block:: python
+
+                   def pair(n):
+                     reste=n%2
+                     if reste==0:
+                         return False
+        header: |
+            Lorsque l'on doit manipuler des conditions complexes dans une instruction conditionnelle ou une boucle, il peut être intéressant d'écrire des méthodes qui retournent un booléen. Sachant que l'expression ``a%b`` retourne le reste de la division euclidienne de la valeur de la variable entière ``a`` par ``b``, laquelle des fonctions ci-dessous est-elle une implémentation de la spécification suivante
+
+            .. code-block:: python
+
+             """
+             pre: n>0
+             post: retourne true lorsque le nombre passé en argument est pair et false dans le cas contraire
+             """
+        limit: 0
+        name: Fonctions retournant un booléen
+    q4:
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                   def max(a, b):
+                      if a > b:
+                          return a
+                      else:
+                          return b
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                   def max(a, b:
+                      if a > b:
+                          return a
+                      else:
+                          return b
+            feedback: Une parenthèse est manquante, il va y avoir un problème de compilation.
+        -   text: |-
+                .. code-block:: python
+
+                   def max(a, b):
+                      if a <= b:
+                          return a
+                      else:
+                          return b
+            feedback: Cette méthode renvoit le minimum.
+        header: |
+            Python dispose de nombreuses fonctions built-in disponibles. Vous trouverez notamment la méthode ``max(a, b)`` qui calcule le maximum entre les deux nombres passés en argument. Laquelle des méthodes ci-dessous est-elle une implémentation de la spécification suivante
+
+            .. code-block:: python
+
+             """
+             pre: -
+             post: retourne le maxium entre les deux réels passés en arguments
+             """
+        limit: 0
+        name: Calcul du maximum
+        type: multiple_choice
+    q5:
+        choices:
+        -   feedback: '``c`` n''est jamais défini.'
+            text: |-
+                .. code-block:: python
+
+                    def absval(n):
+                        if c < 0.0:
+                            return -c
+                        else:
+                            return c
+        -   text: |-
+                .. code-block:: python
+
+                    def absval(c):
+                        if c < 0:
+                            return -c
+                        else:
+                            return c
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                    def absval(n):
+                        return abs(n)
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                    def absval(n):
+                        if n < 0.0:
+                            return -n
+                        else:
+                            return n
+            valid: true
+        header: |
+            Dans le programme Python suivant, un étudiant souhaite utiliser une fonction ``absval`` permettant de calculer la valeur absolue d'un nombre.
+
+            Plusieurs réponses sont correctes.
+
+            .. code-block:: python
+
+                i=1401
+                d=-112.4
+                j=d+absval(2*d)
+        multiple: true
+        type: multiple_choice
+        limit: 0
+        name: Calcul de la valeur absolue
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

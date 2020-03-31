@@ -1,0 +1,360 @@
+accessible: true
+author: Tanguy De Bels
+categories:
+- Type
+- Variable
+- Expression
+- Instruction_simple
+- Condition
+- Instruction_conditionnelle
+- While
+- Boucle
+contact_url: ''
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 1: QCM'
+network_grading: false
+order: 1
+problems:
+    qcm1:
+        type: multiple_choice
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    my var1 = 7
+                    my var2 = 6
+                    print(my var1 * my var2)
+            feedback: |-
+                In the Python language, whitespace in a variable's name is not allowed.
+
+                You can compensate with:
+
+                -CamelCasing: myVar
+
+                -Underscores: my_var (prefered Python naming conventions)
+        -   text: |-
+                .. code-block:: python
+
+                    my_Var1 = 35
+                    my_var2 = 7
+                    print(my_var1 + my_Var2)
+            feedback: You should pay attention to the name of your variable since
+                Python is case-sensitive.
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    my_var1 = '4'
+                    my_var2 = '2'
+                    print(my_var1 + my_var2)
+        limit: 3
+        header: Pick the piece of code which will print 42.
+        name: Variable assignment
+    qcm10:
+        choices:
+        -   text: |-
+                .. code:: python
+
+                    if x <= a and x < b:
+                        print('true')
+            feedback: Is there any way for ``x`` to be between ``a`` and ``b`` with
+                this condition?
+        -   feedback: What happens if ``x == a`` ?
+            text: |-
+                .. code:: python
+
+                    if a < x and x < b:
+                        print('true')
+        -   valid: true
+            text: |-
+                .. code:: python
+
+                    if a <= x and x < b:
+                        print('true')
+        name: Intervals
+        type: multiple_choice
+        limit: 0
+        header: In mathematics, we define intervals, closed, open and semi-open. The
+            semi-open interval :math:`[3,7[` includes all real numbers that are greater
+            than or equal to `3` and strictly less than 7. Which of the following
+            code fragments display ``true`` on the standard output if and only if
+            ``x`` belongs to the interval :math:`[a, b[` ? We assume for this question
+            that the value stored in the variable ``a`` is strictly less than the
+            one stored in the ``b`` variable.
+    qcm11:
+        choices:
+        -   feedback: The result of the division is 14.333333334
+            text: |-
+                .. code-block:: python
+
+                    print(43/3)
+        -   text: |-
+                .. code-block:: python
+
+                    to_print = '1'
+                    print(to_print + 4)
+            feedback: You cannot concatenate a string and an int.
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    print(43//3)
+        header: Which of the following code fragments prints 14?
+        name: Operators usages
+        limit: 0
+        type: multiple_choice
+    qcm2:
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    i = 0
+                    sum = 0
+                    while i < n:
+                        sum = sum+i
+                        i+=1
+            feedback: The correct answer is not attained. Didn't you forget an iteration?
+        -   text: |-
+                .. code-block:: python
+
+                    i = n
+                    sum = 0
+                    while i <= n:
+                        sum = sum+i
+                        i-=1
+            feedback: Your loop will never end. Check your condition.
+        -   feedback: The indentation is an extremelly important part of coding in
+                Python since it allows to know in which block the statement is executed.
+                Are ``i`` and ``sum`` supposed to be assigned in a block before the
+                loop?
+            text: |-
+                .. code-block:: python
+
+                        i = 1
+                        sum = 0
+                    while i < n:
+                        sum = sum+i
+                        i+=1
+        -   text: |-
+                .. code-block:: python
+
+                    i = 1
+                    sum = 0
+                    while i <= n:
+                        sum = sum+i
+                        i+=1
+            valid: true
+        type: multiple_choice
+        header: Which of the following code fragments calculates the sum of the first
+            ``n`` positive integers?
+        limit: 4
+        name: While loops
+    qcm4:
+        type: multiple_choice
+        choices:
+        -   feedback: The indentation is an extremelly important part of coding in
+                Python since it allows to know in which block the statement is executed.
+                In this case your program will meet an unexpected indentation.
+            text: |
+                .. code-block:: python
+
+                    >>> x = 4
+                    >>> y = 'test'
+                    >>> z = 8
+                    >>>     print(x)
+        -   text: |-
+                .. code-block:: python
+
+                    >>> x = 4
+                    >>> x = 'test'
+                    >>> z = 8
+                    >>> print(x)
+                    4
+            feedback: |-
+                Since there is no type in Python a variable can contain as well an integer as text.
+
+                test would be print with this code fragment.
+        -   text: |-
+                .. code-block:: python
+
+                    >>> x = 4
+                    >>> y = 'test'
+                    >>> z = 8
+                    >>> print(x)
+                    4
+            valid: true
+        header: Which of the following program fragments respects the syntax and semantics
+            of the language?
+        limit: 0
+        name: Python syntax
+    qcm5:
+        type: multiple_choice
+        choices:
+        -   feedback: The comment is enclosed in a string.
+            text: |-
+                .. code-block:: python
+
+                    for i in range(0,5):
+                        print("#This is a comment")
+        -   text: |-
+                .. code-block:: python
+
+                    for i in range(0,5):
+                        print(i) # This is a comment
+            valid: true
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    """ This is a comment """
+                    for i in range(0,5):
+                        print(i)
+            feedback: It is correct BUT don't use triple-quotes; this is for documentation
+                strings not block comments, although it has a similar effect it is
+                best practice to use ``#``
+        header: Check the snippets which contain a valid comment.
+        limit: 0
+        name: Comments in Python
+    qcm7:
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    b = a
+                    a = b
+            feedback: By doing it this way you will lose the value contained in ``b``
+                and the value of ``a`` will be stored in the 2 variables.
+        -   feedback: |-
+                This would work but it is more efficient and clear to do it with this little trick:
+
+                .. code-block:: python
+
+                    a,b = b,a
+            text: |-
+                .. code-block:: python
+
+                    c = b
+                    b = a
+                    a = c
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                    a,b = b,a
+            valid: true
+        limit: 0
+        type: multiple_choice
+        header: |-
+            It is often useful to be able to swap values between variables. Consider the following variables:
+
+            .. code-block:: python
+
+                a = 42
+                b = 41
+
+            Which of following code fragments swap the values correctly?
+        name: Exchange variables values
+    qcm8:
+        header: 'Consider a program that manipulates two variables: ``a`` and ``b``
+            . Among the code fragments below, which one correctly stores in the variable
+            ``min`` the minimum of the contents of the variables ``a`` and ``b`` ?'
+        choices:
+        -   feedback: The maximum is stored in min instead of the minimum with this
+                code.
+            text: |
+                .. code-block:: python
+
+                    if a > b:
+                        min = a
+                    else:
+                        min = b
+        -   text: |
+                .. code-block:: python
+
+                    if a > b:
+                    min = a
+                    else:
+                    min = b
+            feedback: The indentation is an extremelly important part of coding in
+                Python since it allows to know in which block the statement is executed.
+                What is executed in this case if the condition is verified?
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    if a > b:
+                        min = b
+                    else:
+                        min = a
+        name: Calculate min
+        type: multiple_choice
+        limit: 0
+    qcm9:
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    if x == 0:
+                        abs = x
+                    else:
+                        abs = -x
+            feedback: What happens if ``x`` is a positive integer?
+        -   feedback: You should consider carefully the condition used to store `-x`
+                in  ``abs`` .
+            text: |-
+                .. code-block:: python
+
+                    if x > 0:
+                        abs = -x
+                    else:
+                        abs = x
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    if x < 0:
+                        abs = -x
+                    else:
+                        abs = x
+        limit: 0
+        name: Absolute value
+        header: Which of these code fragments places in the variable ``abs`` the absolute
+            value of ``x`` ?
+        type: multiple_choice
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

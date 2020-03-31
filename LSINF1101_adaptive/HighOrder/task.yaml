@@ -1,0 +1,67 @@
+accessible: false
+author: Luis Tascon Gutierrez
+categories: []
+contact_url: ''
+context: |-
+    Your roommate is studying in high school to become a primary school teacher. She has to teach the multiplication tables to her children in her internship.
+
+    You're kind and you decided to help her. So you decided to create a list that return all the multiplication tables that she want.
+
+    You have to implement a function ``mult_table(n)`` wich gives you a list of functions from 0 to n (included) that compute the multiplication table of the index.
+
+    For exemple, you execute ``l = mult_table(5)`` and you receive a list of 5 functions (it has to be lambdas) where ``l[3]`` is a function that compute the multiplication table of 3 (``x = l[3](6)`` gives you 3*6).
+
+    *Note: if you want to capture an outside variable for your lambda you can define a parameter that does not change. exemple: ``lambda x,y=i:x+y``*
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session X: Q* High Order - Lambda'
+network_grading: false
+order: 100
+problems:
+    q1:
+        header: |-
+            Provide the body of the following method
+
+            .. code-block:: python
+
+                def mult_table(n):
+        name: Implementation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

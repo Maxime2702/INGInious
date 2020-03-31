@@ -1,0 +1,58 @@
+accessible: true
+author: ''
+categories: []
+contact_url: ''
+context: Ecrivez le corps de la fonction ``plus_frequent(l)`` qui retourne l'élément
+    le plus fréquemment présent dans la liste ``l``.  Si la liste contient des éléments
+    différents avec le même nombre maximal d'occurences, retourne le premier trouvé
+    de gauche à droite dans la liste.
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Examen à blanc: élément le plus fréquent'
+network_grading: false
+order: 144
+problems:
+    question:
+        default: ''
+        type: code
+        language: python
+        name: plus_frequent
+        header: |-
+            Ecrivez ici le corps de la méthode ``plus_frequent``.
+
+            .. code-block:: python
+
+                def plus_frequent(l):
+                    """
+                    pre: `l` est une liste, len(l) > 0
+                    post: retourne l'élément qui se trouve le plus grand nombre de fois
+                        dans la liste `l` (nombre d'ocurrences égales au sens de ==).  Si
+                        plusieurs éléments différents apparaissent un plus grand nombre égal
+                        de fois, retourne le premier apparaissant dans la liste.
+                    """
+                    ### VOTRE REPONSE
+    ztest:
+        default: ''
+        language: python
+        optional: 'on'
+        name: Tests
+        header: |-
+            Insérez votre code de test optionnel ci-dessous. Vous pouvez utiliser ``print`` pour tester votre programme. Votre code de test est exécuté à la suite de la définition de ``plus_frequent``.  Exemple:
+
+            .. code-block:: python
+
+                 print(plus_frequent([1,2,3,1,2,2]))                # 2
+        type: code
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

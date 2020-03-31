@@ -1,0 +1,86 @@
+accessible: false
+author: Damien Gonze
+categories: []
+context: |-
+    As the new manager of an Amazon dispatch center, you have to create a class to represent the commands.
+
+    A command have the following attributes :
+
+    * the id of the buyer
+
+    * the id of the item
+
+    * the quantity of the item
+
+    * the price of the item
+
+    And must have the following methods :
+
+    * ``get_price()`` : return the total price of the command
+
+    * ``__str__()`` : return the command on the format : id_buyer, id_item : price * quantity = (price*quantity)
+
+    *Example* : "12, 32 : 5 * 20 = 100"
+
+    There must also be class methods :
+
+    * ``get_number_total_commad()`` : return the total number of commands made
+
+    * ``get_total_price()`` : return the total price of all the commands
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 10: Q* Amazon dispatch center'
+network_grading: false
+order: 118
+problems:
+    q1:
+        default: ''
+        language: python
+        name: Implementation
+        type: code
+        header: |-
+            Implement the class ``Command`` and the two methods in Python.
+
+            We will create the object with:
+
+            ``command = Command(id_buyer, id_item, quantity_item, price_item)``
+
+            and call the class method with:
+
+            ``command.get_number_total_command()``
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

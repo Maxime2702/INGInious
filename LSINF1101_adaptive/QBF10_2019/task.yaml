@@ -1,0 +1,122 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    Soient une classe ``Robot``, ainsi que diverses classes héritant de ``Robot`` de différentes manières. Notamment la classe ``XYRobot`` qui affiche les déplacements d'un robot sur un plan XY en utilisant la librairie ``graphics.py``, et la classe ``TurtleBot`` qui fait pareil en utilisant la librairie ``turtle``. Voici une implémentation de la classe ``Robot`` :
+
+    .. code-block:: python
+
+        class Robot :
+
+            def __init__(self,n) :
+                self.__nom = n           # nom du robot
+                self.__history = []      # mémoire du robot
+
+            def getnom(self) :
+                return self.__nom
+
+            def __str__(self) :
+                return str(self.getnom())
+
+            def getHistory(self) :
+                return self.__history
+
+            def addHistory(self,action) :
+                self.__history.append(action)
+
+            def clearHistory(self) :
+                self.__history = []
+
+            def moveforward(self,distance) :
+                self.addHistory(("forward",distance))
+
+            def movebackward(self,distance) :
+                self.addHistory(("backward",distance))
+
+            def turnright(self) :
+                self.addHistory(("right",90))
+
+            def turnleft(self) :
+                self.addHistory(("left",90))
+
+            def __undoAction(self,action) :
+                # le paramètre action est un tuple comme ("right",90), etc.
+                operation = action[0]
+                parameter = action[1]
+                if operation == "forward" :
+                    self.movebackward(parameter)
+                elif operation == "backward" :
+                    self.moveforward(parameter)
+                elif operation == "right" :
+                    self.turnleft()
+                elif operation == "left" :
+                    self.turnright()
+
+            def unplay(self) :
+                history = self.getHistory()
+                for i in range(len(history), 0, -1) : # parcours la liste dans l'ordre inverse
+                    self.__undoAction(history[i-1])
+                self.clearHistory() # vide l'historique après avoir annulé les actions
+
+    Vous souhaitez créer un nouveau type de robot-miroir qui en combine deux autres. Ces deux robots fonctionnent en miroir, c'est-à-dire que lorsque l'un des deux avance d'une certaine distance, l'autre recule de la même distance. Et lorsque l'un se tourne dans un sens, l'autre se tourne dans l'autre sens.
+
+    Ce robot-miroir est lui-même un type de robot. Vous décidez dès-lors d'en faire une classe fille de ``Robot``. La méthode d'initialisation du robot-miroir est donnée dans le code suivant :
+
+    .. code-block:: python
+
+        class MirrorRobot(Robot):
+
+            def __init__(self, robot1, robot2):
+                name = robot1.getnom() + " | " + robot2.getnom()
+                super().__init__(name)
+                self.r1 = robot1
+                self.r2 = robot2
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 10: QBF'
+network_grading: false
+order: 128
+problems:
+    q1:
+        header: Implémentez les méthodes à redéfinir dans la classe ``MirrorRobot``.
+        name: Implémentation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

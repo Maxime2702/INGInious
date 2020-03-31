@@ -1,0 +1,12 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+def forbid_sorted(list):
+    raise AttributeError(_("Nice try! But 'sorted' has been disabled for list objects.\n"
+                         "\t\tPlease write an actual algorithm sorting the list."))
+
+def sorter(a_list):
+    sorted = forbid_sorted
+@    @q1@@
+    return sorted_list

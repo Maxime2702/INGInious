@@ -1,0 +1,55 @@
+accessible: 2018-10-05 12:00:00/
+author: Tanguy De Bels
+context: |-
+    Ecrivez l'en-tête et le corps d'une fonction baptisée ``afficheMax`` qui prend deux nombres entiers comme arguments et affiche le plus grand de ces nombres. La spécification de cette fonction est :
+
+    .. code-block:: python
+
+        pre: --
+        post: affiche le maximum entre les nombres entiers `a` et `b`
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 3: Maximum'
+network_grading: false
+order: 20
+problems:
+    q1:
+        language: python
+        name: Implémentation
+        header: ' '
+        type: code
+        default: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

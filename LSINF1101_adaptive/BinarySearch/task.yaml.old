@@ -1,0 +1,73 @@
+accessible: 2018-10-19 12:00:00/
+author: Tanguy De Bels
+context: |-
+    Supposez que, pour la liste suivante on veut trouver les étudiants d'un cours:
+
+    .. code-block:: python
+
+          [('LINFO1101', ['Jean', 'Pierre']),('LINFO1110', ['Jean']), ('LINFO1111', ['Jean']), ('LINFO1112', ['Jacques', 'Pierre']), ('LINFO1113', ['Pierre'])]
+
+    Donnez un algorithme ``binary_search(course,list_of_courses)`` pour trouver tous les étudiants d'un cours dans cette structure de données. Si le cours n'a pas d'étudiant ou n'existe pas, renvoyez une liste vide. Copiez le code du cours de la recherche binaire et modifiez-le.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 5: Recherche binaire'
+network_grading: false
+order: 53
+problems:
+    q1:
+        name: Implémentation
+        type: code
+        header: Implémentez la fonction ``binary_search(course, list_of_courses)``
+            en Python en vous basant sur celle vu dans la théorie (ci-dessous).
+        language: python
+        default: |-
+            def binary_search ( name, list_of_names ):
+                first = 0
+                last = len(list_of_names)-1
+                found = False
+
+                while first<=last and not found:
+                    middle = (first + last)//2
+                    if list_of_names[middle] == name:
+                        found = True
+                    else:
+                        if name < list_of_names[middle]:
+                            last = middle-1
+                        else:
+                            first = middle+1
+
+                return found
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

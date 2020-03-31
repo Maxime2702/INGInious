@@ -1,0 +1,135 @@
+#! /usr/bin/python3
+# -*- coding: utf-8 -*-
+
+import subprocess
+import shlex
+import sys
+import os
+import re
+
+from inginious import feedback
+from inginious import rst
+from inginious import input
+
+
+# This runner suits for exam exercises of LSINF1101/FSAB1401
+# Should be adapted if used in another occasion
+
+
+def compute_code(exam):
+    """
+        Fills the template file with the student answer
+        Returns the task's number of questions
+        
+        :param exam: the code is running during exam
+    """
+    file = {True: 'q', False: 'qtest'}[exam]
+    input.parse_template('./src/Templates/' + file, './student/' + file + '.py')
+    data = input._load_input()
+    return len([k for k in data['input'].keys() if '@' not in k])
+
+
+def compile_code(exam):
+    """
+        Compiles both the student code and the exercise code
+        Provides feedback if there is any compilation error
+    """
+    pyc_cmd = "python3 ../course/common/compiler.py "
+    if exam:
+        with open('log.out', 'w+', encoding="utf-8") as f:
+            subprocess.call(shlex.split(pyc_cmd + '../course/common/'), universal_newlines=True, stderr=f)
+            subprocess.call(shlex.split(pyc_cmd + './src/'),universal_newlines=True, stderr=f)
+            subprocess.call(shlex.split(pyc_cmd + './student/'), universal_newlines=True, stderr=f)
+            f.seek(0)
+            out_student = f.read()
+        if out_student != "":
+            rawhtml = rst.get_codeblock("", out_student)
+            feedback.set_global_result('failed')
+            feedback.set_global_feedback("Quelque chose s'est mal déroulé.\n" + rawhtml)
+            sys.exit(0)
+
+        os.remove('./student/q.py')
+
+
+    else:
+        with open('logTests.out', 'w+', encoding="utf-8") as f:
+            subprocess.call(shlex.split(pyc_cmd + '../course/common/'), universal_newlines=True, stderr=f)
+            subprocess.call(shlex.split(pyc_cmd + './src/'), universal_newlines=True, stderr=f)
+            f.seek(0)
+            out_tests = f.read()
+
+        if out_tests != "":
+            rawhtml = rst.get_codeblock("", out_tests)
+            feedback.set_global_result('failed')
+            feedback.set_global_feedback("The program does not compile for external reasons,"
+                                            "please contact an administrator asap: \n " + rawhtml + "\n")
+            sys.exit(0)
+
+        # os.remove('./student/qtest.py') # Different template for evaluation
+
+
+def run_code(n_exercises, exam):
+    """
+        Runs the student code with the tests
+        Provides feedback if it contains errors
+
+        :param n_exercises: the task's number of exercices
+        :param exam: the code is running during exam
+    """
+    with open('err.txt', 'w+', encoding="utf-8") as f:
+        os.chdir('./student')
+        py_cmd = "run_student --time 30 python3 ./ExamRunner.pyc " + str(exam)
+        try:
+            resproc = subprocess.Popen(shlex.split(py_cmd), universal_newlines=True, stderr=f, stdout=subprocess.PIPE)
+            out, err = resproc.communicate()
+            result = resproc.returncode
+        except (IOError, BrokenPipeError):
+            result = 252
+        f.flush()
+        f.seek(0)
+        errors = f.read()
+        print(errors)
+        outerr = rst.get_codeblock("", errors)
+
+    # expected error code: 252=outofmemory, 253=timedout
+    # 127 = code returned by our runner
+    if result == 252:
+        feedback.set_global_result('overflow')
+        feedback.set_global_feedback("La limite de mémoire de votre programme est dépassée")
+        sys.exit(0)
+    elif result == 253:
+        feedback.set_global_result('timeout')
+        feedback.set_global_feedback("La limite de temps d'exécution de votre programme est dépassée")
+        sys.exit(0)
+    if exam:
+        
+        if errors:
+            feedback.set_global_result('failed')
+            feedback.set_global_feedback("Il semble que votre code comprenne des erreurs.Voici la sortie de votre méthode de test:"+rst.get_codeblock("", errors) + "\n")
+        else:
+            feedback.set_global_result('success')
+            if out:
+                out = rst.get_codeblock("python", out)
+            feedback.set_global_feedback("Bravo, votre code compile.Voici la sortie de votre méthode de test:" + out + "\n")
+                
+        
+    else:   
+        try:
+            with open('grade.txt', 'r') as f:
+               grade = sum([float(line) for line in f])
+        except IOError:
+            grade = 0
+        if int(grade) == 100:
+            feedback.set_global_result('success')
+        else:
+            feedback.set_global_result('failed')
+            feedback.set_global_feedback("Il semblerait que vous ayez fait des erreurs dans votre code…\n\n" + outerr + "\n")
+            feedback.set_grade(grade)
+                
+
+
+if __name__ == '__main__':
+    during_exam = True     #Variable à modifier
+    num_exercises = compute_code(during_exam)
+    compile_code(during_exam)
+    run_code(num_exercises, during_exam)

@@ -1,0 +1,103 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+############################
+# CircularLinkedList class #
+############################
+
+class CircularLinkedList :
+    
+    ### BEGIN inner class Node ###
+
+    class Node:
+
+        def __init__(self, cargo=None, next=None):
+            """
+            Initialises a new Node object.
+            @pre:  -
+            @post: A new Node object has been initialised.
+                   A node can contain a cargo and a reference to another node.
+                   If none of these are given, the node is initialised with empty cargo (None) and no reference (None).
+            """
+            self.__cargo = cargo
+            self.__next  = next
+
+        def value(self):
+            """
+            Returns the value of the cargo contained in this node.
+            @pre:  -
+            @post: Returns the value of the cargo contained in this node, or None if no cargo  was put there.
+            """
+            return self.__cargo
+
+        def next(self):
+            """
+            Returns the next node to which this node links.
+            @pre:  -
+            @post: Returns the node to which this node is linked with its next pointer, or None if that pointer is None.
+            """
+            return self.__next
+
+        def set_next(self,node):
+            """
+            Sets the next node to which this node links to a new node.
+            @pre:  -
+            @post: The node to which this node is linked next, has been set to the new node passed as parameter.
+                   Can also be set to None by passing None as parameter.
+            """
+            self.__next = node
+
+        def __str__(self):
+            """
+            Returns a string representation of the cargo of this node.
+            @pre:  self is a (possibly empty) Node object.
+            @post: Returns a print representation of the cargo contained in this Node.
+            """
+            return str(self.value())
+    
+    ### END inner class Node ###
+    
+    def __init__(self):
+        """
+        Initialises a new empty circular linked list.
+        @pre:  -
+        @post: A new circular linked list with no nodes has been initialised.
+               The first pointer refers to None.
+        """
+        self.__first = None       # pointer to the first node in the circular linked list
+        self.__last = None        # pointer to the last node in the circular linked list
+
+    def first(self):
+        """Accessor method which returns the first node of this circular linked list.
+        @pre:  -
+        @post: Returns a reference to the first node of this circular linked list,
+               or None if the circular linked list contains no nodes.
+        """
+        return self.__first
+
+    def last(self):
+        """Accessor method which returns the last node of this circular linked list.
+        @pre:  -
+        @post: Returns a reference to the last node of this circular linked list,
+               or None if the circular linked list contains no nodes.
+        """
+        return self.__last
+
+    def add(self, cargo):
+        """ 
+        Adds a new Node with given cargo to the front of this circular linked list. 
+        @pre: self is a (possibly empty) CircularLinkedList.
+        @post: A new Node object is created with the given cargo.
+               This new Node is added to the front of the circular linked list.
+               The head of the list now points to this new node.
+               The last node now points to this new node.
+        """
+        node = self.Node(cargo,self.first())
+        self.__first = node
+        if self.last() == None :   # when this was the first element being added,
+            self.__last = node     # set the last pointer to this new node
+        self.last().set_next(node)
+
+@    @q1@@
+

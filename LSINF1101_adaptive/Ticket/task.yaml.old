@@ -1,0 +1,77 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Complétez la classe ``Ticket`` ci-dessous:
+
+    .. code-block:: python
+
+        """
+        Un ticket de parking
+        """
+        class Ticket :
+
+            __prochain_numero = 1  # variable de classe pour générer le numéro du ticket
+
+            def __init__(self) :
+                """
+                @pre  -
+                @post Crée un ticket avec un nouveau numéro.
+                      Les numéros sont attribués séquentiellement à partir de 1.
+                """
+                    # A COMPLETER
+
+            def numero(self):
+                """
+                @pre  -
+                @post retourne le numero de billet
+                """
+                return self.__numero
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 10: Ticket - Variable de classe'
+network_grading: false
+order: 115
+problems:
+    q1:
+        default: ''
+        language: python
+        name: Implémentation
+        type: code
+        header: Implémentez la fonction ``__init__`` de la clase ``Ticket`` en Python.
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

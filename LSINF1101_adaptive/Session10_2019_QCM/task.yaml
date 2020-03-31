@@ -1,0 +1,634 @@
+accessible: false
+author: Raziel CG
+categories: []
+contact_url: ''
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 10 : QCM'
+network_grading: false
+order: 125
+problems:
+    question-1:
+        choices:
+        -   feedback: Le préfixe ``__`` indique une variable privée.
+            text: 'On pourrait mettre à jour la variable d''instance ``__estCarnivore``
+                avec l''instruction suivante : ``giraffe.__estCarnivore = false``'
+        -   valid: true
+            text: La variable d'instance ``__estCarnivore`` est privée.
+        -   text: 'On pourrait mettre à jour la variable d''instance ``__estCarnivore``
+                avec l''instruction suivant : ``giraffe.__estCarnivore = False``'
+            feedback: Une variable privée n'est pas directement accessible dans les
+                sous-classes
+        -   valid: true
+            text: 'La variable d''instance ``__estCarnivore`` est privée et on ne
+                pourrait pas changer sa valeur avec l''instruction : ``giraffe.__estCarnivore
+                = False``'
+        -   text: Le programme termine avec une erreur dans l'instruction ``print(girafe)``.
+            feedback: Cette instruction ne pose pas de soucis
+        -   feedback: Non car la variable privée déclarée dans la classe mère n'a
+                pas été modifiée
+            text: Lors de l'instruction ``print(girafe)``  le programme affiche ``Je
+                ne mange pas de viande``.
+        -   valid: true
+            text: Lors de l'instruction ``print(girafe)``  le programme affiche ``Je
+                mange de la viande``
+        header: |-
+            Soit le programme suivant.
+
+            .. code-block:: python
+
+              class Animal:
+
+                def __init__(self):
+                  self.__estCarnivore = True
+
+                def __str__(self):
+                  if self.__estCarnivore:
+                    return 'Je mange de la viande'
+                  else :
+                    return 'Je ne mange pas de viande'
+
+              class Girafe(Animal):
+
+                def __init__(self):
+                  super().__init__()
+                  self.__estCarnivore = False
+
+
+              girafe = Girafe()
+              print(girafe)
+
+            Lesquelles des affirmations ci-dessous sont correctes :
+        type: multiple_choice
+        limit: 0
+        error_message: Attention à l'héritage des variables privées.
+        name: 'Variables d''instance privées '
+        multiple: true
+    question-2:
+        choices:
+        -   text: La méthode ``__str__`` de la classe mère utilise la valeur de la
+                variable d'instance  ``__estCarnivore`` de la classe mère et pas celle
+                de la classe fille.
+            valid: true
+        -   valid: true
+            text: La variable d’instance ``__estCarnivore`` de la classe mère est
+                privée et, avec le programme donné, on ne pourrait jamais changer
+                sa valeur.
+        -   text: La méthode ``__str__`` de la classe mère utilise la valeur de la
+                variable d'instance  ``__estCarnivore`` de la classe fille et pas
+                celle de la classe mère.
+            feedback: C'est l'inverse.
+        -   feedback: 'Non c''est permis. C''est d''ailleurs tout le problème. '
+            text: Il est interdit d’utiliser le même nom pour un variable d'instance
+                entre une classe mère et un classe fille.
+        -   valid: true
+            text: 'La variable d''instance ``__estCarnivore`` dans la classe ``Animal``
+                est indépendante de celle de la classe ``Girafe``. '
+        multiple: true
+        name: Portée des variables d'instance privées
+        header: |
+            Par défaut, une instance de la classe mère ``Animal`` est carnivore. Lors de la création d'une girafe (instance de la classe fille ``Girafe``), on essaie de faire en sorte (dans le constructeur de ``Girafe``) q'une girafe ne soit pas carnivore avec l'instruction : ``self.__estCarnivore = False``. Par contre, lors de l'impression d'un objet girafe le programme affiche  ``Je mange de la viande``.
+
+            Choisissez les affirmations qui expliquent le comportement du programme suivant (même programme que la question précédente).
+
+            .. code-block:: python
+
+              class Animal:
+
+                def __init__(self):
+                  self.__estCarnivore = True
+
+                def __str__(self):
+                  if self.__estCarnivore:
+                    return 'Je mange de la viande'
+                  else :
+                    return 'Je ne mange pas de viande'
+
+              class Girafe(Animal):
+
+                def __init__(self):
+                  super().__init__()
+                  self.__estCarnivore = False
+
+
+              print(Girafe()) # Le programe affiche : Je mange de la viande
+        limit: 0
+        type: multiple_choice
+    question-3:
+        limit: 0
+        choices:
+        -   feedback: Il faut toujours un premier argument ``self`` dans une méthode
+                qui utilise ``self``
+            text: |-
+                .. code-block:: python
+
+                  class Animal:
+
+                    def __init__(self):
+                      self.__estCarnivore = True
+
+                    def setEstCarnivore(valeur=True):
+                      self.__estCarnivore = valeur
+
+                    def __str__(self):
+                      if self.__estCarnivore:
+                        return 'Je mange de la viande'
+                      else :
+                        return 'Je ne mange pas de viande'
+
+                  class Girafe(Animal):
+
+                    def __init__(self):
+                      super().__init__()
+                      self.setEstCarnivore()
+
+
+                  print(Girafe()) # Le programme affiche : Je ne mange pas de viande
+        -   text: |-
+                .. code-block:: python
+
+                  class Animal:
+
+                    @classmethod
+                    def setEstCarnivore(self, valeur=False):
+                      self.__estCarnivore = valeur
+
+
+                    def __init__(self):
+                      self.__estCarnivore = True
+
+                    def __str__(self):
+                      if self.__estCarnivore:
+                        return 'Je mange de la viande'
+                      else :
+                        return 'Je ne mange pas de viande'
+
+                  class Girafe(Animal):
+
+                    def __init__(self):
+                      super().__init__()
+                      self.setEstCarnivore(False)
+
+
+                  print(Girafe()) # Le programme affiche : Je ne mange pas de viande
+            feedback: '``__estCarnivore`` n''est pas une variable de classe'
+        -   feedback: Il faut changer la valeur par défaut de ``__estCarnivore``
+            text: |-
+                .. code-block:: python
+
+                  class Animal:
+
+                    def __init__(self):
+                      self.__estCarnivore = True
+
+                    def setEstCarnivore(self, valeur=True):
+                      self.__estCarnivore = valeur
+
+                    def __str__(self):
+                      if self.__estCarnivore:
+                        return 'Je mange de la viande'
+                      else :
+                        return 'Je ne mange pas de viande'
+
+                  class Girafe(Animal):
+
+                    def __init__(self):
+                      super().__init__()
+                      self.setEstCarnivore()
+
+
+                  print(Girafe()) # Le programme affiche : Je ne mange pas de viande
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                  class Animal:
+
+                    def __init__(self):
+                      self.__estCarnivore = True
+
+                    def setEstCarnivore(self, valeur=True):
+                      self.__estCarnivore = valeur
+
+                    def __str__(self):
+                      if self.__estCarnivore:
+                        return 'Je mange de la viande'
+                      else :
+                        return 'Je ne mange pas de viande'
+
+                  class Girafe(Animal):
+
+                    def __init__(self):
+                      super().__init__()
+                      self.setEstCarnivore(False)
+
+
+                  print(Girafe()) # Le programme affiche : Je ne mange pas de viande
+        header: |-
+            Soit le programme suivant (même programme que la question précédente).
+
+            .. code-block:: python
+
+              class Animal:
+
+                def __init__(self):
+                  self.__estCarnivore = True
+
+                def __str__(self):
+                  if self.__estCarnivore:
+                    return 'Je mange de la viande'
+                  else :
+                    return 'Je ne mange pas de viande'
+
+              class Girafe(Animal):
+
+                def __init__(self):
+                  super().__init__()
+                  self.__estCarnivore = False
+
+
+              print(Girafe()) # Le programe affiche : Je mange de la viande
+
+            Choisissez le bon programme qui permet d'afficher ``Je ne mange pas de viande`` lors de l'exécution de l'instruction ``print(Girafe())``.
+        name: Une girafe est herbivore !
+        type: multiple_choice
+    question-8:
+        type: multiple_choice
+        name: Portée des variables d'instance publiques
+        choices:
+        -   text: La méthode ``__str__`` de la classe mère utilise la valeur de la
+                variable d'instance  ``estCarnivore`` de la classe mère et pas celle
+                de la classe fille.
+            feedback: C'est l'inverse.
+        -   text: La méthode ``__str__`` de la classe mère utilise la valeur de la
+                variable d'instance  ``estCarnivore`` de la classe fille et pas celle
+                de la classe mère.
+            valid: true
+            feedback: En effet, vu qu'elle est publique, c'est la même variable.
+        -   text: La portée de la variable ``estCarnivore`` englobe la classe fille.
+            valid: true
+        -   text: La portée de la variable ``estCarnivore`` n'englobe pas la classe
+                fille.
+            feedback: Justement si vu qu'elle est publique.
+        -   text: La variable d'instance ``estCarnivore`` dans la classe ``Animal``
+                est indépendante de celle de la classe ``Girafe``.
+            feedback: Justement non vu qu'elle est publique.
+        limit: 0
+        header: |-
+            La portée d'une variable privée d'instance est différente de celle d'une variable publique. Prenons encore l'exemple des classes ``Animal`` et ``Girafe``, mais maintenant la variable ``estCarnivore`` est déclarée publique.
+
+            .. code-block:: python
+
+              class Animal:
+
+                def __init__(self):
+                  self.estCarnivore = True
+
+                def __str__(self):
+                  if self.estCarnivore:
+                    return 'Je mange de la viande'
+                  else :
+                    return 'Je ne mange pas de viande'
+
+              class Girafe(Animal):
+
+                def __init__(self):
+                  super().__init__()
+                  self.estCarnivore = False
+
+
+              print(Girafe()) # Le programe affiche : Je ne mange pas de viande
+
+            Lors de l'affichage d'un objet girafe le programme le programme affiche ``Je ne mange pas de viande``. Choisissez l'affirmation qui explique le comportement du programme précédent.
+        multiple: true
+    question-7:
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    #1# Quack, quack! Flap, flap!
+                    #2# I'm quacking...I'm flying...
+                    #3# I'm quacking...I'm flying...
+            feedback: A la position ``#2#`` donald contient un objet de la classe
+                ``Person`` mais l'objet contenu dans l'objet ``interview`` réfère
+                toujours à l'objet original de la classe ``Duck``.
+        -   text: |-
+                .. code-block:: python
+
+                    #1# Quack, quack! Flap, flap!
+                    #2# Quack, quack! Flap, flap!
+                    #3# I'm quacking...I'm flying...
+            valid: true
+        -   feedback: Quand un objet ``interview`` contient un objet de la classe
+                ``Person`` il imprimera ``I'm quacking...I'm flying...``.
+            text: |-
+                .. code-block:: python
+
+                    #1# Quack, quack! Flap, flap!
+                    #2# Quack, quack! Flap, flap!
+                    #3# Quack, quack! Flap, flap!
+        -   text: |-
+                .. code-block:: python
+
+                    #1# Quack, quack! Flap, flap!
+                    #2# I'm quacking...I'm flying...
+                    #3# Quack, quack! Flap, flap!
+            feedback: |-
+                A la position ``#2#`` ``donald`` contient maintenant un objet de la classe ``Person`` mais l'objet contenu dans l'objet ``interview`` réfère toujours à l'objet original de la classe ``Duck``.
+                A la position ``#3#`` ``interview`` contient un objet de la classe ``Person``.
+                Mais l'objet contenu dans l'objet ``interview`` réfère toujours à l'objet original de la classe ``Duck``.
+        type: multiple_choice
+        name: Duck Typing
+        header: |-
+            Soit les classes ``Duck`` et ``Person`` définies comme suit :
+
+            .. code-block:: python
+
+                    class Duck :
+                        def quack(self) :
+                            return "Quack, quack! "
+                        def fly(self) :
+                            return "Flap, flap!"
+                        def __str__(self):
+                            return self.quack() + self.fly()
+
+                    class Person :
+                        def quack(self) :
+                            return "I'm quacking..."
+                        def fly(self) :
+                            return "I'm flying..."
+                        def __str__(self):
+                           return self.quack() + self.fly()
+
+                    class Interview :
+                        def __init__(self,t):
+                            self.thing = t
+                        def __str__(self):
+                           return str(self.thing)
+
+                    donald = Duck()
+                    interview = Interview(donald)
+                    print(interview)  #1#
+                    donald = Person()
+                    print(interview)  #2#
+                    interview = Interview(donald)
+                    print(interview)  #3#
+
+            Qu'est-ce que sera imprimé aux positions ``#1#``, ``#2#`` et ``#3#``?
+        limit: 0
+    question-4:
+        choices:
+        -   feedback: Les paramètres peuvent avoir un nom différent.
+            valid: true
+            text: |-
+                .. code-block:: python
+
+                  class C2(C1) :
+                    # ...
+                    def m(self,x,i) :
+                      return super().m(x,i*2) + 10
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                  class C2(C1) :
+                    # ...
+                    def m(self, s, n) :
+                      return super().m(s, n*2) + 10
+        -   feedback: En Python, pour appeler une méthode sur la super-classe, il
+                faut écrire ``super().methode(...)``. ``super()`` est une fonction
+                spéciale. Il faut utiliser les parenthèses vide après le mot ``super``
+                sous peine que l'interpréteur confonde super avec un attribut.
+            text: |-
+                .. code-block:: python
+
+                  class C2(C1) :
+                    # ...
+                    def m(self,s,n) :
+                      return super.m(s, n*2) + 10
+        -   feedback: La classe ``C2`` n'hérite pas de ``C1``, on ne peut donc pas
+                faire d'appel à une super-classe.
+            text: |-
+                .. code-block:: python
+
+                    class C2 :
+                        # ...
+                        def m(self,s,n) :
+                            return super().m(s, n*2) + 10
+        -   feedback: 'Erreur de syntaxe : il faut utiliser ``super().m(...)`` pour
+                appeler la méthode ``m`` de la classe-mère.'
+            text: |-
+                .. code-block:: python
+
+                    class C2(C1) :
+                        # ...
+                        def m(self, s, n) :
+                            return super(s, n*2) + 10
+        -   text: |-
+                .. code-block:: python
+
+                    class C2(C1) :
+                        # ...
+                        def m(self, s, n, n2) :
+                            return super().m(s, n*2) + n2
+            feedback: Il faut conserver le même nombre de paramètres.
+        multiple: true
+        type: multiple_choice
+        name: Redéfinition ou écrasement ?
+        limit: 0
+        header: |-
+            Soit les classes ``C1`` et ``C2`` définies comme suit :
+
+            .. code-block:: python
+
+              class C1 :
+                # ...
+                def m(self, s, n) :
+                  return s + n
+
+              class C2(C1) :
+                # ...
+
+            Parmi les définitions suivantes dans ``C2``, laquelle constitue une *redéfinition* correcte de la méthode ``m`` de la classe ``C1`` et non une *écrasement* ? (La *redéfinition* réutilisera l'ancienne méthode, tandis que *l'écrasement* la remplace par une implémentation complètement nouvelle.) Réfléchissez bien à chaque réponse; les différences entre les différentes réponses possibles sont parfois subtiles...
+    question-5:
+        choices:
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    e.m1()
+        -   text: |-
+                .. code-block:: python
+
+                    e.m4()
+            valid: true
+            feedback: Il peut être étonnant que cette instruction fonctionne, mais
+                en Python on peut appeler une méthode de classe sur une instance de
+                la classe. Si on le fait, la méthode va s'exécuter en ignorant l'instance
+                mais va juste prendre la classe de cette instance.
+        -   text: |-
+                .. code-block:: python
+
+                    e.m2()
+            valid: true
+            feedback: Ceci est en effet correct. Les instances d'une classe ont accès
+                aux variables de classe. C'est comme une variable partagé par toutes
+                les instance de la classe.
+        -   text: |-
+                .. code-block:: python
+
+                    e.m3()
+            feedback: 'Erreur: la classe ``E`` n''a pas d''attribut ``var`` Une méthode
+                de classe ne peut pas accéder à la variable d''instance ``var``.'
+        header: |-
+            On considère le code suivant :
+
+            .. code-block:: python
+
+                class E :
+
+                    cvar = 0   # variable de classe
+
+                    @classmethod
+                    def m3(cls):
+                        cls.var += 1
+
+                    @classmethod
+                    def m4(cls):
+                        cls.cvar += 1
+
+                    def __init__(self,v):
+                        self.var = v   # variable d'instance
+
+                    def m1(self):
+                        self.var += 1
+
+                    def m2(self):
+                        self.cvar += 1
+
+                e = E(5)   # création d'une instance e de la classe E
+
+            Pour ces définitions de méthode, lesquelles des instructions suivantes ne produisent **pas** d'erreur quand on les exécute :
+        multiple: true
+        limit: 0
+        type: multiple_choice
+        name: Les variables et méthodes de classe
+    question-6:
+        choices:
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    1
+                    10
+                    1
+                    20
+            feedback: '``m1`` affecte des variables d''''instance distinctes de ``f1``
+                et ``f2`` tandis que ``m2`` affecte une variable de classe commune.'
+        -   feedback: '``m2`` affecte une variable de classe commune aux deux. Celle-ci
+                ne vaudra donc plus 0 lors du second appel à ``m2``.'
+            text: |-
+                .. code-block:: python
+
+                    1
+                    10
+                    1
+                    10
+        -   text: |-
+                .. code-block:: python
+
+                    1
+                    10
+                    2
+                    20
+            feedback: '``m1`` affecte des variables d''''instance distinctes de ``f1``
+                et ``f2``.'
+        -   text: |-
+                .. code-block:: python
+
+                    1
+                    11
+                    12
+                    22
+            feedback: '``m1`` et ``m2`` affectent des variables différentes ``var``
+                et ``cvar``.'
+        -   text: |-
+                .. code-block:: python
+
+                    1
+                    2
+                    1
+                    2
+            feedback: Attention, on appelle deux méthodes différentes ``m1`` et ``m2``.
+        header: |-
+            On considère le code suivant :
+
+            .. code-block:: python
+
+                class F :
+
+                    cvar = 0   # variable ou attribut de classe
+
+                    @classmethod
+                    def m2(cls) :
+                        cls.cvar += 10
+                        print(cls.cvar)
+
+                    def __init__(self) :
+                        self.var = 0
+
+                    def m1(self) :
+                        self.var += 1
+                        print(self.var)
+
+            On exécute les instructions suivantes :
+
+            .. code-block:: python
+
+                f1 = F()   # création d'une instance de la classe F
+                f1.m1()
+                f1.m2()
+                f2 = F()   # création d'une autre instance de la classe F
+                f2.m1()
+                f2.m2()
+
+            Quel est le résultat affiché ?
+        limit: 0
+        type: multiple_choice
+        name: Les variables de classe et d'instance
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

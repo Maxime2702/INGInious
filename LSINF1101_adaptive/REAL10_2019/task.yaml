@@ -1,0 +1,121 @@
+accessible: false
+author: Olivier Goletti, Kim Mens
+categories: []
+contact_url: ''
+context: |-
+    Vous pouvez soumettre ici votre phase de réalisation pour la Mission 10.
+
+    Nous attendons les fichiers :
+
+    * ``README.TXT``
+
+    * ``Robot.py``
+
+    * ``XYRobot.py``
+
+    * ``TurtleBot.py``
+
+    * ``TestXYRobot.py``
+
+    * ``TestTurtleBot.py``
+
+    Vous disposez des fichiers suivants afin de vous aider:
+
+    * `XYRobot.py </course/LSINF1101-PYTHON/REAL10_2019/XYRobot.py>`_
+
+    * `TestTurtleBot.py </course/LSINF1101-PYTHON/REAL10_2019/TestTurtleBot.py>`_
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 10: Phase de réalisation'
+network_grading: false
+order: 127
+problems:
+    README:
+        name: 'Phase de réalisation de la Mission 10: README.TXT'
+        type: file
+        header: Soumettez ici la documentation destinée aux utilisateurs de votre
+            programme et vos notes dans le fichier README.txt.
+        allowed_exts:
+        - .txt
+        - .TXT
+    Robot:
+        allowed_exts:
+        - .py
+        type: file
+        header: |-
+            Soumettez ici votre fichier ``Robot.py`` qui contient la classe mère ``Robot`` avec le code de gestion de l'historique.
+
+            (Si vous n'êtes pas arrivé à l'étape 5 de la mission, remettez simplement un fichier vide ici.)
+        name: 'Phase de réalisation de la Mission 10: Robot.py'
+    XYRobot:
+        name: 'Phase de réalisation de la Mission 10: XYRobot.py'
+        allowed_exts:
+        - .py
+        type: file
+        header: |-
+            Soumettez ici votre fichier ``XYRobot.py`` qui contient la classe ``XYRobot`` qui hérite de ``Robot``.
+
+            (Si vous n'êtes pas arrivé à l'étape 5 de la mission, remettez la version de votre ``XYRobot`` sans héritage ici.)
+    TurtleBot:
+        name: 'Phase de réalisation de la Mission 10: TurtleBot.py'
+        header: |-
+            Soumettez ici votre fichier ``TurtleBot.py`` qui contient la classe ``TurtleBot`` qui hérite de ``Robot``.
+
+            (Si vous n'êtes pas arrivé à l'étape 5 de la mission, remettez la version de votre ``TurtleBot`` sans héritage ici.)
+        allowed_exts:
+        - .py
+        type: file
+    TestXYRobot:
+        type: file
+        name: 'Phase de réalisation de la Mission 10: TestXYRobot.py'
+        allowed_exts:
+        - .py
+        header: |-
+            Soumettez ici votre fichier ``TestXYRobot.py`` qui contient les tests unitaires pour votre classe ``XYRobot``.
+
+            Ce fichier ``TestXYRobot.py`` doit charger le fichier ``XYRobot.py`` et exécuter les différents tests unitaires sur la classe ``XYRobot``.
+    TestTurtleBot:
+        allowed_exts:
+        - .py
+        header: |-
+            Soumettez ici votre fichier ``TestTurtleBot.py`` qui contient les tests unitaires pour votre classe ``TurtleBot``.
+
+            Ce fichier ``TestTurtleBot.py`` doit charger le fichier ``TurtleBot.py`` et exécuter les différents tests unitaires sur la classe ``TurtleBot``.
+        type: file
+        name: 'Phase de réalisation de la Mission 10: TestTurtleBot.py'
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

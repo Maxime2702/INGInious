@@ -1,0 +1,136 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+class LinkedList :
+
+    class Node:
+
+        def __init__(self, cargo=None, next=None):
+            """
+            Initialises a new Node object.
+            @pre:  -
+            @post: A new Node object has been initialised.
+                   A node can contain a cargo and a reference to another node.
+                   If none of these are given, a node with empty cargo (None) and no reference (None) is created.
+            """
+            self.__cargo = cargo
+            self.__next  = next
+
+        def value(self):
+            """
+            Returns the value of the cargo contained in this node.
+            @pre:  -
+            @post: Returns the value of the cargo contained in this node, or None if no cargo  was put there.
+
+            """
+            return self.__cargo
+
+        def __str__(self):
+            """
+            Returns a string representation of the cargo of this node.
+            @pre:  self is possibly empty Node object
+            @post: returns a print representation of the cargo contained in this Node
+            """
+            return str(self.value())
+
+        def next(self):
+            return self.__next
+
+        def set_next(self, node):
+            self.__next = node
+
+    def __init__(self, lst=[]):
+            """
+            Initialises a new linked list object, with a given list of elements lst.
+            @pre:  -
+            @post: A new linked list object has been initialised.
+                   Its length is equal to the number of elements in lst.
+                   The data elements stored in the linked list's nodes correspond to those of the list lst,
+                   and appear in the same order as in that list.
+                   If no list lst is passed as argument, the newly created linked list
+                   will have 0 length, contain no nodes and its head will point to None. 
+            """
+            self.__length = 0
+            self.__head = None
+            self.__last = None
+            for e in lst :
+                self.add_to_end(e)
+
+
+@    @q1@@
+
+    def size(self):
+        """
+        Returns the number of nodes contained in this linked list
+        @pre:  -
+        @post: Returns the number of nodes (possibly zero) contained in this linked list
+        """
+        return self.__length
+
+    def add(self, cargo):
+        node = self.Node(cargo,self.__head)
+        if self.__head is None :
+            self.__last = node  
+        self.__head = node
+        self.__length += 1
+        
+    def __repr__(self):
+        res = ""
+        h = self.__head
+        while h is not None:
+            res += str(h.value()) + " "
+            h = h.next()
+        return res
+        
+    def __str__(self):
+        res = ""
+        h = self.__head
+        while h is not None:
+            res += str(h.value()) + " "
+            h = h.next()
+        return res
+        
+    def first(self):
+        return self.__head
+
+    def remove(self):
+        """
+        Removes the node at the start of the list. Leaves the list intact if already empty.
+        """
+        if self.__head is not None:
+            self.__length -= 1
+            self.__head = self.__head.next()
+            if self.__length == 0:       # when there are no more elements in the list,
+                self.__last = None       # remove the pointer to the last element
+
+
+    def add_to_end(self, cargo):
+        if self.__length == 0 :        # si la liste est encore vide,
+            self.add(cargo)            # ajouter à la fin correspond au ajouter au début
+        else :                         # si la liste contient déjà au moins un noeud (et donc une dernier noeud)
+            node = self.Node(cargo)
+            self.__last.set_next(node) # make the current last node point to this new node
+            self.__last = node         # set the last node reference to this new node
+            self.__length += 1   
+    
+
+    def __eq__(self, lst):
+        h1 = self.__head
+        h2 = lst.first()
+        for i in range(self.__length+1):
+            if h1 is None:
+                if h2 is None:
+                    return True
+                else:
+                    break
+            if h1.value() != h2.value():
+                break
+            h1 = h1.next()
+            h2 = h2.next()
+        return False
+

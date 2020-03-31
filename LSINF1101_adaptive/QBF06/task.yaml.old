@@ -1,0 +1,101 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Implémentez la méthode dont la spécification est reprise ci-dessous :
+
+
+    .. code-block:: python
+
+        def get_max(filename):
+        """
+            pre:    filename est une chaîne de caractères
+            post:   Renvoie le plus grand nombre réel >= 0 trouvé dans le fichier de nom
+                    filename.
+                    Les lignes ne représentant pas un seul nombre réel >= 0 sont ignorées.
+                    Si le fichier n'existe pas ou si une erreur d'entrée/sortie survient,
+                    la fonction renvoie la valeur -1, et imprime un message d'erreur.
+                    Si le fichier ne contient aucune ligne valide, renvoie
+                    la valeur -1.
+
+                    Par exemple, la méthode retourne 10.0 pour le fichier de contenu suivant:
+                    0.345.67
+                    hello
+                    -543.0
+                    500.0 1000.0 2000.0
+                    10.0
+                    3.1416
+        """
+
+    Avant de commencer l'exercice, considérez ce qui suit:
+
+    * Une liste complète des exceptions peut être trouvée `ici <https://docs.python.org/3/library/exceptions.html>`_. Considérez, entre autres, l'exception ``OSError``.
+
+    * Considérez qu'il est possible de mettre un bloc ``try...except`` dans un autre bloc ``try...except``. Exécutez le code suivant pour voir comment Python se comporte dans ce cas:
+
+    .. code-block:: python
+
+        def div_value():
+            try:
+                while True:
+                    try:
+                        value = int(input("Provide a value:"))
+                        return 1/value
+                    except ValueError:
+                        print("Incorrect value")
+            except ZeroDivisionError:
+                print("Incorrect calculation")
+                return -1
+
+        print(div_value())
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 6: QBF'
+network_grading: false
+order: 68
+problems:
+    q1:
+        type: code
+        name: Implémentation
+        language: python
+        header: |-
+            Implémentez la fonction ``get_max(filename)``.
+
+            Ajoutez également toute autre fonction nécessaire.
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

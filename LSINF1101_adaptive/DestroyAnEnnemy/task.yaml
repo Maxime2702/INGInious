@@ -1,0 +1,101 @@
+accessible: true
+author: Damien Gonze
+categories:
+- Classe
+contact_url: ''
+context: |-
+    You are still working on your next big game, *God of massive destruction Game Of The Century edition*, and now you need to implement a basic combat system.
+
+    For this exercise, you will need to implement three classes : ``Cratos``, ``Drauf`` and ``Weapon``.
+
+    The ``Cratos`` class represent the player, the ``Drauf`` is a basic ennemy, and the ``Weapon`` is a weapon usable by *Cratos*.
+
+    * For the moment, only *Cratos* can attack.
+
+    * *Cratos* can equip a *Weapon*, and hit a *Drauf*.
+
+    * The *Weapon* has a certain attack, and the *Drauf* has life.
+
+    * The Drauf has the ``method get_hit(damage)`` and Cratos has the function ``hit(ennemy)``.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 8: Kill an ennemy'
+network_grading: false
+order: 116
+problems:
+    q1:
+        header: |-
+            You have to implement the following :
+
+            The class ``Weapon``
+
+            .. code-block:: python
+
+              #attributes
+              attack
+
+              #methods
+              __init__(attack)
+
+            The class ``Cratos``
+
+            .. code-block:: python
+
+              #attributes
+              weapon
+
+              #methods
+              __init__(weapon)
+              set_weapon(weapon) # change the weapon
+              hit(enemy) # hit the ennemy with the weapon attack and reduce its hp
+
+            The class ``Drauf``
+
+            .. code-block:: python
+
+              #attributes
+              life
+
+              #methods
+              __init__(life)
+              get_hit(damage) # reduce the life by the damage taken
+        name: Implementation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

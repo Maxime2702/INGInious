@@ -1,0 +1,20 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+import math
+
+def absolute(v1, v2):
+	return math.fabs(v1 - v2)
+
+def seatch_time(l, t):
+	for i, e in enumerate(l):
+		if e[0] >= t:
+			return i
+	return len(l)
+
+
+def euclidian_distance(c1,c2):
+	return math.sqrt((c1[0] - c2[0])**2 + (c1[1] - c2[1])**2)
+
+@@q1@@

@@ -1,0 +1,295 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 8: QCM'
+network_grading: false
+order: 84
+problems:
+    q1:
+        choices:
+        -   valid: true
+            text: '5'
+        -   text: '1'
+            feedback: On utilise ici la récursion, la fonction est réappelée par la
+                fonction et 1 n'est donc pas la bonne réponse.
+        -   text: '4'
+            feedback: Attention de compter le premier appel (``factorial(5)`` ici).
+        -   text: '6'
+            feedback: Lorsque l'on atteint x == 1 alors la fonction ne s'appelera
+                plus elle-même, on s'arrête donc avant le 6ème appel.
+        type: multiple_choice
+        name: Appels récursifs
+        multiple: true
+        limit: 0
+        header: |-
+            En disposant de la fonction suivante:
+
+            .. code-block:: python
+
+                def factorial(x):
+                    if x > 1:
+                        return x * factorial(x-1)
+                    else:
+                        return 1
+
+            Si on appelle ``factorial(5)``, combien d'appels à la fonction seront faits?
+    q4:
+        choices:
+        -   valid: true
+            text: '2'
+        -   feedback: '``fibo(1)`` sera appelé récursivement par ``fibo(3)`` et ``fibo(2)``.'
+            text: '0'
+        -   text: '1'
+            feedback: '``fibo(1)`` sera aussi appelé récursivement également par ``fibo(2)``.'
+        -   text: '3'
+            feedback: Une fois arrivé à ``n < 2``, il n'y a plus d'appels nécessaires.
+        multiple: true
+        type: multiple_choice
+        name: Appels récursifs
+        limit: 0
+        header: |-
+            Considérez lee code suivant:
+
+            .. code-block:: python
+
+                def fibo(x)
+                    if x < 0: return 0
+                    elif x < 2: return x
+                    else: return fibo(x-1) + fibo(x-2)
+
+            Pour ``fibo(3)``, combien de fois ``fibo(1)`` sera-t-il appelé?
+    q3:
+        multiple: true
+        choices:
+        -   text: |-
+                .. code-block:: python
+
+                    printer(square, x)
+            valid: true
+        -   feedback: Vous allez déclencher une erreur car l'appel de la fonction
+                square prend un argument.
+            text: |-
+                .. code-block:: python
+
+                    printer(square(), x)
+        -   text: |-
+                .. code-block:: python
+
+                    printer(square(x), x)
+            feedback: |-
+                Vous allez passer 2 variables à printer. Celui-ci aura du mal à faire dans le cas de x == 3, 9(3).
+
+                Il va donc renvoyer une erreur disant qu'un int n'est pas appelable.
+        -   feedback: La fonction ``printer`` ne disposera alors pas du nom de la
+                fonction pour son string d'output.
+            text: |-
+                .. code-block:: python
+
+                    printer(lambda x: x * x, x)
+        name: Fonction passée en argument
+        type: multiple_choice
+        header: |-
+            Ces fonctions sont données:
+
+            .. code-block:: python
+
+                def printer(f, x):
+                    print('La fonction ' + f.__name__ + 'renvoit: ' + str(f(x))
+
+                def square(x):
+                    return x * x
+
+            Lesquels de ces codes affichent 'La fonction square renvoit: 9' pour ``x == 3``?
+        limit: 0
+    q5:
+        choices:
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    def compose(f, g):
+                        def h(x):
+                            return f(g(x))
+                        return h
+        -   text: |-
+                .. code-block:: python
+
+                    def compose(f, g):
+                        return lambda x: f(g(x))
+            feedback: 'En effet ``lambda x: f(g(x))`` est une fonction qui prend un
+                paramètre ``x`` et qui retourne ``f(g(x))``'
+            valid: true
+        -   text: |-
+                .. code-block:: python
+
+                    def compose(f, g):
+                        return f(g(x))
+            feedback: Êtes vous sûr que cette définition de ``compose`` retourne une
+                fonction?
+        -   text: |-
+                .. code-block:: python
+
+                    def compose(f, g):
+                        h = lambda x: f(g(x))
+                        return h
+            valid: true
+        -   feedback: Êtes vous sûr que cette fonction ``compose`` retourne une fonction?
+            text: |-
+                .. code-block:: python
+
+                    def compose(f, g):
+                        def h(x):
+                            return f(g(x))
+                        return h(x)
+        -   feedback: Quelle est la valeur retournée par cette fonction ``compose``?
+            text: |-
+                .. code-block:: python
+
+                    def compose(f, g):
+                        def h(x):
+                            return f(g(x))
+        header: |-
+            On vous demande de créer une fonction qui fait la composition de deux autres fonctions.
+
+            *Par exemple:* Pour une fonction ``f`` qui prend un paramètre ``x`` et une fonction ``g`` qui prend aussi un paramètre ``x``, ``compose(f, g)`` doit renvoyer une fonction qui, si on l'applique sur argument ``x``, calcule ``f(g(x))``.
+
+            *Par exemple:*
+
+            .. code-block:: python
+
+                def double(x):
+                   return 2*x
+
+                def square(x):
+                    return x*x
+
+                >>> compose(double,square)(5)
+                50
+        type: multiple_choice
+        multiple: true
+        name: Composition de fonctions
+        limit: 0
+    q6:
+        name: Un accumulateur récursif
+        type: multiple_choice
+        choices:
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    def produit(l) :
+                        return accumuler_produit(1,l)
+
+                    def accumuler_produit(res,l):
+                        if l == [] :
+                            return res
+                        else :
+                            return accumuler_produit(res * l[0],l[1:])
+        -   text: |-
+                .. code-block:: python
+
+                    def produit(l) :
+                        return accumuler_produit(0,l)
+
+                    def accumuler_produit(res,l):
+                        if l == [] :
+                            return res
+                        else :
+                            return accumuler_produit(res * l[0],l[1:])
+            feedback: Si on commence avec une valeur de zéro, tout va être multiplié
+                par zéro, et le résultat final sera donc 0.
+        -   text: |-
+                .. code-block:: python
+
+                    def produit(l) :
+                        return accumuler_produit(1,l)
+
+                    def accumuler_produit(res,l):
+                        if l == [] :
+                            return res
+                        else :
+                            return accumuler_produit(res + l[0],l[1:])
+            feedback: Il faut multiplier le résultat accumulé, pas ajouter.
+        -   text: |-
+                .. code-block:: python
+
+                    def produit(l) :
+                        return accumuler_produit(1,l)
+
+                    def accumuler_produit(res,l):
+                        if l == [] :
+                            return res
+                        else :
+                            return accumuler_produit(l[0] * res,l)
+            feedback: Vous ne réduirez jamais la taille de la liste passée en argument
+                lors  de vos appels. Vous ne rentrerez donc jamais dans le return
+                du cas de base et la fonction ne s'arrêtera jamais.
+        multiple: true
+        header: |-
+            On peut écrire une fonction qui calcule la somme de tout les éléments d'une liste comme suite:
+
+            .. code-block:: python
+
+                def somme(l) :
+                    return accumuler_somme(0,l)
+
+                def accumuler_somme(res,l):
+                    if l == [] :
+                        return res
+                    else :
+                        return accumuler_somme(res + l[0],l[1:])
+
+            La fonction auxiliaire ``accumuler_somme`` acummule le résultat final (la somme) au fur et à mesure, en commençant par une valeur de ``res`` égale à zéro, et en y ajoutant à chaque étape l'élément suivante de la liste. Par exemple:
+
+            .. code-block:: python
+
+                >>> somme([1,2,3,4,5])
+                15
+
+            Maintenant on veut définir une fonction similaire pour calculer le produit de tout les éléments d'une liste. Par exemple:
+
+            .. code-block:: python
+
+                >>> produit([1,2,3,4,5])
+                120
+
+            Laquelle des définitions ci-dessous est correcte?
+        limit: 0
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

@@ -1,0 +1,86 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Créez une nouvelle classe, ``SMSStore``. Avec cette classe vous pourrez instancier des objets ``SMSStore``, similaire à une boîte de réception sur un téléphone:
+
+    .. code-block:: python
+
+      my_inbox = SMSStore()
+
+    Ce stockage peut contenir plusieurs SMS (i.e. son état interne sera juste une liste de messages). Chaque message sera représenté comme un tuple: ``(has_been_viewed, from_number, time_arrived, text_of_SMS)``
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 9: Q* SMS Store'
+network_grading: false
+order: 108
+problems:
+    q1:
+        type: code
+        name: Implémentation
+        language: python
+        header: |-
+            L'objet boîte de réception doit pouvoir fournir les méthodes suivantes:
+
+            .. code-block:: python
+
+                my_inbox.add_new_arrival(from_number, time_arrived, text_of_SMS)
+                    # Crée un nouveau tuple SMS, ajouté après les autres
+                    # dans le stockage. Une fois créé, son attribut
+                    # has_been_viewed est à False.
+
+                my_inbox.message_count()
+                    # Renvoit le nombre de messages dans my_inbox
+
+                my_inbox.get_unread_indexes()
+                    # Renvoit une list des indexes de tous les SMS encore non lus(not-yet-viewed)
+
+                my_inbox.get_message(i)
+                    # Renvoit (from_number, time_arrived, text_of_sms) pour message[i]
+                    # Change aussi son état à "has been viewed".
+                    # S'il n'y a pas de message à la position i, renvoit None
+
+                my_inbox.delete(i)
+                    # Supprime le SMS à l'index i
+
+                my_inbox.clear()
+                    # Supprime tous les SMS de la boîte de réception
+
+            Ecrivez la classe et implémentez les méthodes.
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

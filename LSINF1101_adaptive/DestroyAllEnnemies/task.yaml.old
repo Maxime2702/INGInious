@@ -1,0 +1,104 @@
+accessible: false
+author: Damien Gonze
+categories: []
+context: |-
+    You are still working on your next big game, *God of massive destruction Game Of The Century edition*, and now you need to implement a better combat system.
+
+    For this exercice, you will need to implement three classes : ``Character``, ``Cratos`` and ``Drauf``.
+
+    Your manager thought it was too easy with a weapon, so *Cratos* will fight with is bare fists for this exercice. So no weapons.
+
+    ``Cratos`` and ``Drauf`` will inherit from ``Character``.
+
+    * The ``Cratos`` class represent the player, and the ``Drauf`` is a basic ennemy.
+
+    * The ``Character`` class will have to have the attributes ``life`` and ``attack_point``, and the functions ``attack`` and ``get_hit``.
+
+    * The ``Cratos`` class also have an attribute ``experience`` and a ``function gain_XP``.
+
+    * *Cratos* starts with 100 life, 10 damage and 0 experience. The *Drauf* will have its variables set with the constructor.
+
+    * The function ``attack`` will get a ``Character`` to attack as parameter.
+
+    * The function ``get_hit`` will reduce the ``life`` of the object by the ``damage`` indicated as parameter.
+
+    * The function ``gain_XP`` will increase the XP of the player by the ``amount`` in parameters. Every 10 point of experience, the damage of *Cratos* will increase by 1 (the amount of XP gain can be higher than 10; be careful to take that in account)
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 10: Kill them all'
+network_grading: false
+order: 120
+problems:
+    q1:
+        default: ''
+        language: python
+        name: Implementation
+        type: code
+        header: |-
+            You have to implement the following :
+
+            The class ``Character``
+
+            .. code-block:: python
+
+              #attributes
+              life
+              attack_point
+
+              #functions
+              attack(target)
+              get_hit(damage)
+
+            The class ``Cratos``
+
+            .. code-block:: python
+
+              #attributes
+              experience
+
+              #functions
+              __init__()
+              gain_XP(amount)
+
+            The class ``Drauf``
+
+            .. code-block:: python
+
+              #functions
+              __init__(life, damage)
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

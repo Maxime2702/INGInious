@@ -1,0 +1,14 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+def racine_carree(n):
+    """
+    Calcule une racine carree
+    pre: n est un nombre réel
+         n >= 0
+    post: retourne la racine carrée réelle de n
+    """
+    import math
+    return math.sqrt(n)
+    
+@@q1@@

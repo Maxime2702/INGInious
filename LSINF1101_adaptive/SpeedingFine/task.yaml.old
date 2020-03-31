@@ -1,0 +1,63 @@
+accessible: 2018-10-05 12:00:00/
+author: Tanguy De Bels
+context: |-
+    The police is hiring you to develop a program to calculate the fine that a car driver will have to pay in the event of a violation. The law stipulates that the driver will have to pay 5 euros per km/h above the maximum authorized speed, with a **minimum fine of 12.5€**.
+
+    For any speeding of **more than 10 km/h** above the authorized speed, the fine is **DOUBLED**!
+
+    Your program takes as input the maximum allowed speed and the actual speed of the car. It calculates the possible fine.
+
+    *Example*:
+
+    - If the maximum speed is 50km/h and the vehicle is traveling at 62km/h, the penalty will be 12 * 5 * 2 = 120€.
+
+    - If the maximum speed is 50km/h and the vehicle is traveling at 56km/h, the penalty will be 6 * 5 = 30€.
+
+    - If the maximum speed is 50km/h and the vehicle is traveling at 51km/h, the fine will be 12.5€.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 3: Q*  Amende pour excès de vitesse'
+network_grading: false
+order: 30
+problems:
+    q1:
+        language: python
+        name: Implementation
+        header: Implement the function ``fine(authorized_speed, actual_speed)`` in
+            Python.
+        type: code
+        default: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

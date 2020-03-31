@@ -1,0 +1,85 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+class Node:
+
+    def __init__(self, cargo=None, next=None):
+        """
+        Initialises a new Node object.
+        @pre:  -
+        @post: A new Node object has been initialised.
+               A node can contain a cargo and a reference to another node.
+               If none of these are given, a node with empty cargo (None) and no reference (None) is created.
+        """
+        self.__cargo = cargo
+        self.__next  = next
+
+    def value(self):
+        """
+        Returns the value of the cargo contained in this node.
+        @pre:  -
+        @post: Returns the value of the cargo contained in this node, or None if no cargo  was put there.
+
+        """
+        return self.__cargo
+
+    def __str__(self):
+        """
+        Returns a string representation of the cargo of this node.
+        @pre:  self is possibly empty Node object
+        @post: returns a print representation of the cargo contained in this Node
+        """
+        return str(self.value())
+        
+    def next(self):
+        return self.__next
+
+
+class LinkedList :
+
+    def size(self):
+        """
+        Returns the number of nodes contained in this linked list
+        @pre:  -
+        @post: Returns the number of nodes (possibly zero) contained in this linked list
+        """
+        return self.__length
+
+    def add(self, cargo):
+        """
+        Adds a new Node with given cargo to the front of this linked list.
+        @pre: self is a (possibly empty) LinkedList
+        @post: A new Node object is created with the given cargo.
+               This new Node is added to the front of the linked list.
+               The length counter has been incremented.
+               The head of the list now points to this new node.
+        """
+        node = Node(cargo,self.__head)
+        self.__head = node
+        self.__length += 1
+        
+    def __repr__(self):
+        res = ""
+        if self.__head is not None:
+            h = self.__head
+            while h is not None:
+                if not isinstance(h, Node): break
+                res += str(h.value()) + " "
+                h = h.next()
+        return res
+        
+    def __str__(self):
+        res = ""
+        if self.__head is not None:
+            h = self.__head
+            while h is not None:
+                if not isinstance(h, Node): break
+                res += str(h.value()) + " "
+                h = h.next()
+        return res
+        
+    def first(self):
+        return self.__head
+
+@    @q1@@

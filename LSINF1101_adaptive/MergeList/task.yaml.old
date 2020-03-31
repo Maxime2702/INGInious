@@ -1,0 +1,60 @@
+accessible: 2018-10-19 12:00:00/
+author: Luis Tascon Gutierrez
+context: |-
+    You are part of the organisation of the **5 and 10 miles** in Louvain-la-Neuve. But the system went down just before the start.
+
+    There were two student to take note of the arrival of the runners. Happily, there were two lines to count, your job is to get one list of the two, to have a general ranking.
+
+    The lists you'll receive are a succession of ``['name', time]`` with the time in increasing order. Create a fonction ``merge(first_list, second_list)`` that will return one list wich has the elements of the 2 lists in order.
+
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 5: Q* Fusion de listes'
+network_grading: false
+order: 55
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        language: python
+        type: code
+        header: |-
+            Provide the body of the following method
+
+            .. code-block:: python
+
+                def merge(first_list, second_list):
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

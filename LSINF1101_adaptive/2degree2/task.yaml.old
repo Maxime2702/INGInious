@@ -1,0 +1,97 @@
+accessible: true
+author: François MICHEL
+context: |-
+    Les équations du second degré sont des équations de la forme suivante:
+
+    $$ax^2 + bx + c = 0$$
+
+    avec :math:`a \neq 0`
+
+    Pour déterminer si l'équation dispose d'une solution, on calcule le nombre :math:`\rho = b^2-4ac`. Si :math:`\rho` est strictement positif, l'équation a exactement deux solutions. La première solution s'obtient via la formule suivante :
+
+    .. math::
+
+        \frac{-b + \sqrt{\rho}}{2a}
+
+    Et la seconde racine s'obtient via la formule suivante :
+
+    .. math::
+
+        \frac{-b - \sqrt{\rho}}{2a}
+
+    Si :math:`\rho` est nul, l'équation a exactement une solution, dont la valeur est égale à :math:`-b/(2a)`. Si :math:`\rho` est négatif, l'équation n'a aucune solution.
+
+    Un étudiant vous demande de l'aider à **résoudre des équations à tour de bras**. Vous disposez de la fonction suivante, qui est une variante de la fonction implémentée dans un exercice complémentaire de la Session 3:
+
+    .. code-block:: python
+
+        def solution(a, b, c):
+            """
+            pre:  a, b et c sont 3 nombres réels
+            post: la valeur de retour de cette fonction dépend du nombre
+                  de solutions de l'équation ax^2 + bx + c = 0.
+            - 0 solution: retourne la liste vide
+            - 1 solution: retourne une liste contenant la solution de l'équation
+            - 2 solutions: retourne une liste contenant les deux solutions,
+                          la plus petite solution en première place
+            """
+
+    Écrivez la signature et le corps de la fonction ``solveur``, dont le but est de résoudre une *liste* d'équations du second degré. Une équation est représentée par la liste ``[a, b, c]``. La fonction ``solveur`` doit retourner une liste. L'élément à l'indice *i* de la valeur de retour contient le résultat de la fonction ``solution`` appliquée sur l'équation située à l'indice *i* de l'input.
+
+    Pour réussir cette exercice, **vous devez utiliser une list comprehension.**
+
+    Voici un exemple de la valeur de retour de la fonction ``solveur`` :
+
+    ::
+
+        >>> solveur([])
+        []
+
+        >>> solveur([[1, 1, -1], [4, 4, 1], [1, 2, 3], [-1, 2, 3]])
+        [[-1.618033988749895, 0.6180339887498949], [-0.5], [], [-1.0, 3.0]]
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 4: Q* Equations du second degré, le retour'
+network_grading: false
+order: 43
+problems:
+    q1:
+        name: Définissez et implémentez la fonction solveur
+        type: code
+        header: ' '
+        language: python
+        default: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

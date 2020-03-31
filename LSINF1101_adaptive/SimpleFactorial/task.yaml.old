@@ -1,0 +1,50 @@
+accessible: 2018-10-05 12:00:00/
+author: Tanguy De Bels
+context: |-
+    Ecrivez l'**en-tête**, la **spécification** et le **corps** d'une fonction ``fact(n)`` qui calcule la factorielle de *n* : :math:`n! = n.(n-1).(n-2) \dots 1`.  **Veillez à ce que la méthode que vous écrivez respecte bien les spécifications que vous définissez vous-même**.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 3: Factorial'
+network_grading: false
+order: 21
+problems:
+    q1:
+        language: python
+        name: Implementation
+        header: 'Ecrivez la fonction ``fact(n)``:'
+        type: code
+        default: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

@@ -1,0 +1,99 @@
+accessible: false
+author: Simon Gustin
+categories: []
+context: |-
+    Imagine you want to make a **video game** about the management of a **virtual zoo**.
+    For this exercice, you will implement short parts of the game that represent
+    the animals that the zoo owns, as well as the zoo.
+
+    In other words, you are asked to **create a class** that will represent **any animal**
+    and **several classes** that will represent **different species**.
+    You are asked as well to **make a class** that will represent
+    **the zoo itself**, containing a certain number of different animals and to create your own zoo.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 'Session 10: Q* Zoo Game'
+network_grading: false
+order: 119
+problems:
+    q1:
+        default: ''
+        language: python
+        name: Implementation
+        type: code
+        header: |-
+            You will first implement a class ``Animal``, which should have:
+
+            * an attribute ``name`` which is the name the player will give the animal
+
+            * an attribute ``diurnal`` which should be ``True`` if the animal is active at day time and ``False`` if it is active at night time
+
+            * an attribute ``nb_legs`` which represents the number of legs the animal has
+
+            * an attribute ``asleep`` which will be set to ``True`` (resp. ``False``) by calling the method ``sleep()`` (resp. ``wake_up()``). If the animal tries to wake up while it is not asleep or to sleep while it is already asleep, your program should raise a ``RuntimeError``.
+
+            Only the **name** of the animal needs to be passed to the **constructor**.
+            We decide to set ``asleep`` to ``False`` by default.
+            Obviously, as this class represents any animal, we don't know what value
+            the other attributes should take.
+            The most logical thing to do would be to set them to ``None``.
+
+            You will then implement **three different subclasses** of ``Animal``
+            representing three different species: ``Lion``, ``Owl`` and ``Giraffe``.
+            The values of the different attributes of the parent class should now be set
+            in their constructors.
+
+            ``Lion`` will have an additional ``roar()`` **method**, which will print ``ROARRR!!!``.
+
+            ``Owl`` will have a ``fly()`` **method**, which won't do anything (use the statement ``pass`` to do nothing).
+
+            ``Giraffe`` will have an additional **attribute** ``neck_length`` (in meters).
+            This information will be given to the constructor of the class.
+            Note that your code shouldn't accept invalid values for this attribute
+            (negative lengths or string values for example).
+            Raise a ``ValueError`` in case you get an invalid value.
+
+            You will then implement a **last class**: ``Zoo``,
+            which will have a list of animals called ``animals`` as an **attribute**
+            and a **method** ``add_animal(animal)`` to fill this list.
+            Raise a ``ValueError`` if this method receives something else than an animal.
+
+            You are finally asked to **define a function** ``create_my_zoo()`` that
+            will return your zoo containing a lion, an owl and two giraffes.
+            Those are your animals, name them as you want ;)
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

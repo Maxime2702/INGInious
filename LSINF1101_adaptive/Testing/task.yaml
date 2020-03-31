@@ -1,0 +1,65 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    Écrivez une fonction ``test()`` renvoyant un booléen et testant la fonction ``maximum_index(l)``. Cette fonction doit vérifier sur quelques cas si le résultat de la fonction correspond à celui attendu. Si c'est le cas elle renverra ``True`` et ``False`` sinon.
+
+    Voici les spécifications de la méthode ``maximum_index(l)`` qui est disponible pour vous l'appeler mais restera cachée.
+
+    .. code-block:: python
+
+        def maximum_index(l):
+        """
+        pre :   type(l) is list
+        post :  renvoit l'index de la valeur maximale dans l, None si l est vide
+        """
+
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 4: Test de maximum_index'
+network_grading: false
+order: 39
+problems:
+    q1:
+        name: Implémentation
+        default: ''
+        type: code
+        header: ' '
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

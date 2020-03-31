@@ -1,0 +1,64 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    In mathematics, the factorial of a strictly positive integer ``x``, denoted as :math:`x!` is the product of all strictly positive integers less than or equal to ``x``. The factorial of 0 is defined as 1. Calculate the factorial of an integer ``x`` and store the computed value in the variable ``result``.
+
+    *Examples*:
+
+    * :math:`5! = 5 × 4 × 3 × 2 × 1 = 120`
+
+    * :math:`0! = 1`
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 1: Q* Factorial'
+network_grading: false
+order: 7
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        type: code
+        header: |-
+            .. code-block:: python
+
+                x = ... #the number
+                result = ... #store in this variable the factorial of x
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

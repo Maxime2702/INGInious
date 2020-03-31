@@ -1,0 +1,82 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+class Robot :
+    """ Cette classe contient le code commun aux classes XYRobot et TurtleBot;
+        en particulier le code pour gérer l'historique qui retient les actions
+        déjà exécutées.
+    """
+
+    __drawcol = 'black'            # couleur standard pour dessiner
+    __undrawcol = 'green'         # couleur pour effacer
+
+    def __init__(self,n) :
+        self.__nom = n           # nom du robot
+        self.__history = []      # mémoire du robot
+
+    @classmethod
+    def getdrawcol(cls) :
+        return cls.__drawcol
+
+    @classmethod
+    def getundrawcol(cls) :
+        return cls.__undrawcol
+
+    def getnom(self) :
+        return self.__nom
+
+    def __str__(self) :
+        return str(self.getnom())
+
+    def getHistory(self) :
+        return self.__history
+
+    def addHistory(self,action) :
+        self.__history.append(action)
+
+    def clearHistory(self) :
+        self.__history = []
+
+    def moveforward(self,distance) :
+        self.addHistory(("forward",distance))
+
+    def movebackward(self,distance) :
+        self.addHistory(("backward",distance))
+
+    def turnright(self) :
+        self.addHistory(("right",90))
+
+    def turnleft(self) :
+        self.addHistory(("left",90))
+
+    def __undoAction(self,action) :
+        # le paramtère action est un tuple comme ("right",90), etc.
+        operation = action[0]
+        parameter = action[1]
+        if operation == "forward" :
+            self.movebackward(parameter)
+        elif operation == "backward" :
+            self.moveforward(parameter)
+        elif operation == "right" :
+            self.turnleft()
+        elif operation == "left" :
+            self.turnright()
+
+    def unplay(self) :
+        undoactions = []
+        history = self.getHistory()
+        for i in range(len(self.getHistory()),0,-1) : # go through list in opposite order
+            undoactions.append(self.__undoAction(history[i-1]))
+        self.clearHistory() # set history to empty after undoing
+        
+        
+class MirrorRobot(Robot):
+
+    def __init__(self, robot1, robot2):
+        name = robot1.getnom() + " | " + robot2.getnom()
+        super().__init__(name)
+        self.r1 = robot1
+        self.r2 = robot2
+
+@    @q1@@

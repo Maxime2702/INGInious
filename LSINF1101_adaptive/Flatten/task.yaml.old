@@ -1,0 +1,59 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    In Python, we can store many kinds of elements in a list, including lists themselves.
+
+    *Example*: :math:`[1,[2, 3], 4,[5, [6, 7]], 8]`
+
+    Such structures are hard to read for a program, however, and often need to be flattened to a simple one-level depth list before. The flattened version of the list above would be: :math:`[1, 2, 3, 4, 5, 6, 7, 8]`
+
+    Create a function ``flatten(l)`` that returns a one-level depth list from a multi-level depth list.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 8: Flatten lists'
+network_grading: false
+order: 87
+problems:
+    q1:
+        type: code
+        name: Implementation
+        language: python
+        header: Implement the function ``flatten(l)`` in Python.
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

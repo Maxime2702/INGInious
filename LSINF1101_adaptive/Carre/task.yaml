@@ -1,0 +1,72 @@
+accessible: true
+author: Olivier Goletti, Siegfried Nijssen
+categories:
+- String
+contact_url: ''
+context: |-
+    Écrivez une fonction ``carre(n)`` qui pour un nombre entier donné ``n``, retourne la matrice
+
+    .. code-block:: python
+
+        [ [         0,             1, ...,     n - 1 ],
+          [         n,         n + 1, ..., 2 * n - 1 ],
+          [     2 * n,     2 * n + 1, ..., 3 * n - 1 ],
+          ...,
+          [ (n-1) * n, (n-1) * n + 1, ..., n * n - 1 ] ]
+
+    Par exemple, pour ``n=4``, la fonction retourne
+
+    .. code-block:: python
+
+        [ [  0,  1,  2,  3 ],
+          [  4,  5,  6,  7 ],
+          [  8,  9, 10, 11 ],
+          [ 12, 13, 14, 15 ] ]
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 4: Carre'
+network_grading: false
+order: 35
+problems:
+    q1:
+        name: Implementation
+        default: ''
+        type: code
+        header: Implement the function ``carre(n)`` in Python.
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

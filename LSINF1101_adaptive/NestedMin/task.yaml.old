@@ -1,0 +1,63 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Ecrivez la fonction ``recursive_min(l)`` qui renvoit le minimum dans la liste ``l`` (les éléments de cette liste peuvent également être des listes).
+    Par facilité, les listes et sous-listes ne peuvent être vides et tous les éléments de ces listes sont des entiers positifs.
+
+    L'utilisation suivrait le fragment de code suivant avec la fonction test vue au cours.
+
+    .. code-block:: python
+
+        test(recursive_min([2, 9, [1, 13], 8, 6]) == 1)
+        test(recursive_min([[[100, 1], 90], [10, 13], 8, 6]) == 1)
+        test(recursive_min([6, [[13, 7], 90], [6, 100], 8, 6]) == 6)
+        test(recursive_min([[[13, 7], 90], 2, [2, 100], 8, 6]) == 2)
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 8: Q* Nested min'
+network_grading: false
+order: 92
+problems:
+    q1:
+        type: code
+        name: Implémentation
+        language: python
+        header: Implémentez la fonction ``recursive_min(l)`` en Python.
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

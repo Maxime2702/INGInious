@@ -1,0 +1,84 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    Vous pouvez soumettre ici votre phase de réalisation pour la Mission 8.
+
+    Nous attendons les fichiers :
+
+    * memoisation.py
+
+    * test.py
+
+    * README.TXT
+
+    * rapport.pdf
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 8: Phase de réalisation'
+network_grading: false
+order: 91
+problems:
+    memoisation:
+        allowed_exts:
+        - .py
+        name: 'Phase de réalisation de la Mission 8: memoisation.py'
+        type: file
+        header: Soumettez ici votre programme.
+    test:
+        allowed_exts:
+        - .py
+        header: Soumettez ici votre fichier de tests.
+        type: file
+        name: 'Phase de réalisation de la Mission 8: test.py'
+    README:
+        allowed_exts:
+        - .txt
+        - .TXT
+        header: Soumettez ici la documentation destinée aux utilisateurs de votre
+            programme et vos notes dans le fichier README.txt.
+        type: file
+        name: 'Phase de réalisation de la Mission 8: README.TXT'
+    report:
+        allowed_exts:
+        - .pdf
+        - .PDF
+        type: file
+        header: Soumettez ici le rapport.
+        name: 'Phase de réalisation de la Mission 8: rapport.pdf'
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

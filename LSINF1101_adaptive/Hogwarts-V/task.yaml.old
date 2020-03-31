@@ -1,0 +1,73 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+context: |-
+    During the last session of the **duelling club**, the hourglasses keeping the points of each house were destroyed beyond any *reparo* and the celebration of the *house cup* is upon us!
+
+    Luckily **Filch**, who doesn't trust magic, kept the account of each achievement perpetrated (his words, not mine) by the students. He provided you with a dictionnary containing the belonging of each student to their house and the scroll with their winnings.
+
+    The scores list would be provided as a file. The content of this file would follow this format:
+
+    - Lines: **student_name** *points*
+
+    Please return the name of the winning house, in the case of an ex-aequo: return the list of the best houses.
+
+    In case of error, just raise it.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    memory: '100'
+    output: '2'
+name: 'Session 7: Q* Hogwarts - House cup'
+network_grading: false
+order: 77
+problems:
+    q1:
+        type: code
+        name: Implementation
+        language: python
+        header: |-
+            Implement the function ``winning_house(scroll)`` in Python.
+
+            You already have the list of student sorted by house at your disposal:
+
+            .. code-block:: python
+
+                students = {'gryffindor': ['Harry', 'Hermione', 'Ron', 'Ginny', 'Fred', ' Georges', 'Neville'],
+                            'ravenclaw': ['Cho', 'Luna', 'Sybill', 'Marcus', 'Marietta', 'Terry', 'Penelope'],
+                            'hufflepuff': ['Pomona', 'Zacharias', 'Teddy', 'Cedric', 'Nymphadora', 'Newton', 'Justin'],
+                            'slytherin': ['Malfoy', 'Severus', 'Dolores', 'Horace', 'Blaise', 'Pansy', 'Bellatrix']}
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

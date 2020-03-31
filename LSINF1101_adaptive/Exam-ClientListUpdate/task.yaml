@@ -1,0 +1,108 @@
+accessible: true
+author: ''
+categories: []
+contact_url: ''
+context: |-
+    Une classe ``Client`` représente un client, identifié par son nom et son code PIN. La classe ``ClientList`` représente une liste de clients, sous forme de liste simplement chaînée. Le code source (incomplet) de ces classes est repris ci-dessous.
+
+    Dans la classe ``ClientList``, écrivez le corps de la méthode ``update`` qui permet de mettre à jour le PIN d’un client ou de l’ajouter s’il s’agit d’un nouveau client, selon la spécification ci-dessous.
+
+    .. code-block:: python
+
+        class Client:
+            """
+            Un client. Chaque client a un nom d'utilisateur (supposé unique,
+            par exemple adresse email) et un code pin qui est stocké comme un entier.
+            """
+            def __init__(self, name, pin):
+                self.userName = name
+                self.pin = pin
+
+            def getUserName(self):
+                return self.userName
+
+            def getPin(self):
+                return self.pin
+
+            def setPin(self, pin):
+                self.pin = pin
+
+            def __str__(self):
+                return self.userName + "(" + str(self.pin) + ")"
+
+        class ClientList:
+            """Une liste de clients"""
+
+            # un noeud de la liste
+            class Node:
+                def __init__(self, client, prev):
+                    self.data = client
+                    self.link = prev
+
+            def __init__(self):
+                self.last = None
+
+            def __str__(self):
+                # ... code non fourni
+
+            def update(self, name, pin):
+                """
+                pre: name != None, la liste contient au plus un élément dont le username
+                     est `name`.
+                post: Si un client dont le username est name est déjà présent, met à jour
+                      son code pin, sinon ajoute à la liste un nouveau client ayant `name`
+                      comme username et `pin` comme code pin.
+                """
+                ### QUESTION
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Examen à blanc: ClientList.update'
+network_grading: false
+order: 147
+problems:
+    question:
+        default: ''
+        type: code
+        language: python
+        name: ClientList.update
+        header: |
+            Ecrivez ici le corps de la méthode ``update``.
+
+            .. code-block:: python
+
+                def update(self, name, pin):
+                    """
+                    pre: name != None, la liste contient au plus un élément dont le username
+                         est `name`.
+                    post: Si un client dont le username est name est déjà présent, met à jour
+                          son code pin, sinon ajoute à la liste un nouveau client ayant `name`
+                          comme username et `pin` comme code pin.
+                    """
+                    ### VOTRE REPONSE
+    ztest:
+        default: ''
+        language: python
+        optional: 'on'
+        name: Tests
+        header: |-
+            Insérez votre code de test optionnel ci-dessous. Vous pouvez utiliser ``print`` pour tester votre programme. Votre code de test est exécuté à la suite de la définition des classes ``Client`` et ``ClientList``.  Exemple:
+
+            .. code-block:: python
+
+                cl = ClientList()
+                cl.update("alice", 1234)
+                print(cl)                # [alice(1234)]
+        type: code
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

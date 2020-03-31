@@ -1,0 +1,92 @@
+accessible: true
+author: Tanguy De Bels
+categories:
+- Classe
+contact_url: ''
+context: |-
+    Dans le contexte de gestion d'une bibliothèque de média, chacun des objets de cette bibliothèque est une instance de la classe ``Item`` ci-dessous:
+
+    .. code-block:: python
+
+        class Item :
+
+            def __init__(self,author,title,serial):
+                """
+                Méthode d'initialisation.
+                @pre  author et title sont des valeurs de type String
+                      serial est un entier > 0
+                @post Une instance de la classe est créée, et représente un objet ayant
+                      comme auteur author, comme titre title et comme numéro de série serial
+                """
+                self.__author = author
+                self.__title = title
+                self.__serial = serial
+
+            def __str__(self):
+                """
+                Méthode de conversion en string.
+                @pre  -
+                @post le string retourné contient une représentation de cet objet sous la
+                      forme: [num série] Auteur, Titre
+                """
+                return "[{}] {}, {}".format(self.__serial,self.__author,self.__title)
+
+    On vous demande d'écrire entièrement la classe ``CD``. Un CD est lui même un item de la bibliothèque avec une information supplémentaire: la *durée de l'album en secondes* (un entier suffira).
+
+    On doit pouvoir créer un nouvel objet ``CD`` par exemple avec l'instruction: ``cd = CD("Radiohead","The Bends",2917)``.
+
+    Les trois paramètres passés au constructeur ``CD()`` sont l'auteur, le titre et une durée en secondes.
+
+    On doit pouvoir obtenir une représentation textuelle d'un CD grâce à la méthode ``__str__``,    qui renvoie par exemple:
+    *[100000] Radiohead, The Bends (2917 s)*
+
+    Remarquez que chaque ``Item`` possède un numéro de série ``serial`` propre à l'objet (pour pouvoir différencier plusieurs exemplaires d'un même livre par exemple). Ce numéro de série est fourni en paramètre du constructeur pour un ``Item`` mais doit être généré automatiquement et commencer à **100000** pour un CD.
+
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 9: QBF'
+network_grading: false
+order: 124
+problems:
+    q1:
+        header: Implémentez la classe ``CD`` en Python héritant de la classe ``Item``.
+        name: Implémentation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

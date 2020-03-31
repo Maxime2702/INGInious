@@ -1,0 +1,77 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    In this exercise, you're asked to provide a class *Student*.
+
+    The students are supposed to have the following characteristics:
+
+    * A first name
+
+    * A surname
+
+    * A birth date
+
+    * An email address
+
+    * A student number (different for every student and given at the creation of the object, the first one should be 0 and you should use a class' variable)
+
+    The object, when cast as a **string** should return for example:
+
+    Student number **0**: **Hervé** **Ducobu** born the **1st of april**, can be reached at **doNotReachMeForHomeworks@gmail.com**
+
+    To do so you're invited to use the magic methods.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session 9: Q* Student - init'
+network_grading: false
+order: 121
+problems:
+    q1:
+        header: |-
+            Implement the class ``Student`` in Python.
+
+            We will create the object with:
+
+            *stu = Student('firstname', 'surname', 'birthday', 'email')*
+        name: Implementation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

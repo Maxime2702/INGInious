@@ -1,0 +1,77 @@
+accessible: false
+author: Damien Gonze
+context: |-
+    As the manager of the Amazon Dispatch center, you also have to pay your -slaves- employees.
+
+    To do so, you have to create a function ``pay_employee``, that take an ``employee`` in parameter and the ``number of hours`` it has worked.
+
+    you then have to call the function ``receive_salary`` of the object ``employee`` with the argument ``hours_worked`` multiplied by the ``pay`` of the employee (an attribute of the object)
+
+
+
+    The problem is that you know the data could have some problems. So you decide to create custom exception to take in account all possible problems.
+
+    You have to create (and raise them if necessary) the following **exceptions** :
+
+    * ``EmployeeDidntWorked`` : if the employee has worked 0 hours
+    * ``EmployeeWorkedNegatively`` : if the employee worked less than 0 hours (Yes, the data can have weird problems)
+    * ``EmployeeWorkedTooMuch`` : if the employee worked more than possible (24*31 = 744 hours)
+    * ``PayIsNegative`` : if the pay of the employee is negative
+    * ``PayIsTooBig`` : if an employee has a pay per hour bigger than 100$
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    memory: '100'
+    time: '30'
+name: 'Session 9: Amazon dispatch center must pay'
+network_grading: false
+order: 111
+problems:
+    q1:
+        header: |-
+            Implement the 5 custom error and the function ``pay_employee(employee, hours_worked)``
+
+            The class ``employee`` is already implemented, and look like this :
+
+            .. code-block:: python
+
+              # attributes
+              pay # the salary per hour
+
+              # functions
+              receive_salary(much) # receive salary of the month
+        type: code
+        name: Implementation
+        default: ''
+        language: python
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

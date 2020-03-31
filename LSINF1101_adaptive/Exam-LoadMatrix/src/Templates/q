@@ -1,0 +1,20 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+def load_matrix(filename):
+@    @question@@
+
+#f = open("mat.txt", "w")
+#f.write("""\
+#3
+#3
+#0,0 10
+#1,1 20
+#0,2 30
+#""")
+#f.close()
+#load_matrix('mat.txt')
+
+@@ztest@@
+

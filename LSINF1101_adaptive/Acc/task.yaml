@@ -1,0 +1,67 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    Ecrivez la fonction ``accumulate(e, f, l)`` commençant avec une valeur initiale ``e``, et étant donné une fonction binaire ``f``, accumule le résultat en appliquant cette foncction ``f`` à la valeur précédemmment accumulée et l'élément suivant de la liste. Le résultat devient la nouvelle valeur accumulée.
+
+    En utilisant la fonction ``accumulate``, définissez en une ligne:
+
+    * Une fonction sommant tous les éléments d'une liste: ``sum(l)``
+
+    * Une fonction multipliant tous les éléments d'une liste: ``mul(l)``
+
+    * Une fonction calculat le maximum de tous les éléments d'une liste: ``max(l)``
+
+    * Une fonction concatéant tous les éléments d'une liste: ``concat(l)``
+
+    Par soucis de simplicité vous pouvez considérer que la liste ne sera jamais vide.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    time: '30'
+    output: '2'
+    memory: '100'
+name: 'Session X: Q* Accumulateur'
+network_grading: false
+order: 99
+problems:
+    q1:
+        header: Implémentez la fonction ``accumulate(e, f, l)`` en Python. Ainsi que
+            les 4 fonctions l'utilisant.
+        name: Implémentation
+        language: python
+        type: code
+        default: ''
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

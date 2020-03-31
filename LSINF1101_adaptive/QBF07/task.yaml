@@ -1,0 +1,88 @@
+accessible: true
+author: Tanguy De Bels
+categories:
+- Méthodes_instance
+- Array_List
+contact_url: ''
+context: |-
+    Implémentez la méthode dont la spécification est reprise ci-dessous :
+
+
+    .. code-block:: python
+
+        def topk_words(words, k):
+        """ pre:  words est une liste de mots, k est un nombre entier > 0
+            post: Renvoie les k mots les plus fréquents dans la liste de mots, en utilisant une liste de tuples (compte, mot) en ordre décroissant;
+                  si plusieurs mots ont la même fréquence que le k^me mot, tous les mots avec cette fréquence sont retournés.
+
+                  Par exemple, sur cette liste de mots:
+                  ["while", "the", "congress", "of", "the", "republic", "endlessly", "debates", "this", "alarming", "chain", "of", "events", "the", "supreme", "chancellor", "has", "secretly", "dispatched", "two", "jedi", "knights"]
+
+                  avec k=2, la fonction doit retourner [(3,"the"), (2,"of")]
+
+                  avec k=3, la fonction retourne tous les mots, puisque tous les mots qui restent ont la même fréquence (1).
+
+                  Si le nombre de mots dans la liste est moins que k, on retourne tous les mots.
+      """
+
+    Avant de commencer l'exercice, considérez ce qui suit:
+
+    * Est-ce qu'il est possible de décomposer le problème? Considérez:
+
+        * la création d'un dictionnaire contenant la fréquence de chaque mot
+        * la création d'une fonction pour déterminer les top-k tuples d'une liste de tuples
+
+    * On peut trier des tuples dans l'ordre inverse en utilisant ``sorted(l,reverse=True)``.
+
+    * Faites attention: les dictionnaires ne sont pas ordonnés.
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 7: QBF'
+network_grading: false
+order: 87
+problems:
+    q1:
+        name: Implémentation
+        default: ''
+        type: code
+        header: |-
+            Implémentez la fonction ``topk_words(words, k)``.
+
+            Ajoutez également toute autre fonction nécessaire.
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

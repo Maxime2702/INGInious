@@ -1,0 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+def polynomial(a, b, c, x):
+@    @q1@@
+    return y

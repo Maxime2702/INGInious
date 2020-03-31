@@ -1,0 +1,12 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+
+class Ticket:
+
+    __prochain_numero = 1  # variable de classe pour générer le numéro du ticket
+
+@    @q1@@
+
+    def numero(self):
+        return self.__numero

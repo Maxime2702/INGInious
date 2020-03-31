@@ -1,0 +1,73 @@
+accessible: false
+author: Tanguy De Bels
+categories: []
+contact_url: ''
+context: |-
+    Écrivez une fonction ``nest_students(student_courses)`` qui, pour chaque cours, crée une liste imbriquée
+    des étudiants qui suivent le cours. Sur l'exemple précédent, la fonction
+    doit retourner cette structure de données:
+
+    .. code-block:: python
+
+          [('LINFO1101', ['Jean', 'Pierre']), ('LINFO1111', ['Jean']), ('LINFO1112', ['Pierre'])]
+
+    La liste doit être triée par ordre de cours.  Utilisez le code de question 4 et de question 5 comme inspiration. Réfléchissez sur la question: comment est-ce qu'on peut ajouter un élément
+    dans une liste imbriquée qui vient d'être créée?
+
+    Vous êtes libres d'utiliser:
+
+    .. code-block:: python
+
+       def sort_courses(student_courses):
+       """
+       pre: student_course une liste de tuples (student, course)
+       post: une liste triée de tuples (course, student)
+       """
+
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: default
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    output: '2'
+    time: '30'
+name: 'Session 5: Participants (Matrice)'
+network_grading: false
+order: 56
+problems:
+    q1:
+        name: Implémentation
+        default: ''
+        type: code
+        header: Implémentez la fonction ``nest_students(student_courses)`` en Python.
+        language: python
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0
