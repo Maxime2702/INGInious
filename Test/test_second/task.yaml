@@ -1,0 +1,34 @@
+accessible: true
+author: ''
+categories:
+- test
+contact_url: ''
+context: ''
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    time: '30'
+    memory: '100'
+name: Test task 2
+network_grading: false
+problems:
+    first:
+        name: ''
+        type: multiple_choice
+        limit: 0
+        header: Est-ce votre deuxième fois ?
+        choices:
+        -   valid: true
+            text: 'Yes'
+        -   text: Nope
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0
+order: 5

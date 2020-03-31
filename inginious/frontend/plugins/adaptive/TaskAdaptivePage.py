@@ -93,7 +93,6 @@ class BaseTaskPage(object):
         # Fetch the course
         try:
             course = self.course_factory.get_course(courseid)
-            course_global = course
         except exceptions.CourseNotFoundException as ex:
             raise web.notfound(str(ex))
 
@@ -107,7 +106,10 @@ class BaseTaskPage(object):
         try:
             #tasks = OrderedDict((tid, t) for tid, t in course.get_tasks().items() if self.user_manager.task_is_visible_by_user(t, username, isLTI))
             tasks = Adaptive_course.tasks_list
-            task = tasks[taskid]
+            try:
+                task = tasks[taskid]
+            except:
+                task = tasks[list(tasks.keys())[0]]
         except KeyError:
             raise web.notfound()
 
@@ -267,13 +269,20 @@ class BaseTaskPage(object):
                     for node in tree:
                         tags = task.get_categories()
                         if node["node"] in tags:
-                            if Adaptive_course.AdaptivePage.is_available(Adaptive_course.AdaptivePage(), node, course):
+                            #if Adaptive_course.AdaptivePage.is_available(Adaptive_course.AdaptivePage(), node, course):
+                            if True:
                                 for child in node["content"]["child"]:
                                     for task_c_id, task_c in course.get_tasks().items():
                                         tags_c = task_c.get_categories()
                                         if child in tags_c:
                                             tasks.insert(list(tasks.keys()).index(taskid), task_c_id, task_c)
                                             tasks.move_to_end(task_c_id, True)
+                            for parent in node["content"]["parent"]:
+                                for task_p_id, task_p in course.get_tasks().items():
+                                    tags_p = task_p.get_categories()
+                                    if parent in tags_p:
+                                        tasks.pop(task_p_id)
+                                        #tasks.move_to_end(task_c_id, True)
                     tasks.pop(taskid)
                     Adaptive_course.tasks_list = tasks
                 elif result['result'] == "failed":

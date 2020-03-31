@@ -134,9 +134,11 @@ class AdaptivePage(INGIniousAuthPage):
                 recommendations["medium"].update({taskid: task})
                 for task_p_id in task["tasks_parents"]:
                     recommendations["high"].update({task_p_id: tasks_data[task_p_id]})
-        for priority, tasks in recommendations.items():
-            for taskid, task in tasks.items():
-                tasks_list.update({taskid: course.get_tasks()[taskid]})
+
+        if not tasks_list:
+            for priority, tasks in recommendations.items():
+                for taskid, task in tasks.items():
+                    tasks_list.update({taskid: course.get_tasks()[taskid]})
 
         if not tasks_list:
             for taskid, task in course.get_tasks().items():
@@ -221,10 +223,15 @@ class AdaptivePage(INGIniousAuthPage):
             if self.is_available2(node, course, level_student):
                 for taskid, task in tasks.items():
                     tags = task.get_categories()
-                    if node["node"] in tags:
+                    print(tags)
+                    if not tags:
+                        print("tags: "+str(tags))
+                        tasks_data[taskid]["visible"] = False
+                    elif node["node"] in tags:
                         #if node["level"] <= level_student:
                         #    tasks_data[taskid]["succeeded"] = True
                         tasks_data[taskid]["visible"] = task.get_accessible_time().after_start() or is_admin
+                        #print(tasks_data[taskid]["visible"])
                         for parent in node["content"]["parent"]:
                             for task_p_id, task_p in tasks.items():
                                 tags_p = task_p.get_categories()

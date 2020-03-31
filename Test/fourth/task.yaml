@@ -1,0 +1,38 @@
+accessible: true
+author: ''
+categories:
+- 004_fourth
+contact_url: ''
+context: last task of test course
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    memory: '100'
+    time: '30'
+    output: '2'
+name: 4. Fourth task
+network_grading: false
+problems:
+    fourth:
+        limit: 0
+        choices:
+        -   text: Oui
+        -   text: Non
+        -   text: Peut-être
+            valid: true
+        -   valid: true
+            text: D, la réponse D
+        name: fourth question
+        multiple: true
+        type: multiple_choice
+        header: Est-ce la fin ?
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0
+order: 3
