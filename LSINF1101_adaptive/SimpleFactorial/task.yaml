@@ -1,9 +1,7 @@
 accessible: true
 author: Tanguy De Bels
 categories:
-- Signature
-- Specifications
-- Méthodes
+- Spécifications
 contact_url: ''
 context: |-
     Ecrivez l'**en-tête**, la **spécification** et le **corps** d'une fonction ``fact(n)`` qui calcule la factorielle de *n* : :math:`n! = n.(n-1).(n-2) \dots 1`.  **Veillez à ce que la méthode que vous écrivez respecte bien les spécifications que vous définissez vous-même**.
@@ -36,18 +34,18 @@ file: ''
 groups: false
 input_random: '0'
 limits:
+    time: '30'
     memory: '100'
     output: '2'
-    time: '30'
 name: 'Session 3: Factorial'
 network_grading: false
 order: 21
 problems:
     q1:
-        name: Implementation
-        default: ''
         type: code
+        default: ''
         header: 'Ecrivez la fonction ``fact(n)``:'
+        name: Implementation
         language: python
 run_cmd: ''
 stored_submissions: 0

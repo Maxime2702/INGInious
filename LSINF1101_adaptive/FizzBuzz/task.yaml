@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     Write a program allowing to play the game `fizzbuzz <https://en.wikipedia.org/wiki/Fizz_buzz>`_.
@@ -45,20 +46,20 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 2: Q* FizzBuzz'
 network_grading: false
 order: 17
 problems:
     q1:
-        name: Implementation
         default: ''
+        language: python
         type: code
         header: '``i`` is provided and you need to store the adequate return value
             in ``temp``'
-        language: python
+        name: Implementation
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

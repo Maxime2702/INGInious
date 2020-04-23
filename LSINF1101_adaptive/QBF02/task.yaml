@@ -1,7 +1,7 @@
 accessible: true
 author: Tanguy De Bels
 categories:
-- Algorithme
+- Boucle
 contact_url: ''
 context: |-
     Ecrivez un programme qui affiche à l’écran le nombre de diviseurs propres de chaque entier entre 1 et ``n``, où ``n`` est donné dans une variable ``n``.
@@ -41,13 +41,13 @@ network_grading: false
 order: 13
 problems:
     q1:
-        name: Implémentation
         default: ''
-        type: code
+        name: Implémentation
         header: |-
             .. code-block:: python
 
                 n = ...    #Borne supérieure
+        type: code
         language: python
 run_cmd: ''
 stored_submissions: 0

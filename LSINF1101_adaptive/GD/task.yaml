@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     The Greatest Divisor of a number ``a`` is the biggest number ( except ``a`` itself) such that the division of ``a`` by this natural is an entire division.
@@ -39,16 +40,16 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 3: Q* Plus grand diviseur'
 network_grading: false
 order: 25
 problems:
     q1:
-        name: Implementation
         default: ''
+        language: python
         type: code
         header: |-
             Provide the body of the following method:
@@ -56,7 +57,7 @@ problems:
             .. code-block:: python
 
                 def greatest_divisor(a):
-        language: python
+        name: Implementation
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

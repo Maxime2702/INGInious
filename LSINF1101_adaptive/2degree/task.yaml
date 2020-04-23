@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: François MICHEL
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     Les équations du second degré sont des équations de la forme suivante:
@@ -86,19 +87,19 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 3: Q* Equations du second degré'
 network_grading: false
 order: 31
 problems:
     q1:
-        name: Définissez et implémentez les fonction demandées
         default: ''
+        language: python
         type: code
         header: ' '
-        language: python
+        name: Définissez et implémentez les fonction demandées
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

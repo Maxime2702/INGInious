@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- Instruction_simple
 contact_url: ''
 context: |-
     Suppose the variables ``a``, ``b`` and ``c`` contain a natural number.
@@ -45,9 +46,8 @@ network_grading: false
 order: 2
 problems:
     q1:
-        name: Implementation
         default: ''
-        type: code
+        name: Implementation
         header: |-
             .. code-block:: python
 
@@ -55,6 +55,7 @@ problems:
                 b = ... #variable to evaluate
                 c = ... #variable to evaluate
                 median = ... #store in this variable the median of the three variables
+        type: code
         language: python
 run_cmd: ''
 stored_submissions: 0

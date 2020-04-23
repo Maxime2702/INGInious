@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     Once again, the **Fat Lady** drank all the wine of the *drunken monks* painting and **Sir Cadogan** isn't available to replace her. The access to the *Gryffindor Common Room* isn't guarded and the **Slytherins** are up to no good.
@@ -37,20 +38,20 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 4: Q* Hogwarts - Fat Lady'
 network_grading: false
 order: 48
 problems:
     q1:
-        name: Implementation
         default: ''
+        language: python
         type: code
         header: Implement the function ``portrait(right_password, entered_password)``
             in Python.
-        language: python
+        name: Implementation
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     In mathematics, the `Fibonacci series <https://en.wikipedia.org/wiki/Fibonacci_number>`_ are the numbers in the following sequence of integers, which is characterized by the fact that every number after the first two is the sum of the two preceding ones:
@@ -42,19 +43,19 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 3: Q* Fibonacci'
 network_grading: false
 order: 28
 problems:
     q1:
-        name: Implementation
         default: ''
+        language: python
         type: code
         header: Implement the function ``fibonacci(n)`` in Python.
-        language: python
+        name: Implementation
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

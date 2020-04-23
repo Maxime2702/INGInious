@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- For
 contact_url: ''
 context: |-
     In programming, one of the first exercise asked for practice is to calculate the sum of the ``n`` first positive integers. It is to illustrate the capacity to repeat a process easily and with a few lines of computers.
@@ -43,14 +44,14 @@ network_grading: false
 order: 5
 problems:
     q1:
-        name: Implementation
         default: ''
-        type: code
+        name: Implementation
         header: |-
             .. code-block:: python
 
                 x = ... #the number
                 result = ... #store in this variable the sum of the x first positive integers
+        type: code
         language: python
 run_cmd: ''
 stored_submissions: 0

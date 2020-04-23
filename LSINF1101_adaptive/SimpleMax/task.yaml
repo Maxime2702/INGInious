@@ -2,7 +2,6 @@ accessible: true
 author: Tanguy De Bels
 categories:
 - Signature
-- Méthodes
 contact_url: ''
 context: |-
     Ecrivez l'en-tête et le corps d'une fonction baptisée ``afficheMax`` qui prend deux nombres entiers comme arguments et affiche le plus grand de ces nombres. La spécification de cette fonction est :
@@ -40,18 +39,18 @@ file: ''
 groups: false
 input_random: '0'
 limits:
+    time: '30'
     memory: '100'
     output: '2'
-    time: '30'
 name: 'Session 3: Maximum'
 network_grading: false
 order: 20
 problems:
     q1:
-        name: Implémentation
-        default: ''
         type: code
+        default: ''
         header: ' '
+        name: Implémentation
         language: python
 run_cmd: ''
 stored_submissions: 0

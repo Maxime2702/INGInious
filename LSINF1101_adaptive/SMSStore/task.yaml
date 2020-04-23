@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     Créez une nouvelle classe, ``SMSStore``. Avec cette classe vous pourrez instancier des objets ``SMSStore``, qui peuvent stocker des messages SMS, similaire à une boîte de réception sur un téléphone:
@@ -39,14 +40,17 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    time: '30'
     output: '2'
+    time: '30'
     memory: '100'
 name: 'Session 8: Q* SMS Store'
 network_grading: false
 order: 112
 problems:
     q1:
+        default: ''
+        language: python
+        type: code
         header: |-
             Une instance ``my_inbox'' de la classe ``SMSStore`` représentant une boîte de réception doit pouvoir comprendre les messages suivantes:
 
@@ -76,9 +80,6 @@ problems:
 
             Ecrivez la classe ``SMSStore`` et implémentez ces méthodes.
         name: Implémentation
-        language: python
-        type: code
-        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

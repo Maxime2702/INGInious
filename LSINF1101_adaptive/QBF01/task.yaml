@@ -1,7 +1,7 @@
 accessible: true
 author: Tanguy De Bels
 categories:
-- Algorithme
+- test
 contact_url: ''
 context: |-
     La suite de Syracuse
@@ -41,22 +41,22 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 1: QBF'
 network_grading: false
 order: 4
 problems:
     q1:
-        name: Implémentation
         default: ''
+        language: ''
         type: code
         header: |-
             .. code-block:: python
 
                 s0 = ...    #Entier de départ
-        language: ''
+        name: Implémentation
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

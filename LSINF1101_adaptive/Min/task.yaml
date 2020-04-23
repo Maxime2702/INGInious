@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- Instruction_conditionnelle
 contact_url: ''
 context: |-
     Suppose the variables ``a``, ``b`` and ``c`` contain a natural number.
@@ -35,17 +36,15 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 2: Q* Minimum'
 network_grading: false
 order: 15
 problems:
     q1:
-        name: Implementation
         default: ''
-        type: code
         header: |-
             .. code-block:: python
 
@@ -53,6 +52,8 @@ problems:
                 b = ... #variable to evaluate
                 c = ... #variable to evaluate
                 minima = ... #store in this variable the smallest of the three variables
+        type: code
+        name: Implementation
         language: python
 run_cmd: ''
 stored_submissions: 0

@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     During the last session of the **duelling club**, the hourglasses keeping the points of each house were destroyed beyond any *reparo* and the celebration of the *house cup* is upon us!
@@ -43,16 +44,16 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 7: Q* Hogwarts - House cup'
 network_grading: false
 order: 81
 problems:
     q1:
-        name: Implementation
         default: ''
+        language: python
         type: code
         header: |-
             Implement the function ``winning_house(scroll)`` in Python.
@@ -65,7 +66,7 @@ problems:
                             'ravenclaw': ['Cho', 'Luna', 'Sybill', 'Marcus', 'Marietta', 'Terry', 'Penelope'],
                             'hufflepuff': ['Pomona', 'Zacharias', 'Teddy', 'Cedric', 'Nymphadora', 'Newton', 'Justin'],
                             'slytherin': ['Malfoy', 'Severus', 'Dolores', 'Horace', 'Blaise', 'Pansy', 'Bellatrix']}
-        language: python
+        name: Implementation
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

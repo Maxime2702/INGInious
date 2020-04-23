@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- While
 contact_url: ''
 context: |-
     Suppose the variables ``a`` and ``b`` contain a natural number.
@@ -47,15 +48,15 @@ network_grading: false
 order: 18
 problems:
     q1:
-        name: Implementation
         default: ''
-        type: code
+        name: Implementation
         header: |-
             .. code-block:: python
 
                 a = ... #variable to evaluate
                 b = ... #variable to evaluate
                 rest = ... #store in this variable the remainder of the division a/b
+        type: code
         language: python
 run_cmd: ''
 stored_submissions: 0

@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     The police is hiring you to develop a program to calculate the fine that a car driver will have to pay in the event of a violation. The law stipulates that the driver will have to pay 5 euros per km/h above the maximum authorized speed, with a **minimum fine of 12.5€**.
@@ -45,20 +46,20 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 3: Q*  Amende pour excès de vitesse'
 network_grading: false
 order: 30
 problems:
     q1:
-        name: Implementation
         default: ''
+        language: python
         type: code
         header: Implement the function ``fine(authorized_speed, actual_speed)`` in
             Python.
-        language: python
+        name: Implementation
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

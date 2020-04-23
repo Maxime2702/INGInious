@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     Once again, it is time for the *sorting ceremony*. The first years are waiting in line, in front of an old hat, both anxious and excited. The director makes a great speech to welcome them and gives the floor to a mysterious intervenant.
@@ -39,16 +40,16 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 5: Q* Hogwarts - Sorting Hat'
 network_grading: false
 order: 61
 problems:
     q1:
-        name: Implementation
         default: ''
+        language: python
         type: code
         header: |-
             Implement the function ``house_designation(student_qualities)`` in Python.
@@ -61,7 +62,7 @@ problems:
                              ['Ravenclaw', ['smart', 'wise', 'curious']],
                              ['Hufflepuff', ['loyal', 'patient', 'hard-working']],
                              ['Slytherin', ['cunning', 'wily', 'malignant']]]
-        language: python
+        name: Implementation
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

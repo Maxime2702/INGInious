@@ -112,15 +112,25 @@ tags:
         description: ''
         type: 2
         visible: true
-    Specifications:
+    Spécifications:
         description: ''
         visible: true
-        name: Specifications
+        name: Spécifications
         type: 2
     Méthodes:
         description: ''
         visible: true
         name: Méthodes
+        type: 2
+    String:
+        type: 2
+        visible: true
+        description: ''
+        name: String
+    Array_List:
+        visible: true
+        name: Array / List
+        description: ''
         type: 2
     Variable_instance:
         visible: true
@@ -147,216 +157,198 @@ tags:
         name: Objet
         type: 2
         description: ''
-    String:
-        type: 2
-        visible: true
-        description: ''
-        name: String
-    Array_List:
-        visible: true
-        name: Array / List
-        description: ''
-        type: 2
     Orienté_objet:
         type: 2
         description: ''
         visible: true
         name: Programmation orientée-objet
+    test:
+        name: Tâches de test
+        type: 2
+        description: ''
+        visible: false
 adaptive:
     tree:
         -   node: Type
             level: 1
             content:
-                grandparent: {}
                 parent: {}
                 child:
                     Variable: Variable
-                grandchild: {}
         -   node: Variable
             level: 1
             content:
-                grandparent: {}
                 parent:
                     Type: Type
                 child:
                     Algorithme: Algorithme
-                grandchild: {}
+                    Paramètre: Paramètre
+                    Variable_instance: Variable_instance
         -   node: Expression
             level: 1
             content:
-                grandparent: {}
                 parent: {}
                 child:
                     Instruction_simple: Instruction_simple
                     Condition: Condition
-                grandchild: {}
         -   node: Instruction_simple
             level: 1
             content:
-                grandparent: {}
                 parent:
                     Expression: Expression
                 child:
                     Algorithme: Algorithme
-                grandchild: {}
         -   node: Condition
             level: 1
             content:
-                grandparent: {}
                 parent:
                     Expression: Expression
                 child:
                     Instruction_conditionnelle: Instruction_conditionnelle
-                grandchild: {}
         -   node: Instruction_conditionnelle
-            level: 1
+            level: 2
             content:
-                grandparent: {}
                 parent:
                     Condition: Condition
                 child:
                     For: For
                     While: While
-                grandchild: {}
         -   node: For
-            level: 1
+            level: 2
             content:
-                grandparent: {}
                 parent:
                     Instruction_conditionnelle: Instruction_conditionnelle
                 child:
                     Boucle: Boucle
-                grandchild: {}
         -   node: While
-            level: 1
+            level: 2
             content:
-                grandparent: {}
                 parent:
                     Instruction_conditionnelle: Instruction_conditionnelle
                 child:
                     Boucle: Boucle
-                grandchild: {}
         -   node: Boucle
-            level: 1
+            level: 2
             content:
-                grandparent: {}
                 parent:
                     For: For
                     While: While
                 child:
                     Algorithme: Algorithme
-                grandchild: {}
         -   node: Algorithme
-            level: 1
+            level: 3
             content:
-                grandparent: {}
                 parent:
                     Variable: Variable
                     Instruction_simple: Instruction_simple
                     Boucle: Boucle
                 child:
                     Méthodes: Méthodes
-                grandchild: {}
         -   node: Paramètre
-            level: 1
+            level: 4
             content:
-                grandparent: {}
-                parent: {}
+                parent:
+                    Variable: Variable
                 child:
                     Méthodes: Méthodes
-                grandchild: {}
         -   node: Signature
-            level: 1
+            level: 4
             content:
-                grandparent: {}
                 parent: {}
                 child:
                     Méthodes: Méthodes
-                grandchild: {}
-        -   node: Specifications
-            level: 1
+        -   node: Spécifications
+            level: 4
             content:
-                grandparent: {}
                 parent: {}
                 child:
                     Méthodes: Méthodes
-                grandchild: {}
         -   node: Méthodes
-            level: 1
+            level: 4
             content:
-                grandparent: {}
                 parent:
                     Algorithme: Algorithme
                     Paramètre: Paramètre
                     Signature: Signature
-                    Specifications: Specifications
+                    Spécifications: Spécifications
                 child:
                     Classe: Classe
-                grandchild: {}
+                    Constructeur: Constructeur
+                    Méthodes_instance: Méthodes_instance
         -   node: Variable_instance
-            level: 1
+            level: 6
             content:
-                grandparent: {}
-                parent: {}
-                child:
+                parent:
+                    Variable: Variable
                     Classe: Classe
-                grandchild: {}
+                child:
+                    Objet: Objet
         -   node: Méthodes_instance
-            level: 1
+            level: 6
             content:
-                grandparent: {}
-                parent: {}
-                child:
-                    Classe: Classe
-                grandchild: {}
-        -   node: Constructeur
-            level: 1
-            content:
-                grandparent: {}
-                parent: {}
-                child:
-                    Classe: Classe
-                grandchild: {}
-        -   node: Classe
-            level: 1
-            content:
-                grandparent: {}
                 parent:
                     Méthodes: Méthodes
-                    Variable_instance: Variable_instance
-                    Méthodes_instance: Méthodes_instance
-                    Constructeur: Constructeur
+                    Classe: Classe
+                child:
+                    Objet: Objet
+        -   node: Constructeur
+            level: 6
+            content:
+                parent:
+                    Méthodes: Méthodes
+                    Classe: Classe
+                child:
+                    Objet: Objet
+        -   node: Classe
+            level: 6
+            content:
+                parent:
+                    Méthodes: Méthodes
                     String: String
                     Array_List: Array_List
                 child:
+                    Variable_instance: Variable_instance
+                    Méthodes_instance: Méthodes_instance
+                    Constructeur: Constructeur
                     Objet: Objet
-                grandchild: {}
         -   node: Objet
-            level: 1
+            level: 6
             content:
-                grandparent: {}
                 parent:
                     Classe: Classe
                 child: {}
-                grandchild: {}
         -   node: String
-            level: 1
+            level: 5
             content:
-                grandparent: {}
                 parent: {}
                 child:
                     Classe: Classe
-                grandchild: {}
         -   node: Array_List
-            level: 1
+            level: 5
             content:
-                grandparent: {}
                 parent: {}
                 child:
                     Classe: Classe
-                grandchild: {}
     bases:
         Type: Type
+        Expression: Expression
+        Signature: Signature
+        Spécifications: Spécifications
+        String: String
+        Array_List: Array_List
+    level_max:
+        6
     test:
-        - level: 1
-          tasks: ['QBF01']
+    - level: 1
+      tasks: ['QBF01', 'QCM1', 'QCM2' ]
+    - level: 2
+      tasks: ['Bath', 'FizzBuzz']
+    - level: 3
+      tasks: ['Fibonacci', 'GD']
+    - level: 4
+      tasks: ['2degree', 'SpeedingFine']
+    - level: 5
+      tasks: ['Average', 'Hogwarts-I', 'Hogwarts-II', 'Hogwarts-V']
+    - level: 6
+      tasks: ['WrongIterations', 'SMSStore', 'ZooGame']
+    minimal_questions: 7

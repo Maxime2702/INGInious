@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Simon Gustin
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     Imagine you want to make a **video game** about the management of a **virtual zoo**.
@@ -40,14 +41,17 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    time: '30'
     output: '2'
+    time: '30'
     memory: '100'
 name: 'Session 9: Q* Zoo Game'
 network_grading: false
 order: 122
 problems:
     q1:
+        default: ''
+        language: python
+        type: code
         header: |-
             You will first implement a class ``Animal``, which should have:
 
@@ -89,9 +93,6 @@ problems:
             will return your zoo containing a lion, an owl and two giraffes.
             Those are your animals, name them as you want ;)
         name: Implementation
-        language: python
-        type: code
-        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

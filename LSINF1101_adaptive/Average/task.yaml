@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     The method ``average(list)`` returns the arithmetic mean of the elements contained in list, except if ``list`` is empty in which case it should return ``None``.
@@ -33,16 +34,16 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 4: Q* Average'
 network_grading: false
 order: 45
 problems:
     q1:
-        name: Implementation
         default: ''
+        language: python
         type: code
         header: |-
             Provide the body of the following method:
@@ -50,7 +51,7 @@ problems:
             .. code-block:: python
 
                 def average(list):
-        language: python
+        name: Implementation
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

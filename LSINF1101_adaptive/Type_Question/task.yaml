@@ -1,0 +1,97 @@
+accessible: true
+author: ''
+categories:
+- Type
+contact_url: ''
+context: |-
+    .. raw:: html
+
+       <script defer>
+
+       bodyHeight = 0;
+       function postSize() {
+           if (document.body.scrollHeight != bodyHeight) {
+               bodyHeight = document.body.scrollHeight;
+               window.parent.postMessage({height: document.body.scrollHeight}, "*");
+           }
+       };
+       var target = document.querySelector('body');
+
+       var observer = new MutationObserver(postSize);
+
+       var config = { attributes: true, subtree: true }
+
+       observer.observe(target, config);
+       $(document).ready(function(){
+           setTimeout(postSize, 0);
+       });
+       </script>
+environment: mcq
+evaluate: best
+file: ''
+groups: false
+input_random: '0'
+limits:
+    output: '2'
+    time: '30'
+    memory: '100'
+name: Question on Type
+network_grading: false
+problems:
+    q1:
+        choices:
+        -   valid: true
+            text: |-
+                .. code-block:: python
+
+                    type(etudiants) is int
+                    type(budget) is float
+                    type(pi) is float
+                    type(temp) is float
+                    type(present) is bool
+                    type(nom) is str
+        -   text: |-
+                .. code-block:: python
+
+                    type(etudiants) is int
+                    type(budget) is int
+                    type(pi) is float
+                    type(temp) is float
+                    type(present) is bool
+                    type(nom) is str
+            feedback: Les américains utilisent des dollars et des cents. Vous devez
+                donc pouvoir représenter un budget de 3.45$, ce que le type ``float``
+                ne permet pas.
+        -   feedback: |-
+                Les américains utilisent des dollars et des cents. Vous devez donc pouvoir représenter un budget de 3.45$, ce que le type ``float`` ne permet pas.
+
+                De plus, lorsqu'une variable ne peut prendre que é valeurs, il est préférable d'en faire un bool.
+            text: |-
+                .. code-block:: python
+
+                    type(etudiants) is int
+                    type(budget) is int
+                    type(pi) is float
+                    type(temp) is float
+                    type(present) is str
+                    type(nom) is str
+        limit: 0
+        type: multiple_choice
+        header: |-
+            Python supporte différents types de données de base : ``int``, ``long``, ``float``, ``str`` et ``bool`` entre autres. Il s'agit des types d'objets non itérables que nous utiliserons le plus dans ce cours. Dans un programme Python, vous devez stocker les informations suivantes :
+
+            * le nombre d'étudiants en première année (variable ``etudiants``)
+            * le budget de l'état américain en dollars (variable ``budget``)
+            * le nombre :math:`\pi` (variable ``pi``)
+            * une mesure de température (variable ``temp``)
+            * la présence d'un étudiant dans un local (variable ``present``)
+            * un nom tapé sur un clavier (variable ``nom``)
+
+            Le fonction built-in ``type()`` permet d'obtenir le type d'une variable. Quels types seraient associés aux variables énoncées précédemment?
+        name: Types de données
+run_cmd: ''
+stored_submissions: 0
+submission_limit:
+    amount: -1
+    period: -1
+weight: 1.0

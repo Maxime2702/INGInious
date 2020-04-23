@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Tanguy De Bels
-categories: []
+categories:
+- Condition
 contact_url: ''
 context: |-
     Suppose the variables ``a``, ``b`` and ``x`` contain a natural number. Write a code fragment that would assign the boolean value ``True`` to the variable named ``interval`` if ``x`` belongs to ``[a, b]``. Assign it the value ``False`` otherwise.
@@ -41,9 +42,8 @@ network_grading: false
 order: 14
 problems:
     q1:
-        name: Implementation
         default: ''
-        type: code
+        name: Implementation
         header: |
             .. code-block:: python
 
@@ -51,6 +51,7 @@ problems:
                 b = ... #upper bound of the interval
                 x = ... #variable to evaluate
                 interval = ... #store in this variable the belonging of x in the interval
+        type: code
         language: python
 run_cmd: ''
 stored_submissions: 0

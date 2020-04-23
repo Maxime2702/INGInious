@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Simon Gustin
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     Gregory made the following code to iterate over the elements of ``matrix``.
@@ -56,16 +57,16 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 7: Q* Wrong iterations'
 network_grading: false
 order: 86
 problems:
     q1:
-        name: Implementation
         default: ''
+        language: python
         type: code
         header: |-
             As a reminder, iterators typically have the following methods:
@@ -77,7 +78,7 @@ problems:
                         ...
                     def __next__():  # Returns the next element to iterate on
                         ...
-        language: python
+        name: Implementation
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

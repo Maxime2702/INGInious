@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Simon Gustin
-categories: []
+categories:
+- test
 contact_url: ''
 context: |-
     Lucie wants to take a bath, but her bathtub has a hole in it.
@@ -54,19 +55,19 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
     output: '2'
     time: '30'
+    memory: '100'
 name: 'Session 1: Q* Bathtub with a hole'
 network_grading: false
 order: 8
 problems:
     q1:
-        name: Implementation
         default: ''
+        language: python
         type: code
         header: ' '
-        language: python
+        name: Implementation
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

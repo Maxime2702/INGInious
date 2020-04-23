@@ -1,7 +1,7 @@
 accessible: true
 author: Tanguy De Bels
 categories:
-- For
+- Expression
 contact_url: ''
 context: |-
     Complétez le fragment de code suivant:
@@ -52,14 +52,14 @@ network_grading: false
 order: 10
 problems:
     q1:
-        name: Implémentation
         default: |-
             n = some_value
             sum = 0
             for ___ in ___________:
                 ______________
-        type: code
+        name: Implémentation
         header: ' '
+        type: code
         language: python
 run_cmd: ''
 stored_submissions: 0

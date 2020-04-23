@@ -1,14 +1,7 @@
 accessible: true
 author: Tanguy De Bels
 categories:
-- Type
-- Variable
-- Expression
-- Instruction_simple
-- Condition
-- Instruction_conditionnelle
-- While
-- Boucle
+- test
 contact_url: ''
 context: |-
     .. raw:: html
@@ -39,19 +32,17 @@ file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    time: '30'
     output: '2'
+    time: '30'
+    memory: '100'
 name: 'Session 2: QCM'
 network_grading: false
 order: 9
 problems:
     q1:
-        name: Types de données
         limit: 0
         choices:
-        -   valid: true
-            text: |-
+        -   text: |-
                 .. code-block:: python
 
                     type(etudiants) is int
@@ -60,6 +51,7 @@ problems:
                     type(temp) is float
                     type(present) is bool
                     type(nom) is str
+            valid: true
         -   feedback: Les américains utilisent des dollars et des cents. Vous devez
                 donc pouvoir représenter un budget de 3.45$, ce que le type ``float``
                 ne permet pas.
@@ -85,6 +77,7 @@ problems:
                     type(temp) is float
                     type(present) is str
                     type(nom) is str
+        name: Types de données
         header: |-
             Python supporte différents types de données de base : ``int``, ``long``, ``float``, ``str`` et ``bool`` entre autres. Il s'agit des types d'objets non itérables que nous utiliserons le plus dans ce cours. Dans un programme Python, vous devez stocker les informations suivantes :
 
@@ -98,9 +91,10 @@ problems:
             Le fonction built-in ``type()`` permet d'obtenir le type d'une variable. Quels types seraient associés aux variables énoncées précédemment?
         type: multiple_choice
     q2:
+        limit: 0
+        name: Vocabulaire
         choices:
-        -   valid: true
-            text: |-
+        -   text: |-
                 ``j`` est une variable de type ``int`` (entière)
 
                 La ligne ``1`` contient une affectation d'une valeur à une variable
@@ -108,7 +102,9 @@ problems:
                 La ligne ``4`` est une instruction conditionnelle
 
                 ``i==j`` est une expression qui a une valeur booléenne
-        -   text: |-
+            valid: true
+        -   valid: true
+            text: |-
                 ``k`` est une variable de type ``float`` (réel)
 
                 La ligne ``2`` contient une affectation de la valeur d'une expression (``i``) à une variable
@@ -116,7 +112,6 @@ problems:
                 La ligne ``4`` est une instruction conditionnelle
 
                 ``k+1.0`` est une expression qui a une valeur réelle
-            valid: true
         -   text: |-
                 ``j`` est une variable de type ``float`` (réelle)
                 La ligne ``1`` contient une déclaration de variable
@@ -136,7 +131,6 @@ problems:
                 La ligne ``4`` est une instruction conditionnelle
 
                 ``i==j`` est une expression qui a une valeur entière
-        name: Vocabulaire
         header: |-
             Considérons le fragment de programme ci-dessous.
 
@@ -152,19 +146,16 @@ problems:
 
             Lesquelles des affirmations ci-dessous utilisent une terminologie correcte ?
         type: multiple_choice
-        limit: 0
     q3:
         choices:
-        -   valid: true
-            text: |-
+        -   text: |-
                 .. code-block:: python
 
                     caract = 'X'
                     for _ in range(l):
                         print(caract*c)
-        -   feedback: Une colonne en trop sera imprimée. Car on ajoute ``c`` 'X' à
-                ``caract`` qui en comprend déjà un.
-            text: |-
+            valid: true
+        -   text: |-
                 .. code-block:: python
 
                     caract = 'X'
@@ -172,6 +163,8 @@ problems:
                         caract += 'X'
                     for i in range(l):
                         print(caract)
+            feedback: Une colonne en trop sera imprimée. Car on ajoute ``c`` 'X' à
+                ``caract`` qui en comprend déjà un.
         -   text: |-
                 .. code-block:: python
 
@@ -181,8 +174,7 @@ problems:
                             print(caract)
             feedback: On aura le bon nombre de 'X' mais pas la bonne organisation
                 car chacun sera sur une nouvelle ligne.
-        -   feedback: Ce programme affiche-t-il vraiment un rectangle ?
-            text: |-
+        -   text: |-
                 .. code-block:: python
 
                     caract = 'X'
@@ -191,7 +183,10 @@ problems:
                         line += caract
                         for i in range(l):
                             print(line)
+            feedback: Ce programme affiche-t-il vraiment un rectangle ?
         name: Boucles imbriquées
+        type: multiple_choice
+        limit: 0
         header: |-
             Laquelle des boucles ci-dessous permet d'afficher à l'écran un rectangle  composé de ``l`` lignes contenant chacune ``c`` caractères ? Par exemple, le rectangle ci-dessous est un rectangle de 3x7
 
@@ -203,8 +198,6 @@ problems:
 
 
             On supposera pour répondre à cette question que les variables ``l`` et ``c`` ont été correctement initialisées.
-        type: multiple_choice
-        limit: 0
     q4:
         choices:
         -   text: |-
@@ -216,7 +209,8 @@ problems:
                         if reste==0:
                             sum = sum + i
             valid: true
-        -   text: |-
+        -   feedback: Ce fragment de programme modifie-il la valeur de ``sum``  ?
+            text: |-
                 .. code-block:: python
 
                     sum = 0
@@ -224,15 +218,14 @@ problems:
                         reste = n % i
                         if reste==0:
                             sum = sum + reste
-            feedback: Ce fragment de programme modifie-il la valeur de ``sum``  ?
-        -   text: |-
+        -   feedback: Ce programme calcule la somme des entiers de ``1`` à ``n`` et
+                non la somme des diviseurs entiers de ``n``.
+            text: |-
                 .. code-block:: python
 
                     sum = 0
                     for i in range(1, n+1):
                         sum = sum + i
-            feedback: Ce programme calcule la somme des entiers de ``1`` à ``n`` et
-                non la somme des diviseurs entiers de ``n``.
         -   text: |-
                 .. code-block:: python
 
@@ -257,9 +250,9 @@ problems:
             où :math:`\sigma(n)` est la somme des diviseurs de ce nombre. Lequel des
             fragments de programmes ci-dessous place dans la variable ``sum`` la somme
             des diviseurs de ``n`` ?
+        type: multiple_choice
         name: Calcul de la somme des diviseurs premiers d'un nombre
         limit: 0
-        type: multiple_choice
     q5:
         choices:
         -   valid: true
@@ -278,15 +271,15 @@ problems:
                     while i < n:
                        i+=2
                        #faire quelque chose
-        -   feedback: Que se passe-t-il si la variable ``n`` est impaire ?
-            text: |-
+        -   text: |-
                 .. code-block:: python
 
                     i = 0
                     while i != n:
                        i+=2
                        #faire quelque chose
-        name: Boucles for et while
+            feedback: Que se passe-t-il si la variable ``n`` est impaire ?
+        limit: 0
         header: |-
             Python supporte à la fois les boucles ``for`` et les boucles ``while``. Souvent, on peut utiliser une boucle ``for`` à la place d'une boucle ``while`` et inversement. Considérons la boucle ``for`` ci-dessous :
 
@@ -298,17 +291,16 @@ problems:
                    #faire quelque chose
 
             A laquelle des boucles ``while`` ci-dessous cette boucle est-elle équivalente ?
-        limit: 0
+        name: Boucles for et while
         type: multiple_choice
     q6:
-        type: multiple_choice
         choices:
-        -   text: |-
+        -   valid: true
+            text: |-
                 .. code-block:: python
 
                     if x >= 2.0 and x <= 5.0:
                         print("ok")
-            valid: true
         -   text: |-
                 .. code-block:: python
 
@@ -338,11 +330,11 @@ problems:
             conditionnelles. Laquelle des instructions conditionnelles suivantes affiche-t-elle
             le message ``ok`` à l'écran lorsque la valeur de la variable de type ``float``
             ``x`` est comprise entre ``2.0`` et ``5.0`` ?
-        limit: 0
         name: Instructions conditionnelles imbriquées
+        limit: 0
+        type: multiple_choice
     q7:
         type: multiple_choice
-        name: Boucles for
         choices:
         -   text: |-
                 .. code-block:: python
@@ -350,55 +342,56 @@ problems:
                     for i in range(0, n):
                         print(i*i)
             valid: true
-        -   text: |-
+        -   feedback: Qu'affiche ce programme ? La valeur de ``n`` change-t-elle durant
+                son exécution ?
+            text: |-
                 .. code-block:: python
 
                     for i in range(0, n):
                         print(n*n)
-            feedback: Qu'affiche ce programme ? La valeur de ``n`` change-t-elle durant
-                son exécution ?
-        -   text: |-
+        -   feedback: Combien de nombres sont affichés par ce fragment de programme.
+                S'agit-il bien des carrés des ``n`` premiers entiers ?
+            text: |-
                 .. code-block:: python
 
                     for i in range(0, n*n):
                         print(i*i)
-            feedback: Combien de nombres sont affichés par ce fragment de programme.
-                S'agit-il bien des carrés des ``n`` premiers entiers ?
-        limit: 0
         header: Laquelle des boucles ``for`` ci-dessous affiche correctement les carrés
             des n premiers entiers positifs?
+        name: Boucles for
+        limit: 0
     q8:
-        header: Les boucles ``for`` sont très fréquemment utilisées dans des programmes
-            Python. Vous devez pouvoir utiliser facilement de telles boucles dans
-            vos programmes. Parmi les boucles ``for`` ci-dessous, quelle est celle
-            qui affiche cinq fois le caractère ``*`` sur une même ligne à l'écran
-            ?
         choices:
-        -   text: |-
+        -   valid: true
+            text: |-
                 .. code-block:: python
 
                     line = ''
                     for i in range(0, 5):
                         line += '*'
                     print(line)
-            valid: true
-        -   text: |-
+        -   feedback: Range fonctionne seulement avec des valeurs de type int.
+            text: |-
                 .. code-block:: python
 
                     line = ''
                     for i in range(0.0, 1.0, -0.2):
                         line += '*'
                     print(line)
-            feedback: Range fonctionne seulement avec des valeurs de type int.
         -   feedback: Va-t-on vraiment avoir juste une ligne?
             text: |-
                 .. code-block:: python
 
                     for i in range(5, 0, -1):
                         print('*')
-        name: 'Boucles for '
-        limit: 0
         type: multiple_choice
+        limit: 0
+        header: Les boucles ``for`` sont très fréquemment utilisées dans des programmes
+            Python. Vous devez pouvoir utiliser facilement de telles boucles dans
+            vos programmes. Parmi les boucles ``for`` ci-dessous, quelle est celle
+            qui affiche cinq fois le caractère ``*`` sur une même ligne à l'écran
+            ?
+        name: 'Boucles for '
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

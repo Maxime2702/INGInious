@@ -1,6 +1,7 @@
-accessible: false
+accessible: true
 author: Simon Gustin
-categories: []
+categories:
+- Variable
 contact_url: ''
 context: |-
     You want to use your computer to easily compute a polynomial with the following form:
@@ -45,13 +46,13 @@ network_grading: false
 order: 6
 problems:
     q1:
-        name: Implementation
         default: ''
-        type: code
+        name: Implementation
         header: |-
             .. code-block:: python
 
                y = ...  # Value of the polynomial at abscissa `x`
+        type: code
         language: python
 run_cmd: ''
 stored_submissions: 0
