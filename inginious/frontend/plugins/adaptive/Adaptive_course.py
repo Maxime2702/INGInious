@@ -15,7 +15,7 @@ class OrderedDictInsert(OrderedDict):
 tasks_recommended = OrderedDict()
 tasks_recommendations = OrderedDict()
 tasks_list = OrderedDict()
-level_student = 1
+level_student_global = 3
 
 class AdaptivePage(INGIniousAuthPage):
 
@@ -24,13 +24,17 @@ class AdaptivePage(INGIniousAuthPage):
         course = self.get_course(courseid)
         return self.show_page(course)'''
 
+
     def GET(self, courseid,student_level=2):
         course = self.get_course(courseid)
+        global level_student_global
+        level_student_global = student_level
         return self.show_page2(course,student_level)
 
     def POST(self, courseid,student_level=2):
         course = self.get_course(courseid)
-        level_student = student_level
+        global level_student_global
+        level_student_global = student_level
         return self.show_page2(course,student_level)
 
     def get_course(self, courseid):
@@ -106,6 +110,8 @@ class AdaptivePage(INGIniousAuthPage):
         for taskid, task in tasks.items():
             if node in task.get_categories():
                 node_tasks[taskid] = task
+        #print(node)
+        #print(str(node)+" : "+str(node_tasks))
         user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
         node_user = [task for task in user_tasks if task["taskid"] in node_tasks.keys()]
         succes = 0
@@ -123,6 +129,8 @@ class AdaptivePage(INGIniousAuthPage):
         # print("tot : "+str(len(node_tasks)))
         # print("grade : "+str(grade))
         # print("grade_total : "+str(grade_total))
+        if grade_total == 0:
+            return False
         if grade/grade_total > 0.5 and succes/len(node_tasks) > 0.5:
             # print(node + " available")
             return True
@@ -191,13 +199,13 @@ class AdaptivePage(INGIniousAuthPage):
             for taskid, task in course.get_tasks().items():
                 if 'test' not in task.get_categories():
                     tasks_recommendations.update({taskid: course.get_tasks()[taskid]})
-        print(tasks_recommendations.keys())
+        #print(tasks_recommendations.keys())
 
         recoms_ordered = self.get_recommendations_ordered(course, tasks_recommendations)
         for taskid, task in recoms_ordered.items():
             tasks_recommended.update({taskid: task})
 
-        print(tasks_recommended.keys())
+        #print(tasks_recommended.keys())
         return recommendations
 
     def show_page(self, course):
@@ -256,7 +264,10 @@ class AdaptivePage(INGIniousAuthPage):
                 for taskid, task in tasks_ordered.items():
                     tasks_list.update({taskid: task})
 
-        return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree)
+            skills_availability = self.get_skills_data(course)
+            #print(skills_availability)
+
+        return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree, skills_availability)
 
     def get_data2(self, course, level_student):
         username = self.user_manager.session_username()
@@ -308,6 +319,26 @@ class AdaptivePage(INGIniousAuthPage):
         visible_grade = round(tasks_score[0]/tasks_score[1]) if tasks_score[1] > 0 else 0
         course_grade = round(tasks_score[0]/tasks_score[2]) if tasks_score[2] > 0 else 0
         return {"visible_grade": visible_grade, "course_grade": course_grade, "data": tasks_data}
+
+    def get_skills_data(self, course):
+        username = self.user_manager.session_username()
+        tasks = course.get_tasks()
+
+        tree = course.get_descriptor().get('adaptive', [])["tree"]
+        user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
+
+        skills_availability = {}
+
+        for node in tree:
+            #print(node["node"])
+            if self.is_complete2(node["node"], course):
+                skills_availability.update({node["node"]: "complete"})
+            elif self.is_available2(node, course, level_student_global):
+                skills_availability.update({node["node"]: "available"})
+            else:
+                skills_availability.update({node["node"]: "blocked"})
+
+        return skills_availability
 
     def get_skills_ordered(self, course):
         username = self.user_manager.session_username()

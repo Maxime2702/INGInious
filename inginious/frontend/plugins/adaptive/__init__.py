@@ -22,6 +22,10 @@ def course_menu(course, template_helper):
     else:
         return None
 
+def task_menu(course, task, template_helper):
+    return str(template_helper.get_custom_renderer('frontend/plugins/adaptive', layout=False).task_menu(course))
+
+
 def init(plugin_manager, _, _2, _3):
     """ Init the plugin """
     page_pattern_course = r'/adaptive/([a-z0-9A-Z\-_]+)'
@@ -29,6 +33,7 @@ def init(plugin_manager, _, _2, _3):
     plugin_manager.add_page(page_pattern_course, AdaptivePage)
     plugin_manager.add_page(page_pattern_task, TaskAdaptivePage)
     plugin_manager.add_hook('course_menu', course_menu)
+    plugin_manager.add_hook('task_menu', task_menu)
     page_pattern_test = r'/adaptive/test/([a-z0-9A-Z\-_]+)'
     plugin_manager.add_page(page_pattern_test, TestPage)
 

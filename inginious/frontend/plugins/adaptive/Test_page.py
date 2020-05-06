@@ -7,7 +7,8 @@ from inginious.frontend.plugins.adaptive.Adaptive_course import AdaptivePage
 
 class TestPage(INGIniousAuthPage):
 
-    level_student = [3];
+    #level_student = [1];
+    level_student = 2;
     prob_success = {}
     tasks_success = {}
     tasks_level = {}
@@ -28,7 +29,7 @@ class TestPage(INGIniousAuthPage):
 
         #if self.test_succeeded(course):
         if result_test:
-            #todo show course view
+            #todo load first task
             #return self.show_page(course)
             #url = 'http://localhost:8080/adaptive/'+courseid
             #webbrowser.open(url, new=2)
@@ -55,10 +56,28 @@ class TestPage(INGIniousAuthPage):
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
         user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
+        #print(user_tasks)
 
         tests = course.get_descriptor().get('adaptive', [])["test"]
 
-        self.number_of_success[1]=0
+        student_level = self.level_student
+        student_level = self.calc_level_student(course, student_level-0.5, student_level+0.5)
+        self.level_student = student_level
+        print(student_level)
+        if len(user_tasks) >= course.get_descriptor().get('adaptive', [])["minimal_questions"]:
+            #print("if2")
+            # for user_task in user_tasks:
+            #     if "test" in tasks[user_task["taskid"]].get_categories():
+            #         print(user_task)
+            #         if not user_task["succeeded"]:
+            #             return False, round(self.level_student[-1])
+            #print("all_quest")
+            return True, round(student_level)
+        else:
+            #print("else")
+            return False, round(student_level)
+
+        '''self.number_of_success[1]=0
         for user_task in user_tasks:
             if "test" in tasks[user_task["taskid"]].get_categories():
                 if user_task["succeeded"]:
@@ -97,29 +116,38 @@ class TestPage(INGIniousAuthPage):
             #print(new_level)
             #print(self.level_student)
 
+            #print(self.number_of_success[0])
+            #print(self.number_of_success[1])
             self.number_of_success[0] += self.number_of_success[1]
             self.number_of_success[1] = 0
 
+        #print(self.level_student)
         if len(self.level_student) > 2 and math.pow(self.level_student[-1] - self.level_student[-2],2)<=0.1:
+            #print("if")
             #print("MSE")
             #return True
             return True, round(self.level_student[-1])
         else:
             if len(user_tasks) >= course.get_descriptor().get('adaptive', [])["minimal_questions"]:
-                '''for user_task in user_tasks:
-                    if "test" in tasks[user_task["taskid"]].get_categories():
-                        print(user_task)
-                        if not user_task["succeeded"]:
-                            return False, round(self.level_student[-1])'''
+                #print("if2")
+                # for user_task in user_tasks:
+                #     if "test" in tasks[user_task["taskid"]].get_categories():
+                #         print(user_task)
+                #         if not user_task["succeeded"]:
+                #             return False, round(self.level_student[-1])
                 #print("all_quest")
                 return True, round(self.level_student[-1])
             else:
+                #print("else")
                 return False, round(self.level_student[-1])
+
+'''
 
     def get_course(self, courseid):
         """ Return the course """
         try:
             course = self.course_factory.get_course(courseid)
+
         except:
             raise web.notfound()
 
@@ -196,6 +224,57 @@ class TestPage(INGIniousAuthPage):
 
             return self.template_helper.get_renderer().course(user_info, course, last_submissions, tasks, tasks_data, course_grade, tag_list)
 
+
+    def calc_level_student(self, course, borne_level_min, borne_level_max):
+        username = self.user_manager.session_username()
+        tasks = course.get_tasks()
+        user_tasks = self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})
+        #tests = course.get_descriptor().get('adaptive', [])["test"]
+        tree = course.get_descriptor().get('adaptive', [])["tree"]
+
+        level_tasks = {}
+        successes_tasks = {}
+
+        for user_task in user_tasks:
+            for node in tree:
+                if node["node"] in course.get_task(user_task["taskid"]).get_categories():
+                    level_tasks.update({user_task["taskid"]: node["level"]})
+                    if user_task["succeeded"]:
+                        successes_tasks.update({user_task["taskid"]: 1})
+                    elif user_task["tried"] > 0:
+                        successes_tasks.update({user_task["taskid"]: -1})
+                    else:
+                        successes_tasks.update({user_task["taskid"]: 0})
+
+        borne_level_mean = (borne_level_max + borne_level_min)/2.0
+
+        #print(level_tasks)
+        #print(successes_tasks)
+
+        value_min = 0
+        value_max = 0
+        value_mean = 0
+        for taskid, success in successes_tasks.items():
+            level = level_tasks[taskid]
+            if success:
+                value_min = value_min + math.exp(level)/(math.exp(level)+math.exp(borne_level_min))
+                value_max = value_max + math.exp(level)/(math.exp(level)+math.exp(borne_level_max))
+                value_mean = value_mean + math.exp(level)/(math.exp(level)+math.exp(borne_level_mean))
+            else:
+                value_min = value_min - math.exp(borne_level_min)/(math.exp(level)+math.exp(borne_level_min))
+                value_max = value_max - math.exp(borne_level_max)/(math.exp(level)+math.exp(borne_level_max))
+                value_mean = value_mean - math.exp(borne_level_mean)/(math.exp(level)+math.exp(borne_level_mean))
+
+        #print(str(value_min) + " "+ str(value_mean) + " "+str(value_max))
+        #print(borne_level_mean)
+        if math.pow(value_max-value_mean, 2) < 0.1 or math.pow(value_min-value_mean, 2) < 0.1:
+            #print("return : " + str(borne_level_mean))
+            return borne_level_mean
+
+        if math.fabs(value_max - value_mean) > math.fabs(value_mean - value_min):
+            return self.calc_level_student(course, borne_level_min, borne_level_mean)
+        else:
+            return self.calc_level_student(course, borne_level_mean, borne_level_max)
 
         '''
         Page de Test same as page the course. Si page de Test complètement réussie, débloque la page normale de l'adaptive view

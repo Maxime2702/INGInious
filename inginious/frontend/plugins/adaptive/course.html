@@ -1,4 +1,4 @@
-$def with (user_info, course, submissions, tasks, tasks_data, recommendations, grade, tag_filter_list, tree)
+$def with (user_info, course, submissions, tasks, tasks_data, recommendations, grade, tag_filter_list, tree, skills)
 
 $#
 $# This file is part of INGInious. See the LICENSE and the COPYRIGHTS files for
@@ -290,7 +290,14 @@ function filter_tag(tag) {
 $def get_nested(node, tree):
     $for child in node["content"]["child"]:
         <li>
-            <div class="card">
+            <div class="card
+                $if skills[child]=='complete':
+                    border-success
+                $elif skills[child]=='available':
+                    border-warning
+                $else :
+                    border-danger
+                " style="border-width: 5px">
                 <div class="card-body">
                     $for test in tree:
                         $if test["node"] == child:
@@ -368,7 +375,14 @@ $def get_nested(node, tree):
     <ul id="myUL">
         $for base in course.get_descriptor().get('adaptive', [])["bases"]:
             <li>
-                <div class="card">
+                <div class="card
+                    $if skills[base]=='complete':
+                        border-success
+                    $elif skills[base]=='available':
+                        border-warning
+                    $else :
+                        border-danger
+                    " style="border-width: 5px">
                     <div class="card-body">
                         <span class="caret">$base</span>
                         $for node in tree:

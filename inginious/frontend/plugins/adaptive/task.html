@@ -99,7 +99,7 @@ $def ColumnF():
         $ tags = tags[:-2]
         $if tags != "":
         <tr>
-            <td>$:_("Category tags")</td>
+            <td>$:_("Skill(s) testé(s)")</td>
             <td>$tags</td>
         </tr>
     </table>
@@ -282,9 +282,9 @@ $# Start content
                         <a class="btn-sm btn btn-info" href="$get_homepath()/course_adaptive/$course.get_id()/$next_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
                     -->
                     $if not eval_submission and len(submissions) == 0:
-                        <a class="btn-sm btn btn-info" href="$get_homepath()/course_adaptive/$course.get_id()/$next_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
-                    $elif eval_submission is not None and eval_submission["status"] == "done" and eval_submission["result"] == "success":
                         <a class="btn-sm btn btn-info" href="$get_homepath()/course_adaptive/$course.get_id()/$not_attempted_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
+                    $elif eval_submission is not None and eval_submission["status"] == "done" and eval_submission["result"] == "success":
+                        <a class="btn-sm btn btn-info" href="$get_homepath()/course_adaptive/$course.get_id()/$next_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
                     $else:
                         $ waiting=False
                         $for submission in submissions:

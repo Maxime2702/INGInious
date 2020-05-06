@@ -1,7 +1,10 @@
 $def with (course)
 
 <div class="list-group mb-3">
-    <a class="list-group-item list-group-item-action list-group-item-info" href="$get_homepath()/adaptive/$course.get_id()"><i class="fa fa-refresh"></i> Adaptive view</a>
+    <!--<a class="list-group-item list-group-item-action list-group-item-info" href="$get_homepath()/adaptive/$course.get_id()"><i class="fa fa-refresh"></i> Adaptive view</a>
     <a class="list-group-item list-group-item-action list-group-item-info" href="$get_homepath()/adaptive/test/$course.get_id()"><i class="fa fa-refresh"></i> Test view</a>
-    <a class="list-group-item list-group-item-action list-group-item-info" href="$get_homepath()/course/$course.get_id()"><i class="fa fa-refresh"></i> Basic view</a>
+    <a class="list-group-item list-group-item-action list-group-item-info" href="$get_homepath()/course/$course.get_id()"><i class="fa fa-refresh"></i> Basic view</a>-->
+    <a class="list-group-item list-group-item-action list-group-item-info" href="$get_homepath()/adaptive/$course.get_id()"><i class="fa fa-leaf"></i> Tree view</a>
+    <a class="list-group-item list-group-item-action list-group-item-info" href="$get_homepath()/adaptive/test/$course.get_id()"><i class="fa fa-arrow-right"></i> Adaptive course</a>
+    <a class="list-group-item list-group-item-action list-group-item-info" href="$get_homepath()/course/$course.get_id()"><i class="fa fa-times-circle"></i> Basic view</a>
 </div>
