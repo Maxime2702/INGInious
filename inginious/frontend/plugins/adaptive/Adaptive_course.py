@@ -267,7 +267,11 @@ class AdaptivePage(INGIniousAuthPage):
             skills_availability = self.get_skills_data(course)
             #print(skills_availability)
 
-        return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree, skills_availability)
+            tree_image = "Slide8.jpg"
+            tree_image = "inginious/frontend/plugins/adaptive/Slide8.jpg"
+            tree_image = "/home/maxime2702/INGInious/inginious/frontend/plugins/adaptive/Slide8.jpg"
+
+        return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree, skills_availability, tree_image)
 
     def get_data2(self, course, level_student):
         username = self.user_manager.session_username()

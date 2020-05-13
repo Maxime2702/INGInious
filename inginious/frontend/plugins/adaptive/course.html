@@ -1,4 +1,4 @@
-$def with (user_info, course, submissions, tasks, tasks_data, recommendations, grade, tag_filter_list, tree, skills)
+$def with (user_info, course, submissions, tasks, tasks_data, recommendations, grade, tag_filter_list, tree, skills, tree_image)
 
 $#
 $# This file is part of INGInious. See the LICENSE and the COPYRIGHTS files for
@@ -285,8 +285,6 @@ function filter_tag(tag) {
 </div>
 &nbsp;&nbsp;&nbsp;&nbsp;
 
-<!-- -->
-
 $def get_nested(node, tree):
     $for child in node["content"]["child"]:
         <li>
@@ -309,53 +307,50 @@ $def get_nested(node, tree):
                             $else:
                                 $child
                 </div>
+                <div class="list-group-flush">
+                    $for key, tag in tag_filter_list.items():
+                        $if tag.get_id() == child:
+                            $for taskid, task in tasks.items():
+                                $if (tasks_data[taskid]["visible"] and tag.get_id() in task.get_categories()):
+                                    $ succeeded=tasks_data[taskid]["succeeded"]
+                                    $ completion=tasks_data[taskid]["grade"]
+                                    <a href="$get_homepath()/course_adaptive/$course.get_id()/$taskid" class="list-group-item list-group-item-action
+                                        $if not task.is_visible_by_students() or not task.get_accessible_time().is_open():
+                                            disabled
+                                        ">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-7 pl-1">
+                                                <i style="color: $('#468847;' if succeeded else 'transparent')" class="fa fa-check"></i>
+                                                    $task.get_name(user_manager.session_language())
+                                                    $if not task.is_visible_by_students():
+                                                        - <b>$:_("task hidden to students")</b>
+                                                    $if not task.get_accessible_time().is_open():
+                                                        - <b>$:_("deadline reached")</b>
+                                            </div>
+                                            <div class="col-xs-12 col-md-5">
+                                                $if registered:
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-success" aria-valuenow="$int(completion)" aria-valuemin="0" aria-valuemax="100" style="width: $completion%">
+                                                            $(int(completion) if completion.is_integer() else completion)%
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div id="tags_of_task" style="display:none;">
+                                            $for category in task.get_categories():
+                                                $ tag = tag_filter_list[category]
+                                                $if tag.is_visible_for_student() or user_manager.has_staff_rights_on_course(course):
+                                                    <div id="tag" data-tag-name="$:tag.get_id()"></div>
+                                        </div>
+                                        $for priority, list in recommendations.items():
+                                            <div id="priority_of_task" style="display:none;">
+                                                $if taskid in list.keys():
+                                                    <div id="priority" data-tag-name="$priority"></div>
+                                            </div>
+                                    </a>
+                </div>
             </div>
         </li>
-        <!--
-        <div class="list-group-flush">
-            $for key, tag in tag_filter_list.items():
-                $if tag.get_id() == child:
-                    $for taskid, task in tasks.items():
-                        $if (tasks_data[taskid]["visible"] and tag.get_id() in task.get_categories()):
-                            $ succeeded=tasks_data[taskid]["succeeded"]
-                            $ completion=tasks_data[taskid]["grade"]
-                            <a href="$get_homepath()/course_adaptive/$course.get_id()/$taskid" class="list-group-item list-group-item-action
-                                $if not task.is_visible_by_students() or not task.get_accessible_time().is_open():
-                                    disabled
-                                 ">
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-7 pl-1">
-                                        <i style="color: $('#468847;' if succeeded else 'transparent')" class="fa fa-check"></i>
-                                        $task.get_name(user_manager.session_language())
-                                        $if not task.is_visible_by_students():
-                                            - <b>$:_("task hidden to students")</b>
-                                        $if not task.get_accessible_time().is_open():
-                                            - <b>$:_("deadline reached")</b>
-                                    </div>
-                                    <div class="col-xs-12 col-md-5">
-                                        $if registered:
-                                            <div class="progress">
-                                                <div class="progress-bar bg-success" aria-valuenow="$int(completion)" aria-valuemin="0" aria-valuemax="100" style="width: $completion%">
-                                                    $(int(completion) if completion.is_integer() else completion)%
-                                                </div>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div id="tags_of_task" style="display:none;">
-                                    $for category in task.get_categories():
-                                        $ tag = tag_filter_list[category]
-                                        $if tag.is_visible_for_student() or user_manager.has_staff_rights_on_course(course):
-                                            <div id="tag" data-tag-name="$:tag.get_id()"></div>
-                                </div>
-                                $for priority, list in recommendations.items():
-                                    <div id="priority_of_task" style="display:none;">
-                                        $if taskid in list.keys():
-                                            <div id="priority" data-tag-name="$priority"></div>
-                                    </div>
-                            </a>
-        </div>
-        -->
-<!-- -->
 
 <div class="card">
     <div class="card-header">
@@ -385,59 +380,57 @@ $def get_nested(node, tree):
                     " style="border-width: 5px">
                     <div class="card-body">
                         <span class="caret">$base</span>
-                        $for node in tree:
-                            $if node["node"] == base:
-                                $if not(not node["content"]["child"]):
-                                    <ul class="nested">
-                                        $:get_nested(node, tree)
-                                    </ul>
+                            $for node in tree:
+                                $if node["node"] == base:
+                                    $if not(not node["content"]["child"]):
+                                        <ul class="nested">
+                                            $:get_nested(node, tree)
+                                        </ul>
+                    </div>
+                    <div class="list-group-flush">
+                        $for key, tag in tag_filter_list.items():
+                            $if tag.get_id() == base:
+                                $for taskid, task in tasks.items():
+                                    $if (tasks_data[taskid]["visible"] and tag.get_id() in task.get_categories()):
+                                        $ succeeded=tasks_data[taskid]["succeeded"]
+                                        $ completion=tasks_data[taskid]["grade"]
+                                            <a href="$get_homepath()/course_adaptive/$course.get_id()/$taskid" class="list-group-item list-group-item-action
+                                                $if not task.is_visible_by_students() or not task.get_accessible_time().is_open():
+                                                    disabled
+                                                ">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-7 pl-1">
+                                                        <i style="color: $('#468847;' if succeeded else 'transparent')" class="fa fa-check"></i>
+                                                            $task.get_name(user_manager.session_language())
+                                                            $if not task.is_visible_by_students():
+                                                                - <b>$:_("task hidden to students")</b>
+                                                            $if not task.get_accessible_time().is_open():
+                                                                - <b>$:_("deadline reached")</b>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-5">
+                                                        $if registered:
+                                                        <div class="progress">
+                                                            <div class="progress-bar bg-success" aria-valuenow="$int(completion)" aria-valuemin="0" aria-valuemax="100" style="width: $completion%">
+                                                                $(int(completion) if completion.is_integer() else completion)%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="tags_of_task" style="display:none;">
+                                                    $for category in task.get_categories():
+                                                        $ tag = tag_filter_list[category]
+                                                        $if tag.is_visible_for_student() or user_manager.has_staff_rights_on_course(course):
+                                                            <div id="tag" data-tag-name="$:tag.get_id()"></div>
+                                                </div>
+                                                $for priority, list in recommendations.items():
+                                                    <div id="priority_of_task" style="display:none;">
+                                                        $if taskid in list.keys():
+                                                            <div id="priority" data-tag-name="$priority"></div>
+                                                    </div>
+                                            </a>
                     </div>
                 </div>
             </li>
-        <!--
-            <div class="list-group-flush">
-                $for key, tag in tag_filter_list.items():
-                    $if tag.get_id() == base:
-                        $for taskid, task in tasks.items():
-                            $if (tasks_data[taskid]["visible"] and tag.get_id() in task.get_categories()):
-                                $ succeeded=tasks_data[taskid]["succeeded"]
-                                $ completion=tasks_data[taskid]["grade"]
-                                <a href="$get_homepath()/course_adaptive/$course.get_id()/$taskid" class="list-group-item list-group-item-action
-                                    $if not task.is_visible_by_students() or not task.get_accessible_time().is_open():
-                                        disabled
-                                    ">
-                                    <div class="row">
-                                        <div class="col-xs-12 col-md-7 pl-1">
-                                            <i style="color: $('#468847;' if succeeded else 'transparent')" class="fa fa-check"></i>
-                                            $task.get_name(user_manager.session_language())
-                                            $if not task.is_visible_by_students():
-                                                - <b>$:_("task hidden to students")</b>
-                                            $if not task.get_accessible_time().is_open():
-                                                - <b>$:_("deadline reached")</b>
-                                        </div>
-                                        <div class="col-xs-12 col-md-5">
-                                            $if registered:
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-success" aria-valuenow="$int(completion)" aria-valuemin="0" aria-valuemax="100" style="width: $completion%">
-                                                        $(int(completion) if completion.is_integer() else completion)%
-                                                    </div>
-                                                </div>
-                                        </div>
-                                    </div>
-                                    <div id="tags_of_task" style="display:none;">
-                                        $for category in task.get_categories():
-                                            $ tag = tag_filter_list[category]
-                                            $if tag.is_visible_for_student() or user_manager.has_staff_rights_on_course(course):
-                                                <div id="tag" data-tag-name="$:tag.get_id()"></div>
-                                    </div>
-                                    $for priority, list in recommendations.items():
-                                        <div id="priority_of_task" style="display:none;">
-                                            $if taskid in list.keys():
-                                                <div id="priority" data-tag-name="$priority"></div>
-                                        </div>
-                                </a>
-            </div>
-            -->
     </ul>
 </div>
 
@@ -453,61 +446,6 @@ $def get_nested(node, tree):
             });
         }
     </script>
-
-    <!--
-    $for key, tag in tag_filter_list.items():
-        $if tag.get_type() in [0, 2] and tag.is_visible_for_student():
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">$tag.get_name(user_manager.session_language())</div>
-                    </div>
-                </div>
-            </div>
-            <div id="$key" class="list-group-flush">
-            <div id="$key" class="list-group list-group-flush"> A COMMENTER
-                $for taskid, task in tasks.items()
-                    $if (tasks_data[taskid]["visible"] and tag.get_id() in task.get_categories()):
-                        $ succeeded=tasks_data[taskid]["succeeded"]
-                        $ completion=tasks_data[taskid]["grade"]
-                        <a href="$get_homepath()/course_adaptive/$course.get_id()/$taskid" class="list-group-item list-group-item-action
-                            $if not task.is_visible_by_students() or not task.get_accessible_time().is_open():
-                                disabled
-                            ">
-                            <div class="row">
-                                <div class="col-xs-12 col-md-7 pl-1">
-                                    <i style="color: $('#468847;' if succeeded else 'transparent')" class="fa fa-check"></i>
-                                    $task.get_name(user_manager.session_language())
-                                    $if not task.is_visible_by_students():
-                                        - <b>$:_("task hidden to students")</b>
-                                    $if not task.get_accessible_time().is_open():
-                                        - <b>$:_("deadline reached")</b>
-                                </div>
-                                <div class="col-xs-12 col-md-5">
-                                    $if registered:
-                                        <div class="progress">
-                                            <div class="progress-bar bg-success" aria-valuenow="$int(completion)" aria-valuemin="0" aria-valuemax="100" style="width: $completion%">
-                                                $(int(completion) if completion.is_integer() else completion)%
-                                            </div>
-                                        </div>
-                                </div>
-                            </div>
-                            <div id="tags_of_task" style="display:none;">
-                                $for category in task.get_categories():
-                                    $ tag = tag_filter_list[category]
-                                    $if tag.is_visible_for_student() or user_manager.has_staff_rights_on_course(course):
-                                        <div id="tag" data-tag-name="$:tag.get_id()"></div>
-                            </div>
-                            $for priority, list in recommendations.items():
-                                <div id="priority_of_task" style="display:none;">
-                                    $if taskid in list.keys():
-                                        <div id="priority" data-tag-name="$priority"></div>
-                                </div>
-                        </a>
-            </div>
-
-</div>
--->
 
 $:include.unregister_modal(course)
 $:include.register_modal(course)
