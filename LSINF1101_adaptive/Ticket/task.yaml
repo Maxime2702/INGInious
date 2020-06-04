@@ -53,7 +53,7 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
@@ -66,11 +66,11 @@ network_grading: false
 order: 119
 problems:
     q1:
+        language: python
+        name: Implémentation
+        type: code
         header: Ajoutez les méthodes de la classe ``Ticket`` que vous considérez nécessaire
             et implémentez la fonction ``__init__`` de la clase ``Ticket`` en Python.
-        name: Implémentation
-        language: python
-        type: code
         default: ''
 run_cmd: ''
 stored_submissions: 0

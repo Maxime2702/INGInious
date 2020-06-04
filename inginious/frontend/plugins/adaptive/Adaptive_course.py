@@ -1,41 +1,32 @@
-from inginious.frontend.pages.utils import INGIniousAuthPage, INGIniousPage
+import math
+import time
+
+from inginious.frontend.pages.utils import INGIniousAuthPage
 import web
 from collections import OrderedDict
 from collections import deque
 
-class OrderedDictInsert(OrderedDict):
-    def insert(self, index, key, value):
-        self[key] = value
-        for ii, k in enumerate(list(self.keys())):
-            if ii >= index and k != key:
-                self.move_to_end(k)
-
-
-#tasks_recommended = OrderedDictInsert()
 tasks_recommended = OrderedDict()
 tasks_recommendations = OrderedDict()
 tasks_list = OrderedDict()
-level_student_global = 3
+level_student_global = 1
 
 class AdaptivePage(INGIniousAuthPage):
 
-
-    '''def GET(self, courseid):
-        course = self.get_course(courseid)
-        return self.show_page(course)'''
-
-
-    def GET(self, courseid,student_level=2):
+    def GET(self, courseid, level_student=1):
         course = self.get_course(courseid)
         global level_student_global
-        level_student_global = student_level
-        return self.show_page2(course,student_level)
+        calc_level_student = self.calc_level_student(course,level_student-2,level_student+2)
+        level_student_global = max(calc_level_student, level_student_global)
+        print(level_student_global)
+        return self.show_page2(course, level_student_global)
 
-    def POST(self, courseid,student_level=2):
+    def POST(self, courseid, level_student=1):
         course = self.get_course(courseid)
         global level_student_global
-        level_student_global = student_level
-        return self.show_page2(course,student_level)
+        calc_level_student = self.calc_level_student(course,level_student-1,level_student+1)
+        level_student_global = max(calc_level_student, level_student_global)
+        return self.show_page2(course, level_student_global)
 
     def get_course(self, courseid):
         """ Return the course """
@@ -54,20 +45,17 @@ class AdaptivePage(INGIniousAuthPage):
         return True
 
     def is_available2(self, node, course, level_student):
+        #print("is_avail : "+str(level_student))
         parents = node["content"]["parent"]
         if node["level"] <= level_student:
-            #print(str(node["node"]) + " <= level")
             return True
         else:
-            # if not parents:
-            #     return True
             if not parents:
                 if node["level"] <= level_student:
                     return True
                 else:
                     return False
             for parent in parents:
-                #if not self.is_complete(parent, course):
                 if not self.is_complete2(parent, course):
                     return False
             return True
@@ -110,8 +98,6 @@ class AdaptivePage(INGIniousAuthPage):
         for taskid, task in tasks.items():
             if node in task.get_categories():
                 node_tasks[taskid] = task
-        #print(node)
-        #print(str(node)+" : "+str(node_tasks))
         user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
         node_user = [task for task in user_tasks if task["taskid"] in node_tasks.keys()]
         succes = 0
@@ -124,20 +110,11 @@ class AdaptivePage(INGIniousAuthPage):
         for task in node_tasks.values():
             grade_total += task.get_grading_weight()
         grade_total = grade_total*100
-        # print("node : "+node)
-        # print("success : "+str(succes))
-        # print("tot : "+str(len(node_tasks)))
-        # print("grade : "+str(grade))
-        # print("grade_total : "+str(grade_total))
         if grade_total == 0:
             return False
         if grade/grade_total > 0.5 and succes/len(node_tasks) > 0.5:
-            # print(node + " available")
             return True
-        #print(node + " not")
         return False
-        #return True
-
 
     def get_data(self, course):
         username = self.user_manager.session_username()
@@ -199,16 +176,14 @@ class AdaptivePage(INGIniousAuthPage):
             for taskid, task in course.get_tasks().items():
                 if 'test' not in task.get_categories():
                     tasks_recommendations.update({taskid: course.get_tasks()[taskid]})
-        #print(tasks_recommendations.keys())
 
         recoms_ordered = self.get_recommendations_ordered(course, tasks_recommendations)
         for taskid, task in recoms_ordered.items():
             tasks_recommended.update({taskid: task})
 
-        #print(tasks_recommended.keys())
         return recommendations
 
-    def show_page(self, course):
+    '''def show_page(self, course):
         """ Prepares and shows the course page """
         username = self.user_manager.session_username()
         if not self.user_manager.course_is_open_to_user(course, lti=False):
@@ -232,7 +207,7 @@ class AdaptivePage(INGIniousAuthPage):
             tag_list = course.get_tags()
             user_info = self.database.users.find_one({"username": username})
         return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree)
-
+    '''
     def show_page2(self, course, level_student):
         """ Prepares and shows the course page """
 
@@ -265,13 +240,11 @@ class AdaptivePage(INGIniousAuthPage):
                     tasks_list.update({taskid: task})
 
             skills_availability = self.get_skills_data(course)
-            #print(skills_availability)
 
-            tree_image = "Slide8.jpg"
-            tree_image = "inginious/frontend/plugins/adaptive/Slide8.jpg"
-            tree_image = "/home/maxime2702/INGInious/inginious/frontend/plugins/adaptive/Slide8.jpg"
+        #print("show_page : " + str(level_student_global))
+        #print(tasks_data)
 
-        return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree, skills_availability, tree_image)
+        return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree, skills_availability)
 
     def get_data2(self, course, level_student):
         username = self.user_manager.session_username()
@@ -298,7 +271,6 @@ class AdaptivePage(INGIniousAuthPage):
 
         for node in tree:
             if self.is_available2(node, course, level_student):
-                #print(str(node["node"])+" available")
                 for taskid, task in tasks.items():
                     tags = task.get_categories()
                     if not tags:
@@ -308,7 +280,6 @@ class AdaptivePage(INGIniousAuthPage):
                         #    tasks_data[taskid]["succeeded"] = True
                         tasks_data[taskid]["visible"] = task.get_accessible_time().after_start() or is_admin
 
-                        #print(tasks_data[taskid]["visible"])
                         for parent in node["content"]["parent"]:
                             for task_p_id, task_p in tasks.items():
                                 tags_p = task_p.get_categories()
@@ -334,7 +305,6 @@ class AdaptivePage(INGIniousAuthPage):
         skills_availability = {}
 
         for node in tree:
-            #print(node["node"])
             if self.is_complete2(node["node"], course):
                 skills_availability.update({node["node"]: "complete"})
             elif self.is_available2(node, course, level_student_global):
@@ -384,7 +354,6 @@ class AdaptivePage(INGIniousAuthPage):
             for taskid, task in tasks.items():
                 if skill in task.get_categories():
                     tasks_ordered.update({taskid: task})
-        #print(tasks_ordered)
         return tasks_ordered
 
     def get_recommendations_ordered(self, course, recoms):
@@ -395,5 +364,56 @@ class AdaptivePage(INGIniousAuthPage):
             for taskid, task in recoms.items():
                 if skill in task.get_categories():
                     recoms_ordered.update({taskid: task})
-        #print(tasks_ordered)
         return recoms_ordered
+
+    def calc_level_student(self, course, borne_level_min, borne_level_max):
+        username = self.user_manager.session_username()
+        tasks = course.get_tasks()
+        user_tasks = self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})
+        tree = course.get_descriptor().get('adaptive', [])["tree"]
+
+        level_tasks = {}
+        successes_tasks = {}
+
+        for user_task in user_tasks:
+            for node in tree:
+                if node["node"] in course.get_task(user_task["taskid"]).get_categories():
+                    level_tasks.update({user_task["taskid"]: node["level"]})
+                    if user_task["succeeded"]:
+                        successes_tasks.update({user_task["taskid"]: 1})
+                    elif user_task["tried"] > 0:
+                        successes_tasks.update({user_task["taskid"]: -1})
+                    else:
+                        successes_tasks.update({user_task["taskid"]: 0})
+
+        borne_level_mean = (borne_level_max + borne_level_min)/2.0
+
+        value_min = 0
+        value_max = 0
+        value_mean = 0
+        for taskid, success in successes_tasks.items():
+            level = level_tasks[taskid]
+            if success:
+                value_min = value_min + math.exp(level)/(math.exp(level)+math.exp(borne_level_min))
+                value_max = value_max + math.exp(level)/(math.exp(level)+math.exp(borne_level_max))
+                value_mean = value_mean + math.exp(level)/(math.exp(level)+math.exp(borne_level_mean))
+            else:
+                value_min = value_min - math.exp(borne_level_min)/(math.exp(level)+math.exp(borne_level_min))
+                value_max = value_max - math.exp(borne_level_max)/(math.exp(level)+math.exp(borne_level_max))
+                value_mean = value_mean - math.exp(borne_level_mean)/(math.exp(level)+math.exp(borne_level_mean))
+
+        # TODO check in which interval is 0
+        if math.pow(value_max-value_mean, 2) < 0.1 or math.pow(value_min-value_mean, 2) < 0.1:
+            return borne_level_mean
+
+        if math.fabs(value_max - value_mean) > math.fabs(value_mean - value_min):
+            return self.calc_level_student(course, borne_level_min, borne_level_mean)
+        else:
+            return self.calc_level_student(course, borne_level_mean, borne_level_max)
+
+class OrderedDictInsert(OrderedDict):
+    def insert(self, index, key, value):
+        self[key] = value
+        for ii, k in enumerate(list(self.keys())):
+            if ii >= index and k != key:
+                self.move_to_end(k)

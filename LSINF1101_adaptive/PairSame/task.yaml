@@ -49,7 +49,7 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
@@ -62,10 +62,10 @@ network_grading: false
 order: 109
 problems:
     q1:
-        header: Implémentez ici la méthode ``__eq__()`` avec sa signature.
-        name: Implementation
         language: python
+        name: Implementation
         type: code
+        header: Implémentez ici la méthode ``__eq__()`` avec sa signature.
         default: ''
 run_cmd: ''
 stored_submissions: 0

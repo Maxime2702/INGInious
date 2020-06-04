@@ -62,27 +62,27 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 3: QBF'
 network_grading: false
 order: 24
 problems:
     q1:
+        language: python
         name: Implementation
-        default: ''
         type: code
         header: |-
             Implémentez la méthode ``chiffres_pairs`` en Python.
 
             Ajoutez également toute autre fonction nécessaire.
-        language: python
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

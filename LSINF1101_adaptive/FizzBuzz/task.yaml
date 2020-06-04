@@ -41,25 +41,25 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    output: '2'
     time: '30'
+    output: '2'
     memory: '100'
 name: 'Session 2: Q* FizzBuzz'
 network_grading: false
 order: 17
 problems:
     q1:
-        default: ''
         language: python
+        name: Implementation
         type: code
         header: '``i`` is provided and you need to store the adequate return value
             in ``temp``'
-        name: Implementation
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

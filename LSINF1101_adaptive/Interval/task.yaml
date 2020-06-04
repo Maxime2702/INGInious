@@ -29,21 +29,22 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 2: Q* Interval'
 network_grading: false
 order: 14
 problems:
     q1:
-        default: ''
+        language: python
         name: Implementation
+        type: code
         header: |
             .. code-block:: python
 
@@ -51,8 +52,7 @@ problems:
                 b = ... #upper bound of the interval
                 x = ... #variable to evaluate
                 interval = ... #store in this variable the belonging of x in the interval
-        type: code
-        language: python
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

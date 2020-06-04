@@ -35,21 +35,21 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    output: '2'
     time: '30'
+    output: '2'
     memory: '100'
 name: 'Session 8: Q* SMS Store'
 network_grading: false
 order: 112
 problems:
     q1:
-        default: ''
         language: python
+        name: Implémentation
         type: code
         header: |-
             Une instance ``my_inbox'' de la classe ``SMSStore`` représentant une boîte de réception doit pouvoir comprendre les messages suivantes:
@@ -79,7 +79,7 @@ problems:
                     # Supprime tous les messages SMS de cette boîte de réception
 
             Ecrivez la classe ``SMSStore`` et implémentez ces méthodes.
-        name: Implémentation
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

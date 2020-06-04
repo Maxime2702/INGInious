@@ -35,28 +35,28 @@ context: |-
     atteint 1. Les nombres de la suite doivent être affichés un nombre par ligne, sur
     la sortie standard avec ``print``.
     **Le programme ne doit plus rien afficher de la suite après avoir affiché le premier 1.**
-environment: mcq
-evaluate: best
+environment: default
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    output: '2'
     time: '30'
+    output: '2'
     memory: '100'
 name: 'Session 1: QBF'
 network_grading: false
 order: 4
 problems:
     q1:
-        default: ''
         language: ''
+        name: Implémentation
         type: code
         header: |-
             .. code-block:: python
 
                 s0 = ...    #Entier de départ
-        name: Implémentation
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

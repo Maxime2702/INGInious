@@ -27,13 +27,13 @@ context: |-
        });
        </script>
 environment: mcq
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    output: '2'
     time: '30'
+    output: '2'
     memory: '100'
 name: 'Session 4: QCM'
 network_grading: false
@@ -50,9 +50,7 @@ problems:
                         l.append ( s )
                         l.append ( s )
                         return l
-        -   feedback: On append la chaîne de caractères vide. On ne peut pas changer
-                cette chaîne ensuite.
-            text: |-
+        -   text: |-
                 .. code-block:: python
 
                     def f():
@@ -62,6 +60,8 @@ problems:
                         l.append ( s )
                         s = "ab"
                         return l
+            feedback: On append la chaîne de caractères vide. On ne peut pas changer
+                cette chaîne ensuite.
         -   valid: true
             text: |-
                 .. code-block:: python
@@ -96,19 +96,19 @@ problems:
                         l.append ( s )
                         s[1] = "b"
                         return l
-        -   valid: true
-            text: |-
+        -   text: |-
                 .. code-block:: python
 
                     def f():
                         s = "ab"
                         l = [ s, s ]
                         return l
+            valid: true
         name: Chaînes (2)
         type: multiple_choice
+        header: Quel fonctions retournent la liste ``["ab","ab"]``?
         multiple: true
         limit: 0
-        header: Quel fonctions retournent la liste ``["ab","ab"]``?
     q2:
         choices:
         -   feedback: Vérifiez les indexes, ce programme renvoit juste ``e``.
@@ -132,13 +132,13 @@ problems:
                     def f():
                         s = "abcdefegh"
                         return s[-3:-4]
-        -   text: |-
+        -   feedback: Vérifiez les indexes, ce code renvoit un string vide.
+            text: |-
                 .. code-block:: python
 
                     def f():
                         s = "abcdefegh"
                         return s[-3:-5]
-            feedback: Vérifiez les indexes, ce code renvoit un string vide.
         -   feedback: Vérifiez les indexes, ce code renvoit un ``f``.
             text: |-
                 .. code-block:: python
@@ -153,21 +153,12 @@ problems:
                         s = "abcdefegh"
                         return s[-5:-3]
             valid: true
-        type: multiple_choice
-        header: Quel fonction retourne la chaîne ``"ef"``?
         name: Chaînes (2)
-        multiple: true
+        header: Quel fonction retourne la chaîne ``"ef"``?
+        type: multiple_choice
         limit: 0
+        multiple: true
     q3:
-        header: |
-            Laquelle des fonctions ci-dessous est une implémentation de la spécification suivante
-
-            .. code-block:: python
-
-             """
-             pre: une chaîne s
-             post: retourne True lorsque s contient une chaîne composée uniquement de caractères a et b; sinon, False
-             """
         choices:
         -   feedback: Cette fonction accepte seulement "ab"
             text: |-
@@ -175,7 +166,8 @@ problems:
 
                    def ab(s):
                      return s == "ab"
-        -   text: |-
+        -   valid: true
+            text: |-
                 .. code-block:: python
 
                    def ab(s):
@@ -183,7 +175,6 @@ problems:
                        if c != "a" and c !="b":
                          return False
                      return True
-            valid: true
         -   valid: true
             text: |-
                 .. code-block:: python
@@ -194,9 +185,7 @@ problems:
                        if c == "a" or c =="b":
                          n = n + 1
                      return n == len(s)
-        -   feedback: '   Vérifiez si la fonction s''arrête dans les conditions requises.
-                Qu''en est-il pour la chaîne: ``''aecba''``?'
-            text: |-
+        -   text: |-
                 .. code-block:: python
 
                    def ab(s):
@@ -204,11 +193,23 @@ problems:
                        if c == "a" or c =="b":
                          return True
                      return False
-        limit: 0
+            feedback: '   Vérifiez si la fonction s''arrête dans les conditions requises.
+                Qu''en est-il pour la chaîne: ``''aecba''``?'
+        header: |
+            Laquelle des fonctions ci-dessous est une implémentation de la spécification suivante
+
+            .. code-block:: python
+
+             """
+             pre: une chaîne s
+             post: retourne True lorsque s contient une chaîne composée uniquement de caractères a et b; sinon, False
+             """
         multiple: true
         name: Fonctions retournant un booléen
+        limit: 0
         type: multiple_choice
     q4:
+        name: Retourner une liste
         choices:
         -   feedback: Ce code execute, mais a un tout autre résultat. Il renverra
                 [0, ..., n, 0, ..., n]
@@ -217,10 +218,7 @@ problems:
 
                    def ranget2(n):
                       return list(range(n+1)) * 2
-        -   feedback: On ne peut pas ajouter un nombre entier à une liste. On peut
-                seulement ajouter des listes à des listes (``l = l + [ i * 2 ]`` serait
-                correcte)
-            text: |-
+        -   text: |-
                 .. code-block:: python
 
                    def ranget2(n):
@@ -228,8 +226,10 @@ problems:
                      for i in range(n+1):
                        l = l + i * 2
                      return l
-        -   feedback: Vérifie que la fonction ``add`` existe.
-            text: |-
+            feedback: On ne peut pas ajouter un nombre entier à une liste. On peut
+                seulement ajouter des listes à des listes (``l = l + [ i * 2 ]`` serait
+                correcte)
+        -   text: |-
                 .. code-block:: python
 
                    def ranget2(n):
@@ -237,6 +237,7 @@ problems:
                      for i in range(n+1):
                        l.add ( i * 2 )
                      return l
+            feedback: Vérifie que la fonction ``add`` existe.
         -   text: |-
                 .. code-block:: python
 
@@ -246,7 +247,9 @@ problems:
                        l.append ( i * 2 )
                      return l
             valid: true
+        type: multiple_choice
         limit: 0
+        multiple: true
         header: |4
 
             Laquelle des fonctions ci-dessous est une implémentation de la spécification suivante
@@ -257,9 +260,6 @@ problems:
              pre: un nombre entier n >= 0
              post: retourne la liste [0,2,4,...,n*2]
              """
-        name: Retourner une liste
-        type: multiple_choice
-        multiple: true
     q6:
         choices:
         -   valid: true
@@ -273,7 +273,8 @@ problems:
                           if c == a:
                             t += 1
                       return t
-        -   text: |-
+        -   valid: true
+            text: |-
                 .. code-block:: python
 
                     def count ( l, a ):
@@ -284,7 +285,6 @@ problems:
                             t += 1
                       return t
             feedback: Veuillez noter que cette solution est trop complexe.
-            valid: true
         -   text: |-
                 .. code-block:: python
 
@@ -296,7 +296,9 @@ problems:
                             t += 1
                       return t
             feedback: Attention que l[i] sont des string dans ce cas-ci
-        -   text: |-
+        -   feedback: dans ce cas la `a` dans le boucle for est un autre `a` que celui
+                dans le paramètre.
+            text: |-
                 .. code-block:: python
 
                     def count ( l, a ):
@@ -305,11 +307,9 @@ problems:
                         for a in l[i]:
                           t += 1
                       return t
-            feedback: dans ce cas la `a` dans le boucle for est un autre `a` que celui
-                dans le paramètre.
-        limit: 0
         type: multiple_choice
-        name: Compter dans une liste de chaînes
+        multiple: true
+        limit: 0
         header: |-
             Laquelle des fonctions ``count`` ci-dessous est une implémentation de la spécification suivante:
 
@@ -319,10 +319,14 @@ problems:
              pre: une liste de chaînes de caractères l, un caractère a
              post: le nombre d'occurences du caractère dans les chaînes de caractères
              """
-        multiple: true
+        name: Compter dans une liste de chaînes
     q7:
+        type: multiple_choice
         choices:
-        -   text: |-
+        -   feedback: On ne peut pas stocker une valeur comme ``[]`` sur une position
+                qui n'existe pas; la variable ``matrix`` a été initialisé avec une
+                liste vide!
+            text: |-
                 .. code-block:: python
 
                     matrix = []
@@ -330,9 +334,6 @@ problems:
                         matrix[i] = []
                         for j in range(4):
                             matrix[i].append(i + j)
-            feedback: On ne peut pas stocker une valeur comme ``[]`` sur une position
-                qui n'existe pas; la variable ``matrix`` a été initialisé avec une
-                liste vide!
         -   valid: true
             text: |-
                 .. code-block:: python
@@ -342,7 +343,8 @@ problems:
                         matrix.append([])
                         for j in range(4):
                             matrix[i].append(i + j)
-        -   text: |-
+        -   valid: true
+            text: |-
                 .. code-block:: python
 
                     matrix = []
@@ -351,7 +353,6 @@ problems:
                         for j in range(4):
                             l.append(i + j)
                         matrix.append ( l )
-            valid: true
         -   text: |-
                 .. code-block:: python
 
@@ -362,13 +363,12 @@ problems:
                         for j in range(4):
                             l.append(i + j)
             valid: true
+        multiple: true
+        limit: 0
         name: Matrices
         header: |-
             On veut créer la matrice ``matrix = [[0,1,2,3],[1,2,3,4],[2,3,4,5]]``.
             Lesquels parmi les programmes suivants font cela?
-        multiple: true
-        type: multiple_choice
-        limit: 0
     q8:
         choices:
         -   feedback: Le premier zero n'est pas traité correctement; une liste vide
@@ -386,9 +386,7 @@ problems:
                             else:
                                 new_ll.append(v)
                         return new_l
-        -   feedback: Il est nécesaire de réinitialiser ``new_ll``; sinon, cette liste
-                devient la base des listes suivantes.
-            text: |-
+        -   text: |-
                 .. code-block:: python
 
                     def nest(l):
@@ -400,7 +398,11 @@ problems:
                             else:
                                 new_ll.append(v)
                         return new_l
-        -   text: |-
+            feedback: Il est nécesaire de réinitialiser ``new_ll``; sinon, cette liste
+                devient la base des listes suivantes.
+        -   feedback: Le premier zero n'est pas traité correctement; une liste vide
+                est ajoutée.
+            text: |-
                 .. code-block:: python
 
                     def nest(l):
@@ -413,10 +415,7 @@ problems:
                             else:
                                 new_ll.append(v)
                         return new_l
-            feedback: Le premier zero n'est pas traité correctement; une liste vide
-                est ajoutée.
-        -   valid: true
-            text: |-
+        -   text: |-
                 .. code-block:: python
 
                     def nest(l):
@@ -429,15 +428,18 @@ problems:
                             else:
                                 new_ll.append(v)
                         return new_l
+            valid: true
+        type: multiple_choice
+        multiple: true
         header: |-
             Soit une liste de nombres entiers qui commence par un zéro et se termine par un zéro,  on veut créer une nouvelle liste avec tous les nombres entiers entre deux 0 imbriquée dans une sous-liste. Par exemple, pour la liste ``[0,1,2,3,4,0,1,3,4,0,0,5,6,0,4,5,0]`` on veut créer la nouvelle liste ``[[1,2,3,4],[1,3,4],[],[5,6],[4,5]]``.
 
             Lesquels parmi les programmes suivants font cela?
         limit: 0
-        multiple: true
         name: Conversion de listes
-        type: multiple_choice
     q9:
+        type: multiple_choice
+        header: Lesquels parmi les programmes suivants imprime la liste ``[1,2,3,4]``?
         choices:
         -   text: |-
                 .. code-block:: python
@@ -476,11 +478,9 @@ problems:
                     l = [ 1, 2 ]
                     l2 = l + [ 3, 4 ]
                     print ( l )
-        type: multiple_choice
         name: Création de listes
         multiple: true
         limit: 0
-        header: Lesquels parmi les programmes suivants imprime la liste ``[1,2,3,4]``?
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

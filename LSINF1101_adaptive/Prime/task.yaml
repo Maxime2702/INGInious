@@ -31,21 +31,21 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 2: Nombres premiers'
 network_grading: false
 order: 11
 problems:
     q1:
+        language: python
         name: Implementation
-        default: ''
         type: code
         header: |-
             Stockez dans ``is_prime`` ``True`` si le ``n`` est un nombre premier et ``False`` sinon.
@@ -55,7 +55,7 @@ problems:
 
                 is_prime = True
                 n = ...             #Un entier supérieur à 1
-        language: python
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

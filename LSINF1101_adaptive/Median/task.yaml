@@ -33,21 +33,22 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 1: Median'
 network_grading: false
 order: 2
 problems:
     q1:
-        default: ''
+        language: python
         name: Implementation
+        type: code
         header: |-
             .. code-block:: python
 
@@ -55,8 +56,7 @@ problems:
                 b = ... #variable to evaluate
                 c = ... #variable to evaluate
                 median = ... #store in this variable the median of the three variables
-        type: code
-        language: python
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

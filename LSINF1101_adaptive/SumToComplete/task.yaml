@@ -39,28 +39,28 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 2: Somme à compléter'
 network_grading: false
 order: 10
 problems:
     q1:
+        language: python
+        name: Implémentation
+        type: code
+        header: ' '
         default: |-
             n = some_value
             sum = 0
             for ___ in ___________:
                 ______________
-        name: Implémentation
-        header: ' '
-        type: code
-        language: python
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

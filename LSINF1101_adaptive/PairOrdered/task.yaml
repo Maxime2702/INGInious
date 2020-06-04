@@ -58,7 +58,7 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
@@ -71,11 +71,11 @@ network_grading: false
 order: 110
 problems:
     q1:
+        language: python
+        name: Implementation
+        type: code
         header: Implémentez ici les méthodes ``set_a()`` et ``set_b()`` avec leur
             signatures. N'oubliez pas de mettre à jour l'attribut ``ordered``.
-        name: Implementation
-        language: python
-        type: code
         default: ''
 run_cmd: ''
 stored_submissions: 0

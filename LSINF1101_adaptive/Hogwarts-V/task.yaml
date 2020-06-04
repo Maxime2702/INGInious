@@ -39,21 +39,21 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    output: '2'
     time: '30'
+    output: '2'
     memory: '100'
 name: 'Session 7: Q* Hogwarts - House cup'
 network_grading: false
 order: 81
 problems:
     q1:
-        default: ''
         language: python
+        name: Implementation
         type: code
         header: |-
             Implement the function ``winning_house(scroll)`` in Python.
@@ -66,7 +66,7 @@ problems:
                             'ravenclaw': ['Cho', 'Luna', 'Sybill', 'Marcus', 'Marietta', 'Terry', 'Penelope'],
                             'hufflepuff': ['Pomona', 'Zacharias', 'Teddy', 'Cedric', 'Nymphadora', 'Newton', 'Justin'],
                             'slytherin': ['Malfoy', 'Severus', 'Dolores', 'Horace', 'Blaise', 'Pansy', 'Bellatrix']}
-        name: Implementation
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

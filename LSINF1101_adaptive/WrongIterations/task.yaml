@@ -52,21 +52,21 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    output: '2'
     time: '30'
+    output: '2'
     memory: '100'
 name: 'Session 7: Q* Wrong iterations'
 network_grading: false
 order: 86
 problems:
     q1:
-        default: ''
         language: python
+        name: Implementation
         type: code
         header: |-
             As a reminder, iterators typically have the following methods:
@@ -78,7 +78,7 @@ problems:
                         ...
                     def __next__():  # Returns the next element to iterate on
                         ...
-        name: Implementation
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

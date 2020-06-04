@@ -35,32 +35,32 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 1: Phase de réalisation'
 network_grading: false
 order: 3
 problems:
     q1:
+        allowed_exts:
+        - .py
         name: 'Phase de réalisation de la Mission 1: mise_en_route.py'
         type: file
         header: Soumettez ici votre programme.
-        allowed_exts:
-        - .py
     q2:
-        name: 'Phase de réalisation de la Mission 1: README.TXT'
-        header: Soumettez ici la documentation destinée aux utilisateurs de votre
-            programme et vos notes dans le fichier README.txt.
         type: file
         allowed_exts:
         - .txt
         - .TXT
+        name: 'Phase de réalisation de la Mission 1: README.TXT'
+        header: Soumettez ici la documentation destinée aux utilisateurs de votre
+            programme et vos notes dans le fichier README.txt.
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

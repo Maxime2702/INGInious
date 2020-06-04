@@ -50,24 +50,24 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    output: '2'
     time: '30'
+    output: '2'
     memory: '100'
 name: 'Session 1: Q* Bathtub with a hole'
 network_grading: false
 order: 8
 problems:
     q1:
-        default: ''
         language: python
+        name: Implementation
         type: code
         header: ' '
-        name: Implementation
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

@@ -27,25 +27,37 @@ context: |-
        });
        </script>
 environment: mcq
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    output: '2'
     time: '30'
+    output: '2'
     memory: '100'
 name: Question on Type
 network_grading: false
 problems:
     q1:
         choices:
-        -   valid: true
-            text: |-
+        -   text: |-
                 .. code-block:: python
 
                     type(etudiants) is int
                     type(budget) is float
+                    type(pi) is float
+                    type(temp) is float
+                    type(present) is bool
+                    type(nom) is str
+            valid: true
+        -   feedback: Les américains utilisent des dollars et des cents. Vous devez
+                donc pouvoir représenter un budget de 3.45$, ce que le type ``float``
+                ne permet pas.
+            text: |-
+                .. code-block:: python
+
+                    type(etudiants) is int
+                    type(budget) is int
                     type(pi) is float
                     type(temp) is float
                     type(present) is bool
@@ -57,25 +69,14 @@ problems:
                     type(budget) is int
                     type(pi) is float
                     type(temp) is float
-                    type(present) is bool
+                    type(present) is str
                     type(nom) is str
-            feedback: Les américains utilisent des dollars et des cents. Vous devez
-                donc pouvoir représenter un budget de 3.45$, ce que le type ``float``
-                ne permet pas.
-        -   feedback: |-
+            feedback: |-
                 Les américains utilisent des dollars et des cents. Vous devez donc pouvoir représenter un budget de 3.45$, ce que le type ``float`` ne permet pas.
 
                 De plus, lorsqu'une variable ne peut prendre que é valeurs, il est préférable d'en faire un bool.
-            text: |-
-                .. code-block:: python
-
-                    type(etudiants) is int
-                    type(budget) is int
-                    type(pi) is float
-                    type(temp) is float
-                    type(present) is str
-                    type(nom) is str
         limit: 0
+        name: Types de données
         type: multiple_choice
         header: |-
             Python supporte différents types de données de base : ``int``, ``long``, ``float``, ``str`` et ``bool`` entre autres. Il s'agit des types d'objets non itérables que nous utiliserons le plus dans ce cours. Dans un programme Python, vous devez stocker les informations suivantes :
@@ -88,7 +89,6 @@ problems:
             * un nom tapé sur un clavier (variable ``nom``)
 
             Le fonction built-in ``type()`` permet d'obtenir le type d'une variable. Quels types seraient associés aux variables énoncées précédemment?
-        name: Types de données
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

@@ -37,24 +37,24 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 5: Compteur d''événement'
 network_grading: false
 order: 52
 problems:
     q1:
+        language: python
         name: Implémentation
-        default: ''
         type: code
         header: Implémentez la fonction ``count(events, i, j)`` en Python.
-        language: python
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

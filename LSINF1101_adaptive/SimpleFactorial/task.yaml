@@ -29,24 +29,24 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
     time: '30'
-    memory: '100'
     output: '2'
+    memory: '100'
 name: 'Session 3: Factorial'
 network_grading: false
 order: 21
 problems:
     q1:
-        type: code
-        default: ''
-        header: 'Ecrivez la fonction ``fact(n)``:'
-        name: Implementation
         language: python
+        name: Implementation
+        type: code
+        header: 'Ecrivez la fonction ``fact(n)``:'
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

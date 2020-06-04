@@ -31,28 +31,28 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 1: Q* Somme'
 network_grading: false
 order: 5
 problems:
     q1:
-        default: ''
+        language: python
         name: Implementation
+        type: code
         header: |-
             .. code-block:: python
 
                 x = ... #the number
                 result = ... #store in this variable the sum of the x first positive integers
-        type: code
-        language: python
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

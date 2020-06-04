@@ -35,20 +35,24 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 5: Recherche binaire'
 network_grading: false
 order: 57
 problems:
     q1:
+        language: python
         name: Implémentation
+        type: code
+        header: Implémentez la fonction ``binary_search(course, list_of_courses)``
+            en Python en vous basant sur celle vu dans la théorie (ci-dessous).
         default: |-
             def binary_search ( name, list_of_names ):
                 first = 0
@@ -66,10 +70,6 @@ problems:
                             first = middle+1
 
                 return found
-        type: code
-        header: Implémentez la fonction ``binary_search(course, list_of_courses)``
-            en Python en vous basant sur celle vu dans la théorie (ci-dessous).
-        language: python
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

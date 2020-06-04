@@ -351,4 +351,4 @@ adaptive:
       tasks: ['Average', 'Hogwarts-I', 'Hogwarts-II', 'Hogwarts-V']
     - level: 6
       tasks: ['WrongIterations', 'SMSStore', 'ZooGame']
-    minimal_questions: 7
+    minimal_questions: 1

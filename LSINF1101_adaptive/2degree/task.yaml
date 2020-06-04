@@ -82,24 +82,24 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    output: '2'
     time: '30'
+    output: '2'
     memory: '100'
 name: 'Session 3: Q* Equations du second degré'
 network_grading: false
 order: 31
 problems:
     q1:
-        default: ''
         language: python
+        name: Définissez et implémentez les fonction demandées
         type: code
         header: ' '
-        name: Définissez et implémentez les fonction demandées
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

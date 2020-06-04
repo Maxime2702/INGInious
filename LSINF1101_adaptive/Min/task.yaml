@@ -31,7 +31,7 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
@@ -44,7 +44,9 @@ network_grading: false
 order: 15
 problems:
     q1:
-        default: ''
+        language: python
+        name: Implementation
+        type: code
         header: |-
             .. code-block:: python
 
@@ -52,9 +54,7 @@ problems:
                 b = ... #variable to evaluate
                 c = ... #variable to evaluate
                 minima = ... #store in this variable the smallest of the three variables
-        type: code
-        name: Implementation
-        language: python
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

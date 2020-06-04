@@ -1,4 +1,4 @@
-$def with (user_info, course, submissions, tasks, tasks_data, recommendations, grade, tag_filter_list, tree, skills, tree_image)
+$def with (user_info, course, submissions, tasks, tasks_data, recommendations, grade, tag_filter_list, tree, skills)
 
 $#
 $# This file is part of INGInious. See the LICENSE and the COPYRIGHTS files for
@@ -255,7 +255,9 @@ function filter_tag(tag) {
                         <div class="row">
                             <div class="col-xs-12 col-md-7 pl-1">
                                 <i style="color: $('#468847;' if succeeded else 'transparent')" class="fa fa-check"></i>
-                                $task.get_name(user_manager.session_language())
+                                $ task_name = str(task.get_categories())+" "
+                                $ task_name += task.get_name(user_manager.session_language())
+                                $task_name
                                 $if not task.is_visible_by_students():
                                     - <b>$:_("task hidden to students")</b>
                                 $if not task.get_accessible_time().is_open():

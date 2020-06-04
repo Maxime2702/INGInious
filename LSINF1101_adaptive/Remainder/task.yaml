@@ -35,29 +35,29 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 2: Q* Reste d''une division entière'
 network_grading: false
 order: 18
 problems:
     q1:
-        default: ''
+        language: python
         name: Implementation
+        type: code
         header: |-
             .. code-block:: python
 
                 a = ... #variable to evaluate
                 b = ... #variable to evaluate
                 rest = ... #store in this variable the remainder of the division a/b
-        type: code
-        language: python
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

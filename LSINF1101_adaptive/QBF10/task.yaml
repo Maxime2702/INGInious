@@ -66,7 +66,7 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
@@ -79,10 +79,10 @@ network_grading: false
 order: 124
 problems:
     q1:
-        header: Implémentez la classe ``CD`` en Python héritant de la classe ``Item``.
-        name: Implémentation
         language: python
+        name: Implémentation
         type: code
+        header: Implémentez la classe ``CD`` en Python héritant de la classe ``Item``.
         default: ''
 run_cmd: ''
 stored_submissions: 0

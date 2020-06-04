@@ -41,7 +41,7 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
@@ -54,6 +54,9 @@ network_grading: false
 order: 116
 problems:
     q1:
+        language: python
+        name: Implementation
+        type: code
         header: |-
             You have to implement the following :
 
@@ -89,9 +92,6 @@ problems:
               #methods
               __init__(life)
               get_hit(damage) # reduce the life by the damage taken
-        name: Implementation
-        language: python
-        type: code
         default: ''
 run_cmd: ''
 stored_submissions: 0

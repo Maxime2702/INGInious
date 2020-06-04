@@ -37,24 +37,24 @@ context: |-
        });
        </script>
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 7: Utilisation des clés'
 network_grading: false
 order: 78
 problems:
     q1:
+        language: python
         name: Implémentation
-        default: ''
         type: code
         header: Implémentez la fonction ``get_country(l, name)`` en Python.
-        language: python
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:

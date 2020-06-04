@@ -28,27 +28,27 @@ context: |-
 
     3
 environment: default
-evaluate: best
+evaluate: last
 file: ''
 groups: false
 input_random: '0'
 limits:
-    memory: '100'
-    output: '2'
     time: '30'
+    output: '2'
+    memory: '100'
 name: 'Session 2: QBF'
 network_grading: false
 order: 13
 problems:
     q1:
-        default: ''
+        language: python
         name: Implémentation
+        type: code
         header: |-
             .. code-block:: python
 
                 n = ...    #Borne supérieure
-        type: code
-        language: python
+        default: ''
 run_cmd: ''
 stored_submissions: 0
 submission_limit:
