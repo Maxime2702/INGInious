@@ -192,13 +192,18 @@ class BaseTaskPage(object):
                 value_max = value_max - math.exp(borne_level_max)/(math.exp(level)+math.exp(borne_level_max))
                 value_mean = value_mean - math.exp(borne_level_mean)/(math.exp(level)+math.exp(borne_level_mean))
 
-        if math.pow(value_max-value_mean, 2) < 0.1 or math.pow(value_min-value_mean, 2) < 0.1:
+        if math.pow(value_max-value_mean, 2) < 0.01 or math.pow(value_min-value_mean, 2) < 0.01:
             return borne_level_mean
 
-        if math.fabs(value_max - value_mean) > math.fabs(value_mean - value_min):
+        if value_min <= 0 <= value_mean or value_mean <= 0 <= value_min:
             return self.calc_level_student(course, borne_level_min, borne_level_mean)
-        else:
+        elif value_mean <= 0 <= value_max or value_max <= 0 <= value_mean:
             return self.calc_level_student(course, borne_level_mean, borne_level_max)
+        else:
+            if math.fabs(value_max - value_mean) > math.fabs(value_mean - value_min):
+                return self.calc_level_student(course, borne_level_min, borne_level_mean)
+            else:
+                return self.calc_level_student(course, borne_level_mean, borne_level_max)
 
     def set_selected_submission(self, course, task, submissionid):
         """ Set submission whose id is `submissionid` to selected grading submission for the given course/task.
@@ -331,10 +336,10 @@ class BaseTaskPage(object):
 
         level_student = Adaptive_course.level_student_global
         print(level_student)
-        borne_min = max(level_student - 3,1)
-        borne_max = min(level_student + 3,6)
+        #borne_min = max(level_student - 3,1)
+        #borne_max = min(level_student + 3,6)
         #new_value = level_student
-        new_value = self.calc_level_student(course, borne_min, borne_max)
+        new_value = self.calc_level_student(course, 0, 6)
         print(new_value)
         if new_value is not None:
             Adaptive_course.level_student_global = new_value

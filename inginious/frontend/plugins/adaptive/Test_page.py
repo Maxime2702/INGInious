@@ -40,8 +40,8 @@ class TestPage(INGIniousAuthPage):
         user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
         user_tests = [task for task in user_tasks if task["succeeded"]]
 
-        student_level = self.level_student
-        student_level = self.calc_level_student(course, student_level-0.5, student_level+0.5)
+        #student_level = self.level_student
+        student_level = self.calc_level_student(course, 0, 6)
         self.level_student = student_level
         if len(user_tests) >= course.get_descriptor().get('adaptive', [])["minimal_questions"]:
             return True, student_level
@@ -131,14 +131,18 @@ class TestPage(INGIniousAuthPage):
                 value_max = value_max - math.exp(borne_level_max)/(math.exp(level)+math.exp(borne_level_max))
                 value_mean = value_mean - math.exp(borne_level_mean)/(math.exp(level)+math.exp(borne_level_mean))
 
-        # TODO check in which interval is 0
-        if math.pow(value_max-value_mean, 2) < 0.1 or math.pow(value_min-value_mean, 2) < 0.1:
+        if math.pow(value_max-value_mean, 2) < 0.01 or math.pow(value_min-value_mean, 2) < 0.01:
             return borne_level_mean
 
-        if math.fabs(value_max - value_mean) > math.fabs(value_mean - value_min):
+        if value_min <= 0 <= value_mean or value_mean <= 0 <= value_min:
             return self.calc_level_student(course, borne_level_min, borne_level_mean)
-        else:
+        elif value_mean <= 0 <= value_max or value_max <= 0 <= value_mean:
             return self.calc_level_student(course, borne_level_mean, borne_level_max)
+        else:
+            if math.fabs(value_max - value_mean) > math.fabs(value_mean - value_min):
+                return self.calc_level_student(course, borne_level_min, borne_level_mean)
+            else:
+                return self.calc_level_student(course, borne_level_mean, borne_level_max)
 
 #######################
 
