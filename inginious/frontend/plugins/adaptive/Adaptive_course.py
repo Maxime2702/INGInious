@@ -112,7 +112,9 @@ class AdaptivePage(INGIniousAuthPage):
         grade_total = grade_total*100
         if grade_total == 0:
             return False
-        if grade/grade_total > 0.5 and succes/len(node_tasks) > 0.5:
+        grade_min = course.get_descriptor().get('adaptive')["grade_min"]
+        success_ratio = course.get_descriptor().get('adaptive')["success_ratio"]
+        if grade/grade_total > grade_min/100 and succes/len(node_tasks) > success_ratio:
             return True
         return False
 

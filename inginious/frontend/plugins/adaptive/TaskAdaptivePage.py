@@ -108,7 +108,11 @@ class BaseTaskPage(object):
         for task in node_tasks.values():
             grade_total += task.get_grading_weight()
         grade_total = grade_total*100
-        if grade/grade_total > 0.5 and succes/len(node_tasks) > 0.5:
+        if grade_total == 0:
+            return False
+        grade_min = course.get_descriptor().get('adaptive')["grade_min"]
+        success_ratio = course.get_descriptor().get('adaptive')["success_ratio"]
+        if grade/grade_total > grade_min/100 and succes/len(node_tasks) > success_ratio:
             return True
         return False
 
