@@ -18,7 +18,7 @@ def course_menu(course, template_helper):
     else:
         return None
 
-def task_menu(course, task, template_helper):
+def task_menu(course, _, template_helper):
     return str(template_helper.get_custom_renderer('frontend/plugins/adaptive', layout=False).task_menu(course))
 
 def init(plugin_manager, _, _2, _3):

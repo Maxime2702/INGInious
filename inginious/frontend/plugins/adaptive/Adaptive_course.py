@@ -1,5 +1,4 @@
 import math
-import time
 
 from inginious.frontend.pages.utils import INGIniousAuthPage
 import web
@@ -18,15 +17,14 @@ class AdaptivePage(INGIniousAuthPage):
         global level_student_global
         calc_level_student = self.calc_level_student(course,level_student-2,level_student+2)
         level_student_global = max(calc_level_student, level_student_global)
-        print(level_student_global)
-        return self.show_page2(course, level_student_global)
+        return self.show_page(course, level_student_global)
 
     def POST(self, courseid, level_student=1):
         course = self.get_course(courseid)
         global level_student_global
         calc_level_student = self.calc_level_student(course,level_student-1,level_student+1)
         level_student_global = max(calc_level_student, level_student_global)
-        return self.show_page2(course, level_student_global)
+        return self.show_page(course, level_student_global)
 
     def get_course(self, courseid):
         """ Return the course """
@@ -37,15 +35,14 @@ class AdaptivePage(INGIniousAuthPage):
 
         return course
 
-    def is_available(self, node, course):
-        parents = node["content"]["parent"]
-        for parent in parents:
-            if not self.is_complete(parent, course):
-                return False
-        return True
+    # def is_available(self, node, course):
+    #     parents = node["content"]["parent"]
+    #     for parent in parents:
+    #         if not self.is_complete(parent, course):
+    #             return False
+    #     return True
 
-    def is_available2(self, node, course, level_student):
-        #print("is_avail : "+str(level_student))
+    def is_available(self, node, course, level_student):
         parents = node["content"]["parent"]
         if node["level"] <= level_student:
             return True
@@ -56,7 +53,7 @@ class AdaptivePage(INGIniousAuthPage):
                 else:
                     return False
             for parent in parents:
-                if not self.is_complete2(parent, course):
+                if not self.is_complete(parent, course):
                     return False
             return True
 
@@ -77,21 +74,21 @@ class AdaptivePage(INGIniousAuthPage):
                 correct_tasks.append(user_task)
         return correct_tasks
 
-    def is_complete(self, node, course):
-        username = self.user_manager.session_username()
-        tasks = course.get_tasks()
-        user_tasks = self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})
-        tasks = self.sort_tasks(node, tasks)
-        user_tasks = self.sort_user_tasks(tasks, user_tasks)
-        if len(tasks) != len(user_tasks):
-            return False
-        else:
-            for user_task in user_tasks:
-                if not user_task["succeeded"]:
-                    return False
-            return True
+    # def is_complete(self, node, course):
+    #     username = self.user_manager.session_username()
+    #     tasks = course.get_tasks()
+    #     user_tasks = self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})
+    #     tasks = self.sort_tasks(node, tasks)
+    #     user_tasks = self.sort_user_tasks(tasks, user_tasks)
+    #     if len(tasks) != len(user_tasks):
+    #         return False
+    #     else:
+    #         for user_task in user_tasks:
+    #             if not user_task["succeeded"]:
+    #                 return False
+    #         return True
 
-    def is_complete2(self, node, course):
+    def is_complete(self, node, course):
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
         node_tasks = {}
@@ -118,46 +115,46 @@ class AdaptivePage(INGIniousAuthPage):
             return True
         return False
 
-    def get_data(self, course):
-        username = self.user_manager.session_username()
-        tasks = course.get_tasks()
-        user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
-        tree = course.get_descriptor().get('adaptive', [])["tree"]
-        bases = list(course.get_descriptor().get('adaptive', [])["bases"])
-        tasks_data = {}
-        is_admin = self.user_manager.has_staff_rights_on_course(course, username)
-
-        tasks_score = [0.0, 0.0, 0.0]
-
-        for taskid, task in tasks.items():
-            tasks_data[taskid] = {"visible": set(task.get_categories()).issubset(set(bases)), "succeeded": False,
-                                  "grade": 0.0, 'tried': 0, "tasks_parents": []}
-
-        for user_task in user_tasks:
-            tasks_data[user_task["taskid"]]["succeeded"] = user_task["succeeded"]
-            tasks_data[user_task["taskid"]]["grade"] = user_task["grade"]
-            tasks_data[user_task["taskid"]]["tried"] = user_task["tried"]
-
-        for node in tree:
-            if self.is_available(node, course):
-                for taskid, task in tasks.items():
-                    tags = task.get_categories()
-                    if node["node"] in tags:
-                        tasks_data[taskid]["visible"] = task.get_accessible_time().after_start() or is_admin
-                        for parent in node["content"]["parent"]:
-                            for task_p_id, task_p in tasks.items():
-                                tags_p = task_p.get_categories()
-                                if parent in tags_p:
-                                    tasks_data[taskid]["tasks_parents"].append(task_p_id)
-
-        for data_id, data in tasks_data.items():
-            weighted_score = data["grade"]*tasks[data_id].get_grading_weight()
-            tasks_score[0] += weighted_score if data["visible"] else 0
-            tasks_score[1] += tasks[data_id].get_grading_weight() if data["visible"] else 0
-            tasks_score[2] += tasks[data_id].get_grading_weight() if tasks[data_id].get_accessible_time().after_start() and "test" not in tasks[data_id].get_categories() else 0
-        visible_grade = round(tasks_score[0]/tasks_score[1]) if tasks_score[1] > 0 else 0
-        course_grade = round(tasks_score[0]/tasks_score[2]) if tasks_score[2] > 0 else 0
-        return {"visible_grade": visible_grade, "course_grade": course_grade, "data": tasks_data}
+    # def get_data(self, course):
+    #     username = self.user_manager.session_username()
+    #     tasks = course.get_tasks()
+    #     user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
+    #     tree = course.get_descriptor().get('adaptive', [])["tree"]
+    #     bases = list(course.get_descriptor().get('adaptive', [])["bases"])
+    #     tasks_data = {}
+    #     is_admin = self.user_manager.has_staff_rights_on_course(course, username)
+    #
+    #     tasks_score = [0.0, 0.0, 0.0]
+    #
+    #     for taskid, task in tasks.items():
+    #         tasks_data[taskid] = {"visible": set(task.get_categories()).issubset(set(bases)), "succeeded": False,
+    #                               "grade": 0.0, 'tried': 0, "tasks_parents": []}
+    #
+    #     for user_task in user_tasks:
+    #         tasks_data[user_task["taskid"]]["succeeded"] = user_task["succeeded"]
+    #         tasks_data[user_task["taskid"]]["grade"] = user_task["grade"]
+    #         tasks_data[user_task["taskid"]]["tried"] = user_task["tried"]
+    #
+    #     for node in tree:
+    #         if self.is_available(node, course):
+    #             for taskid, task in tasks.items():
+    #                 tags = task.get_categories()
+    #                 if node["node"] in tags:
+    #                     tasks_data[taskid]["visible"] = task.get_accessible_time().after_start() or is_admin
+    #                     for parent in node["content"]["parent"]:
+    #                         for task_p_id, task_p in tasks.items():
+    #                             tags_p = task_p.get_categories()
+    #                             if parent in tags_p:
+    #                                 tasks_data[taskid]["tasks_parents"].append(task_p_id)
+    #
+    #     for data_id, data in tasks_data.items():
+    #         weighted_score = data["grade"]*tasks[data_id].get_grading_weight()
+    #         tasks_score[0] += weighted_score if data["visible"] else 0
+    #         tasks_score[1] += tasks[data_id].get_grading_weight() if data["visible"] else 0
+    #         tasks_score[2] += tasks[data_id].get_grading_weight() if tasks[data_id].get_accessible_time().after_start() and "test" not in tasks[data_id].get_categories() else 0
+    #     visible_grade = round(tasks_score[0]/tasks_score[1]) if tasks_score[1] > 0 else 0
+    #     course_grade = round(tasks_score[0]/tasks_score[2]) if tasks_score[2] > 0 else 0
+    #     return {"visible_grade": visible_grade, "course_grade": course_grade, "data": tasks_data}
 
     def get_recommendations(self, course, tree, tasks_data):
         recommendations = {'high': {}, 'medium': {}, 'low': {}}
@@ -185,32 +182,7 @@ class AdaptivePage(INGIniousAuthPage):
 
         return recommendations
 
-    '''def show_page(self, course):
-        """ Prepares and shows the course page """
-        username = self.user_manager.session_username()
-        if not self.user_manager.course_is_open_to_user(course, lti=False):
-            return self.template_helper.get_renderer().course_unavailable()
-        else:
-            tasks = course.get_tasks()
-            last_submissions = self.submission_manager.get_user_last_submissions(5, {"courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})
-
-            for submission in last_submissions:
-                submission["taskname"] = tasks[submission['taskid']].get_name(self.user_manager.session_language())
-
-            get_data = self.get_data(course)
-            visible_grade = get_data["visible_grade"]
-            course_grade = get_data["course_grade"]
-            grade = {"visible_grade": visible_grade, "course_grade": course_grade}
-            tasks_data = get_data["data"]
-
-            tree = course.get_descriptor().get('adaptive', [])["tree"]
-            recommendations = self.get_recommendations(course, tree, tasks_data)
-
-            tag_list = course.get_tags()
-            user_info = self.database.users.find_one({"username": username})
-        return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree)
-    '''
-    def show_page2(self, course, level_student):
+    def show_page(self, course, level_student):
         """ Prepares and shows the course page """
 
         username = self.user_manager.session_username()
@@ -224,7 +196,7 @@ class AdaptivePage(INGIniousAuthPage):
             for submission in last_submissions:
                 submission["taskname"] = tasks[submission['taskid']].get_name(self.user_manager.session_language())
 
-            get_data = self.get_data2(course, level_student)
+            get_data = self.get_data(course, level_student)
             visible_grade = get_data["visible_grade"]
             course_grade = get_data["course_grade"]
             grade = {"visible_grade": visible_grade, "course_grade": course_grade}
@@ -243,26 +215,21 @@ class AdaptivePage(INGIniousAuthPage):
 
             skills_availability = self.get_skills_data(course)
 
-        #print("show_page : " + str(level_student_global))
-        #print(tasks_data)
-
         return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree, skills_availability)
 
-    def get_data2(self, course, level_student):
+    def get_data(self, course, level_student):
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
 
         user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
         tree = course.get_descriptor().get('adaptive', [])["tree"]
-        bases = list(course.get_descriptor().get('adaptive', [])["bases"])
+        #bases = list(course.get_descriptor().get('adaptive', [])["bases"])
         tasks_data = {}
         is_admin = self.user_manager.has_staff_rights_on_course(course, username)
 
         tasks_score = [0.0, 0.0, 0.0]
 
         for taskid, task in tasks.items():
-            #tasks_data[taskid] = {"visible": set(task.get_categories()).issubset(set(bases)), "succeeded": False,
-            #                      "grade": 0.0, 'tried': 0, "tasks_parents": []}
             tasks_data[taskid] = {"visible": False, "succeeded": False,
                                   "grade": 0.0, 'tried': 0, "tasks_parents": []}
 
@@ -272,7 +239,7 @@ class AdaptivePage(INGIniousAuthPage):
             tasks_data[user_task["taskid"]]["tried"] = user_task["tried"]
 
         for node in tree:
-            if self.is_available2(node, course, level_student):
+            if self.is_available(node, course, level_student):
                 for taskid, task in tasks.items():
                     tags = task.get_categories()
                     if not tags:
@@ -302,14 +269,14 @@ class AdaptivePage(INGIniousAuthPage):
         tasks = course.get_tasks()
 
         tree = course.get_descriptor().get('adaptive', [])["tree"]
-        user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
+        #user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
 
         skills_availability = {}
 
         for node in tree:
-            if self.is_complete2(node["node"], course):
+            if self.is_complete(node["node"], course):
                 skills_availability.update({node["node"]: "complete"})
-            elif self.is_available2(node, course, level_student_global):
+            elif self.is_available(node, course, level_student_global):
                 skills_availability.update({node["node"]: "available"})
             else:
                 skills_availability.update({node["node"]: "blocked"})
@@ -317,15 +284,15 @@ class AdaptivePage(INGIniousAuthPage):
         return skills_availability
 
     def get_skills_ordered(self, course):
-        username = self.user_manager.session_username()
-        tasks = course.get_tasks()
+        #username = self.user_manager.session_username()
+        #tasks = course.get_tasks()
 
         tree = course.get_descriptor().get('adaptive', [])["tree"]
         level_max = course.get_descriptor().get('adaptive', [])["level_max"]
         bases = list(course.get_descriptor().get('adaptive', [])["bases"])
 
         skills_ordered = []
-        bag = [deque() for level in range(level_max)]
+        bag = [deque() for _ in range(level_max)]
         discovered = []
         for base in bases:
             for node in tree:
@@ -404,7 +371,6 @@ class AdaptivePage(INGIniousAuthPage):
                 value_max = value_max - math.exp(borne_level_max)/(math.exp(level)+math.exp(borne_level_max))
                 value_mean = value_mean - math.exp(borne_level_mean)/(math.exp(level)+math.exp(borne_level_mean))
 
-        # TODO check in which interval is 0
         if math.pow(value_max-value_mean, 2) < 0.1 or math.pow(value_min-value_mean, 2) < 0.1:
             return borne_level_mean
 

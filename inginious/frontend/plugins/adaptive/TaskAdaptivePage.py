@@ -16,7 +16,6 @@ import math
 
 import web
 from bson.objectid import ObjectId
-from collections import OrderedDict
 from pymongo import ReturnDocument
 
 from inginious.common import exceptions
@@ -40,21 +39,19 @@ class BaseTaskPage(object):
         self.webterm_link = self.cp.webterm_link
         self.plugin_manager = self.cp.plugin_manager
 
-    def get_data2(self, course, level_student):
+    def get_data(self, course, level_student):
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
 
         user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
         tree = course.get_descriptor().get('adaptive', [])["tree"]
-        bases = list(course.get_descriptor().get('adaptive', [])["bases"])
+        #bases = list(course.get_descriptor().get('adaptive', [])["bases"])
         tasks_data = {}
         is_admin = self.user_manager.has_staff_rights_on_course(course, username)
 
         tasks_score = [0.0, 0.0, 0.0]
 
         for taskid, task in tasks.items():
-            #tasks_data[taskid] = {"visible": set(task.get_categories()).issubset(set(bases)), "succeeded": False,
-            #                      "grade": 0.0, 'tried': 0, "tasks_parents": []}
             tasks_data[taskid] = {"visible": False, "succeeded": False,
                                   "grade": 0.0, 'tried': 0, "tasks_parents": []}
 
@@ -64,14 +61,12 @@ class BaseTaskPage(object):
             tasks_data[user_task["taskid"]]["tried"] = user_task["tried"]
 
         for node in tree:
-            if self.is_available2(node, course, level_student):
+            if self.is_available(node, course, level_student):
                 for taskid, task in tasks.items():
                     tags = task.get_categories()
                     if not tags:
                         tasks_data[taskid]["visible"] = False
                     elif node["node"] in tags:
-                        #if node["level"] <= level_student:
-                        #    tasks_data[taskid]["succeeded"] = True
                         tasks_data[taskid]["visible"] = task.get_accessible_time().after_start() or is_admin
 
                         for parent in node["content"]["parent"]:
@@ -89,7 +84,7 @@ class BaseTaskPage(object):
         course_grade = round(tasks_score[0]/tasks_score[2]) if tasks_score[2] > 0 else 0
         return {"visible_grade": visible_grade, "course_grade": course_grade, "data": tasks_data}
 
-    def is_complete2(self, node, course):
+    def is_complete(self, node, course):
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
         node_tasks = {}
@@ -116,7 +111,7 @@ class BaseTaskPage(object):
             return True
         return False
 
-    def is_available2(self, node, course, level_student):
+    def is_available(self, node, course, level_student):
         parents = node["content"]["parent"]
         if node["level"] <= level_student:
             return True
@@ -129,7 +124,7 @@ class BaseTaskPage(object):
                 else:
                     return False
             for parent in parents:
-                if not self.is_complete2(parent, course):
+                if not self.is_complete(parent, course):
                     return False
             return True
 
@@ -163,7 +158,6 @@ class BaseTaskPage(object):
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
         user_tasks = self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})
-        #tests = course.get_descriptor().get('adaptive', [])["test"]
         tree = course.get_descriptor().get('adaptive', [])["tree"]
 
         level_tasks = {}
@@ -187,16 +181,16 @@ class BaseTaskPage(object):
         value_mean = 0
         for taskid, success in successes_tasks.items():
             level = level_tasks[taskid]
-            if success:
+            if success == 1:
                 value_min = value_min + math.exp(level)/(math.exp(level)+math.exp(borne_level_min))
                 value_max = value_max + math.exp(level)/(math.exp(level)+math.exp(borne_level_max))
                 value_mean = value_mean + math.exp(level)/(math.exp(level)+math.exp(borne_level_mean))
-            else:
+            elif success == -1:
                 value_min = value_min - math.exp(borne_level_min)/(math.exp(level)+math.exp(borne_level_min))
                 value_max = value_max - math.exp(borne_level_max)/(math.exp(level)+math.exp(borne_level_max))
                 value_mean = value_mean - math.exp(borne_level_mean)/(math.exp(level)+math.exp(borne_level_mean))
 
-        if math.pow(value_max-value_mean, 2) < 0.01 or math.pow(value_min-value_mean, 2) < 0.01:
+        if borne_level_mean - borne_level_min < 1 and borne_level_max - borne_level_mean < 1:
             return borne_level_mean
 
         if value_min <= 0 <= value_mean or value_mean <= 0 <= value_min:
@@ -204,10 +198,11 @@ class BaseTaskPage(object):
         elif value_mean <= 0 <= value_max or value_max <= 0 <= value_mean:
             return self.calc_level_student(course, borne_level_mean, borne_level_max)
         else:
-            if math.fabs(value_max - value_mean) > math.fabs(value_mean - value_min):
+            if value_max < value_min < 0 or 0 > value_min > value_max:
                 return self.calc_level_student(course, borne_level_min, borne_level_mean)
             else:
                 return self.calc_level_student(course, borne_level_mean, borne_level_max)
+
 
     def set_selected_submission(self, course, task, submissionid):
         """ Set submission whose id is `submissionid` to selected grading submission for the given course/task.
@@ -271,11 +266,7 @@ class BaseTaskPage(object):
 
         # Fetch the task
         try:
-            #tasks = OrderedDict((tid, t) for tid, t in course.get_tasks().items() if self.user_manager.task_is_visible_by_user(t, username, isLTI))
-            #tasks = Adaptive_course.tasks_list
             tasks = Adaptive_course.tasks_recommended
-            #print(list(tasks.keys()))
-            #print(list(tasks.keys()))
 
             if taskid not in tasks.keys():
                 tasks = Adaptive_course.tasks_list
@@ -286,32 +277,26 @@ class BaseTaskPage(object):
         if not self.user_manager.task_is_visible_by_user(task, username, isLTI):
             return self.template_helper.get_renderer().task_unavailable()
 
-        tasks_data = self.get_data2(course, Adaptive_course.level_student_global)
+        tasks_data = self.get_data(course, Adaptive_course.level_student_global)
 
         # Compute previous and next taskid
         keys = list(tasks.keys())
         index = keys.index(taskid)
-        #previous_taskid = keys[index - 1] if index > 0 else None
-        #next_taskid = keys[index + 1] if index < len(keys) - 1 else None
-
         # Compute all possible taskid for next tasks :
 
         tree = course.get_descriptor().get("adaptive", [])["tree"]
 
-        #index = list(tasks.keys()).index(taskid)
-
         # if not attempted :
-        #tasks = Adaptive_course.tasks_recommended
         not_attempted_taskid = list(tasks.keys())[index+1] if index < len(keys)-1 else list(tasks.keys())[0]
 
         # if success :
         for node in tree:
             if node["node"] in task.get_categories():
-                if self.is_complete2(node["node"], course):
+                if self.is_complete(node["node"], course):
                     for child in node["content"]["child"]:
                         for node_child in tree:
                             if node_child["node"]==child:
-                                if self.is_available2(node_child, course, Adaptive_course.level_student_global):
+                                if self.is_available(node_child, course, Adaptive_course.level_student_global):
                                     for taskid_child, task_child in Adaptive_course.tasks_list.items():
                                         if child in task_child.get_categories():
                                             Adaptive_course.tasks_recommended.update({taskid_child: task_child})
@@ -336,15 +321,9 @@ class BaseTaskPage(object):
         else:
             taskid_previous, task_previous = possible_parent.popitem()
         previous_taskid = taskid_previous
-        #previous_taskid = list(tasks.keys())[index-1] if index > 0 else None
 
-        level_student = Adaptive_course.level_student_global
-        print(level_student)
-        #borne_min = max(level_student - 3,1)
-        #borne_max = min(level_student + 3,6)
-        #new_value = level_student
+        #level_student = Adaptive_course.level_student_global
         new_value = self.calc_level_student(course, 0, 6)
-        print(new_value)
         if new_value is not None:
             Adaptive_course.level_student_global = new_value
             print(Adaptive_course.level_student_global)
