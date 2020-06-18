@@ -36,8 +36,6 @@ def init(plugin_manager, _, _2, _3):
     page_pattern_test_task = r'/adaptive_test/([a-z0-9A-Z\-_]+)/([a-z0-9A-Z\-_]+)'
     plugin_manager.add_page(page_pattern_test_task, TaskTestPage)
 
-    # permet de naviguer entre la vue basique et la vue adaptative
     plugin_manager.add_hook('course_menu', course_menu)
 
-    # permet de revenir à la vue adaptative lorsque l'on se trouve dans les tâches
     plugin_manager.add_hook('task_menu', task_menu)
