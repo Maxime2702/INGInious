@@ -5,6 +5,7 @@ import web
 from collections import OrderedDict
 from collections import deque
 
+
 tasks_recommended = OrderedDict()
 tasks_recommendations = OrderedDict()
 tasks_list = OrderedDict()
@@ -15,14 +16,14 @@ class AdaptivePage(INGIniousAuthPage):
     def GET(self, courseid, level_student=1):
         course = self.get_course(courseid)
         global level_student_global
-        calc_level_student = self.calc_level_student(course,level_student-2,level_student+2)
+        calc_level_student = self.calc_level_student(course, 0, course.get_descriptor().get('adaptive', [])["level_max"])
         level_student_global = max(calc_level_student, level_student_global)
         return self.show_page(course, level_student_global)
 
     def POST(self, courseid, level_student=1):
         course = self.get_course(courseid)
         global level_student_global
-        calc_level_student = self.calc_level_student(course,level_student-1,level_student+1)
+        calc_level_student = self.calc_level_student(course, 0, course.get_descriptor().get('adaptive', [])["level_max"])
         level_student_global = max(calc_level_student, level_student_global)
         return self.show_page(course, level_student_global)
 
@@ -215,7 +216,7 @@ class AdaptivePage(INGIniousAuthPage):
 
             skills_availability = self.get_skills_data(course)
 
-        return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree, skills_availability)
+        return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course_adaptive(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree, skills_availability)
 
     def get_data(self, course, level_student):
         username = self.user_manager.session_username()
@@ -362,26 +363,24 @@ class AdaptivePage(INGIniousAuthPage):
         value_mean = 0
         for taskid, success in successes_tasks.items():
             level = level_tasks[taskid]
-            if success:
+            if success == 1:
                 value_min = value_min + math.exp(level)/(math.exp(level)+math.exp(borne_level_min))
                 value_max = value_max + math.exp(level)/(math.exp(level)+math.exp(borne_level_max))
                 value_mean = value_mean + math.exp(level)/(math.exp(level)+math.exp(borne_level_mean))
-            else:
+            elif success == -1:
                 value_min = value_min - math.exp(borne_level_min)/(math.exp(level)+math.exp(borne_level_min))
                 value_max = value_max - math.exp(borne_level_max)/(math.exp(level)+math.exp(borne_level_max))
                 value_mean = value_mean - math.exp(borne_level_mean)/(math.exp(level)+math.exp(borne_level_mean))
 
-        if math.pow(value_max-value_mean, 2) < 0.1 or math.pow(value_min-value_mean, 2) < 0.1:
-            return borne_level_mean
+        if borne_level_mean - borne_level_min < 1 and borne_level_max - borne_level_mean < 1:
+            return round(borne_level_mean)
 
-        if math.fabs(value_max - value_mean) > math.fabs(value_mean - value_min):
+        if value_min <= 0 <= value_mean or value_mean <= 0 <= value_min:
             return self.calc_level_student(course, borne_level_min, borne_level_mean)
-        else:
+        elif value_mean <= 0 <= value_max or value_max <= 0 <= value_mean:
             return self.calc_level_student(course, borne_level_mean, borne_level_max)
-
-class OrderedDictInsert(OrderedDict):
-    def insert(self, index, key, value):
-        self[key] = value
-        for ii, k in enumerate(list(self.keys())):
-            if ii >= index and k != key:
-                self.move_to_end(k)
+        else:
+            if value_max < value_min < 0 or 0 > value_min > value_max:
+                return self.calc_level_student(course, borne_level_min, borne_level_mean)
+            else:
+                return self.calc_level_student(course, borne_level_mean, borne_level_max)

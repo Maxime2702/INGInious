@@ -16,7 +16,7 @@ class TestPage(INGIniousAuthPage):
 
         course = self.get_course(courseid)
 
-        result_test, level_student = self.test_succeeded(course)
+        result_test, level_student = self.test_finished(course)
 
         if result_test:
             AdaptivePage.level_student_global = level_student
@@ -25,7 +25,7 @@ class TestPage(INGIniousAuthPage):
         else:
             return self.show_page(course)
 
-    def test_succeeded(self, course):
+    def test_finished(self, course):
 
         for task in self.tasks_success:
             if task == 0:
@@ -36,7 +36,7 @@ class TestPage(INGIniousAuthPage):
         user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
         user_tests = [task for task in user_tasks if task["succeeded"]]
 
-        student_level = self.calc_level_student(course, 0, 6)
+        student_level = self.calc_level_student(course, 0, course.get_descriptor().get('adaptive', [])["level_max"])
         self.level_student = student_level
         if len(user_tests) >= course.get_descriptor().get('adaptive', [])["minimal_questions"]:
             return True, student_level
@@ -127,7 +127,7 @@ class TestPage(INGIniousAuthPage):
                 value_mean = value_mean - math.exp(borne_level_mean)/(math.exp(level)+math.exp(borne_level_mean))
 
         if borne_level_mean - borne_level_min < 1 and borne_level_max - borne_level_mean < 1:
-            return borne_level_mean
+            return round(borne_level_mean)
 
         if value_min <= 0 <= value_mean or value_mean <= 0 <= value_min:
             return self.calc_level_student(course, borne_level_min, borne_level_mean)

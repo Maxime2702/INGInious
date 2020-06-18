@@ -155,7 +155,7 @@ $if course.get_descriptor().get("description", ""):
             $if tasks_data[taskid]["visible"]:
                 $ succeeded=tasks_data[taskid]["succeeded"]
                 $ completion=tasks_data[taskid]["grade"]
-                <a href="$get_homepath()/test_task/$course.get_id()/$taskid" class="list-group-item list-group-item-action
+                <a href="$get_homepath()/adaptive_test/$course.get_id()/$taskid" class="list-group-item list-group-item-action
                     $if not task.is_visible_by_students() or not task.get_accessible_time().is_open():
                         disabled
                     ">

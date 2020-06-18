@@ -191,7 +191,7 @@ class BaseTaskPage(object):
                 value_mean = value_mean - math.exp(borne_level_mean)/(math.exp(level)+math.exp(borne_level_mean))
 
         if borne_level_mean - borne_level_min < 1 and borne_level_max - borne_level_mean < 1:
-            return borne_level_mean
+            return round(borne_level_mean)
 
         if value_min <= 0 <= value_mean or value_mean <= 0 <= value_min:
             return self.calc_level_student(course, borne_level_min, borne_level_mean)
@@ -387,7 +387,7 @@ class BaseTaskPage(object):
             user_info = self.database.users.find_one({"username": username})
 
             # Display the task itself
-            return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').task(user_info, course, task, submissions,
+            return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').task_adaptive(user_info, course, task, submissions,
                                                             students, eval_submission, user_task, previous_taskid, not_attempted_taskid, next_taskid, self.webterm_link, random_input_list)
 
     def POST(self, courseid, taskid, isLTI):

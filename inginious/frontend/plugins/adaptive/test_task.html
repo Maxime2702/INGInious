@@ -276,9 +276,9 @@ $# Start content
                     <div class="btn-group">
                         <button type="button" class="btn btn-info mr-1" data-toggle="collapse" data-target="#task_context">$:_("Collapse context")</button>
                         $if previous_taskid:
-                            <a class="btn-sm btn btn-info" href="$get_homepath()/test_task/$course.get_id()/$previous_taskid" title=$:_('"Previous task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-left"></i></a>
+                            <a class="btn-sm btn btn-info" href="$get_homepath()/adaptive/test/$course.get_id()/$previous_taskid" title=$:_('"Previous task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-left"></i></a>
                         $if next_taskid:
-                            <a class="btn-sm btn btn-info" href="$get_homepath()/test_task/$course.get_id()/$next_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
+                            <a class="btn-sm btn btn-info" href="$get_homepath()/adaptive/test/$course.get_id()/$next_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
         </div>

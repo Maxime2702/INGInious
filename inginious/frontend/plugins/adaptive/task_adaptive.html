@@ -277,14 +277,14 @@ $# Start content
                     <!--<button type="button" class="btn btn-info mr-1" data-toggle="collapse" data-target="#task_context">$:_("Collapse context")</button>-->
                     <!--
                     $if previous_taskid:
-                        <a class="btn-sm btn btn-info" href="$get_homepath()/course_adaptive/$course.get_id()/$previous_taskid" title=$:_('"Previous task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-left"></i></a>
+                        <a class="btn-sm btn btn-info" href="$get_homepath()/adaptive/$course.get_id()/$previous_taskid" title=$:_('"Previous task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-left"></i></a>
                     $if next_taskid:
-                        <a class="btn-sm btn btn-info" href="$get_homepath()/course_adaptive/$course.get_id()/$next_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
+                        <a class="btn-sm btn btn-info" href="$get_homepath()/adaptive/$course.get_id()/$next_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
                     -->
                     $if not eval_submission and len(submissions) == 0:
-                        <a class="btn-sm btn btn-info" href="$get_homepath()/course_adaptive/$course.get_id()/$not_attempted_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
+                        <a class="btn-sm btn btn-info" href="$get_homepath()/adaptive/$course.get_id()/$not_attempted_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
                     $elif eval_submission is not None and eval_submission["status"] == "done" and eval_submission["result"] == "success":
-                        <a class="btn-sm btn btn-info" href="$get_homepath()/course_adaptive/$course.get_id()/$next_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
+                        <a class="btn-sm btn btn-info" href="$get_homepath()/adaptive/$course.get_id()/$next_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
                     $else:
                         $ waiting=False
                         $for submission in submissions:
@@ -294,7 +294,7 @@ $# Start content
                         $if waiting:
                             $:_("Waiting for verification")
                         $else:
-                            <a class="btn-sm btn btn-info" href="$get_homepath()/course_adaptive/$course.get_id()/$previous_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
+                            <a class="btn-sm btn btn-info" href="$get_homepath()/adaptive/$course.get_id()/$previous_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
     </div>
@@ -367,7 +367,7 @@ $if user_manager.has_admin_rights_on_course(course):
 $if is_lti():
     $ action = "/lti/task"
 $else:
-    $ action = "/course_adaptive/" + course.get_id() + "/" + task.get_id()
+    $ action = "/adaptive/" + course.get_id() + "/" + task.get_id()
 
 <form id="task" action="$(get_homepath() + action)" method="post" enctype="multipart/form-data"
     $for submission in submissions:

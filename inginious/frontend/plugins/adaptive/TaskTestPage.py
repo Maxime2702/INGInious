@@ -100,16 +100,12 @@ class BaseTaskPage(object):
         # Fetch the task
         try:
             tasks = OrderedDict((tid, t) for tid, t in course.get_tasks().items() if self.user_manager.task_is_visible_by_user(t, username, isLTI))
-            print(list(tasks.keys()))
             test_tasks = OrderedDict()
             for testtaskid, testtask in tasks.items():
                 if 'test' in testtask.get_categories():
                     test_tasks.update({testtaskid: testtask})
             tasks = test_tasks
-            print(list(tasks.keys()))
-            print("taskid : "+str(taskid))
             task = tasks[taskid]
-            print(task)
         except KeyError:
             raise web.notfound()
 

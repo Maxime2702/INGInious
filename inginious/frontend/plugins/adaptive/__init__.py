@@ -4,7 +4,7 @@
 # more information about the licensing of this file.
 
 from inginious.frontend.plugins.adaptive.Adaptive_course import *
-from inginious.frontend.plugins.adaptive.Test_page import *
+from inginious.frontend.plugins.adaptive.Test_Page import *
 from inginious.frontend.plugins.adaptive.TaskAdaptivePage import *
 from inginious.frontend.plugins.adaptive.TaskTestPage import *
 
@@ -27,13 +27,13 @@ def init(plugin_manager, _, _2, _3):
     page_pattern_course = r'/adaptive/([a-z0-9A-Z\-_]+)'
     plugin_manager.add_page(page_pattern_course, AdaptivePage)
 
-    page_pattern_task = r'/course_adaptive/([a-z0-9A-Z\-_]+)/([a-z0-9A-Z\-_]+)'
+    page_pattern_task = r'/adaptive/([a-z0-9A-Z\-_]+)/([a-z0-9A-Z\-_]+)'
     plugin_manager.add_page(page_pattern_task, TaskAdaptivePage)
 
-    page_pattern_test = r'/adaptive/test/([a-z0-9A-Z\-_]+)'
+    page_pattern_test = r'/adaptive_test/([a-z0-9A-Z\-_]+)'
     plugin_manager.add_page(page_pattern_test, TestPage)
 
-    page_pattern_test_task = r'/test_task/([a-z0-9A-Z\-_]+)/([a-z0-9A-Z\-_]+)'
+    page_pattern_test_task = r'/adaptive_test/([a-z0-9A-Z\-_]+)/([a-z0-9A-Z\-_]+)'
     plugin_manager.add_page(page_pattern_test_task, TaskTestPage)
 
     # permet de naviguer entre la vue basique et la vue adaptative
