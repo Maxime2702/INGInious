@@ -93,6 +93,7 @@ class TestPage(INGIniousAuthPage):
 
     def calc_level_student(self, course, borne_level_min, borne_level_max):
         """estimate the level of a student"""
+
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
         user_tasks = self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})
