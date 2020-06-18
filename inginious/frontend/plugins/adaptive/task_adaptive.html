@@ -14,7 +14,7 @@ $ task_categories = task.get_categories()
 
 $# Left column content
 $def ColumnF():
-<h3 xmlns:submissions="http://www.w3.org/1999/xhtml" xmlns:submissions="http://www.w3.org/1999/xhtml">$:_("Information")</h3>
+    <h3>$:_("Information")</h3>
     <table class="table table-sm">
         $if task.get_authors(user_manager.session_language()):
             <tr>

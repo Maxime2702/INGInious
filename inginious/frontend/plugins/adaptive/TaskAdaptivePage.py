@@ -305,7 +305,7 @@ class BaseTaskPage(object):
                     for taskid_parent, task_parent in Adaptive_course.tasks_list.items():
                         if parent in task_parent.get_categories():
                             possible_parent.update({taskid_parent: task_parent})
-                            if not tasks_data["data"][taskid]["succeeded"] and tasks_data["data"][taskid]["tried"]!=0:
+                            if not tasks_data["data"][taskid]["succeeded"] and tasks_data["data"][taskid]["tried"] != 0:
                                 Adaptive_course.tasks_recommended.update({taskid_parent: task_parent})
         if not possible_parent:
             taskid_previous = None
@@ -313,10 +313,9 @@ class BaseTaskPage(object):
             taskid_previous, task_previous = possible_parent.popitem()
         previous_taskid = taskid_previous
 
-        new_value = self.calc_level_student(course, 0, 6)
+        new_value = self.calc_level_student(course, 0, course.get_descriptor().get('adaptive', [])["level_max"])
         if new_value is not None:
             Adaptive_course.level_student_global = new_value
-            print(Adaptive_course.level_student_global)
         else:
             pass
 

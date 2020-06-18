@@ -26,6 +26,7 @@ class TestPage(INGIniousAuthPage):
             return self.show_page(course)
 
     def test_finished(self, course):
+        """Check if the test has been finished by a student"""
 
         for task in self.tasks_success:
             if task == 0:
@@ -91,6 +92,7 @@ class TestPage(INGIniousAuthPage):
             return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course_test(user_info, course, last_submissions, tasks, tasks_data, course_grade, tag_list)
 
     def calc_level_student(self, course, borne_level_min, borne_level_max):
+        """estimate the level of a student"""
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
         user_tasks = self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}})

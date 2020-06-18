@@ -10,15 +10,11 @@ from inginious.frontend.plugins.adaptive.TaskTestPage import *
 
 
 def course_menu(course, template_helper):
-    """ Displays the link to the adaptive view on the course page, if the plugin is activated for this course """
-    adaptive = course.get_descriptor().get('adaptive', [])
+    """ Displays the link to the adaptive view on the course page"""
+    return str(template_helper.get_custom_renderer('frontend/plugins/adaptive', layout=False).course_menu(course))
 
-    if adaptive:
-        return str(template_helper.get_custom_renderer('frontend/plugins/adaptive', layout=False).course_menu(course))
-    else:
-        return None
-
-def task_menu(course, _, template_helper):
+def task_menu(course, task, template_helper):
+    """ Displays the link to the adaptive view on the task page"""
     return str(template_helper.get_custom_renderer('frontend/plugins/adaptive', layout=False).task_menu(course))
 
 def init(plugin_manager, _, _2, _3):

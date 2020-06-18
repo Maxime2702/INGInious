@@ -16,15 +16,15 @@ class AdaptivePage(INGIniousAuthPage):
     def GET(self, courseid, level_student=1):
         course = self.get_course(courseid)
         global level_student_global
-        calc_level_student = self.calc_level_student(course, 0, course.get_descriptor().get('adaptive', [])["level_max"])
-        level_student_global = max(calc_level_student, level_student_global)
+        #calc_level_student = self.calc_level_student(course, 0, course.get_descriptor().get('adaptive', [])["level_max"])
+        #level_student_global = max(calc_level_student, level_student_global)
         return self.show_page(course, level_student_global)
 
     def POST(self, courseid, level_student=1):
         course = self.get_course(courseid)
         global level_student_global
-        calc_level_student = self.calc_level_student(course, 0, course.get_descriptor().get('adaptive', [])["level_max"])
-        level_student_global = max(calc_level_student, level_student_global)
+        #calc_level_student = self.calc_level_student(course, 0, course.get_descriptor().get('adaptive', [])["level_max"])
+        #level_student_global = max(calc_level_student, level_student_global)
         return self.show_page(course, level_student_global)
 
     def get_course(self, courseid):
@@ -37,6 +37,9 @@ class AdaptivePage(INGIniousAuthPage):
         return course
 
     def is_available(self, node, course, level_student):
+        """Check if a node of the tree is available.
+        A node is available if all its prerequisites are mastered by the student"""
+
         parents = node["content"]["parent"]
         if node["level"] <= level_student:
             return True
@@ -69,6 +72,10 @@ class AdaptivePage(INGIniousAuthPage):
         return correct_tasks
 
     def is_complete(self, node, course):
+        """Check if a node of the tree is mastered by a student.
+        A node is mastered by the student if he has done the ratio of exercices defined by the professor and has obtained
+        an average grade higher than the minimal_grade defined by the professor."""
+
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
         node_tasks = {}
@@ -96,7 +103,12 @@ class AdaptivePage(INGIniousAuthPage):
         return False
 
 
-    def get_recommendations(self, course, tree, tasks_data):
+    def get_recommendations(self, course, _, tasks_data):
+        """Retrieve the recommendations to show to the student.
+        High : exercises belonging to a prerequisites non mastered
+        Medium : exercices not succeeded by the student
+        Low : exercices accessible by the student"""
+
         recommendations = {'high': {}, 'medium': {}, 'low': {}}
         for taskid, task in tasks_data.items():
             if task["visible"] and task["tried"] == 0:
@@ -157,6 +169,8 @@ class AdaptivePage(INGIniousAuthPage):
         return self.template_helper.get_custom_renderer('frontend/plugins/adaptive').course_adaptive(user_info, course, last_submissions, tasks, tasks_data, recommendations, grade, tag_list, tree, skills_availability)
 
     def get_data(self, course, level_student):
+        """get some data from the user tasks stored in the database"""
+
         username = self.user_manager.session_username()
         tasks = course.get_tasks()
 
@@ -201,6 +215,7 @@ class AdaptivePage(INGIniousAuthPage):
         return {"visible_grade": visible_grade, "course_grade": course_grade, "data": tasks_data}
 
     def get_skills_data(self, course):
+        """ Check if the node of the tree are mastered by the student, accessible by him or blocked to him"""
 
         tree = course.get_descriptor().get('adaptive', [])["tree"]
 
@@ -217,6 +232,8 @@ class AdaptivePage(INGIniousAuthPage):
         return skills_availability
 
     def get_skills_ordered(self, course):
+        """ Create a list of the skills. It is a proposition of path in which to see the skills
+        Based on a breadth-first exploration of the tree with some specificities about the bases"""
 
         tree = course.get_descriptor().get('adaptive', [])["tree"]
         level_max = course.get_descriptor().get('adaptive', [])["level_max"]
@@ -246,6 +263,8 @@ class AdaptivePage(INGIniousAuthPage):
         return skills_ordered
 
     def get_tasks_ordered(self, course):
+        """Get the tasks ordered  among the path of get_skills_ordered function"""
+
         skills_ordered = self.get_skills_ordered(course)
         tasks = course.get_tasks()
 
@@ -257,6 +276,8 @@ class AdaptivePage(INGIniousAuthPage):
         return tasks_ordered
 
     def get_recommendations_ordered(self, course, recoms):
+        """Get the recommandations ordered  among the path of get_skills_ordered function"""
+
         skills_ordered = self.get_skills_ordered(course)
 
         recoms_ordered = {}
