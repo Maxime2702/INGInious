@@ -111,43 +111,10 @@ $if course.get_descriptor().get("description", ""):
         </div>
     </div>
 
-<!--
-<script>
-    function filter_tag(tag) {
-        tag = tag.value;
-        $$("a", "#tasks-list").each(function(idx, elem) {
-            var task = $$(elem);
-            var found=false;
-            $$("div[id='tag']", task).each(function() {
-                if ($$(this).attr("data-tag-name") == tag){
-                    found=true;
-                }
-            });
-            if(found || tag == ""){
-                task.show();
-            }else{
-                task.hide();
-            }
-        });
-    }
-</script>
--->
-
 <div class="card">
     <div class="card-header">
         <div class="row">
             <div class="col-md-8">$:_("List of exercises")</div>
-            <!--
-            $if tag_filter_list:
-                <div class="col-md-4">
-                    <select class="form-control input-sm" style="height: 22px; padding: 2px 5px; font-size: 12px; line-height: 1.5;" id="tag_filter" onchange="filter_tag(this)">
-                        <option value="">$:_("Filter tasks by tags")</option>
-                        $for key, tag in tag_filter_list.items():
-                            $if tag.get_type() in [0, 2] and tag.is_visible_for_student():
-                                <option value="$tag.get_id()">$tag.get_name(user_manager.session_language())</option>
-                    </select>
-                </div>
-             -->
         </div>
     </div>
     <div id="tasks-list" class="list-group list-group-flush">

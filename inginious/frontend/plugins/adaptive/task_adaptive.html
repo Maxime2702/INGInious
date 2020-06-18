@@ -14,7 +14,7 @@ $ task_categories = task.get_categories()
 
 $# Left column content
 $def ColumnF():
-    <h3>$:_("Information")</h3>
+<h3 xmlns:submissions="http://www.w3.org/1999/xhtml" xmlns:submissions="http://www.w3.org/1999/xhtml">$:_("Information")</h3>
     <table class="table table-sm">
         $if task.get_authors(user_manager.session_language()):
             <tr>
@@ -274,13 +274,6 @@ $# Start content
         $if not is_lti():
             <div class="pull-right">
                 <div class="btn-group">
-                    <!--<button type="button" class="btn btn-info mr-1" data-toggle="collapse" data-target="#task_context">$:_("Collapse context")</button>-->
-                    <!--
-                    $if previous_taskid:
-                        <a class="btn-sm btn btn-info" href="$get_homepath()/adaptive/$course.get_id()/$previous_taskid" title=$:_('"Previous task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-left"></i></a>
-                    $if next_taskid:
-                        <a class="btn-sm btn btn-info" href="$get_homepath()/adaptive/$course.get_id()/$next_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
-                    -->
                     $if not eval_submission and len(submissions) == 0:
                         <a class="btn-sm btn btn-info" href="$get_homepath()/adaptive/$course.get_id()/$not_attempted_taskid" title=$:_('"Next task"') data-toggle="tooltip" data-placement="bottom"><i class="fa fa-arrow-right"></i></a>
                     $elif eval_submission is not None and eval_submission["status"] == "done" and eval_submission["result"] == "success":

@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-#
-# This file is part of INGInious. See the LICENSE and the COPYRIGHTS files for
-# more information about the licensing of this file.
-
 """ Task page """
 import json
 import mimetypes
@@ -45,7 +40,6 @@ class BaseTaskPage(object):
 
         user_tasks = list(self.database.user_tasks.find({"username": username, "courseid": course.get_id(), "taskid": {"$in": list(tasks.keys())}}))
         tree = course.get_descriptor().get('adaptive', [])["tree"]
-        #bases = list(course.get_descriptor().get('adaptive', [])["bases"])
         tasks_data = {}
         is_admin = self.user_manager.has_staff_rights_on_course(course, username)
 
@@ -116,8 +110,6 @@ class BaseTaskPage(object):
         if node["level"] <= level_student:
             return True
         else:
-            # if not parents:
-            #     return True
             if not parents:
                 if node["level"] <= level_student:
                     return True
@@ -279,11 +271,10 @@ class BaseTaskPage(object):
 
         tasks_data = self.get_data(course, Adaptive_course.level_student_global)
 
-        # Compute previous and next taskid
         keys = list(tasks.keys())
         index = keys.index(taskid)
-        # Compute all possible taskid for next tasks :
 
+        # Compute all possible taskid for next tasks :
         tree = course.get_descriptor().get("adaptive", [])["tree"]
 
         # if not attempted :
@@ -322,7 +313,6 @@ class BaseTaskPage(object):
             taskid_previous, task_previous = possible_parent.popitem()
         previous_taskid = taskid_previous
 
-        #level_student = Adaptive_course.level_student_global
         new_value = self.calc_level_student(course, 0, 6)
         if new_value is not None:
             Adaptive_course.level_student_global = new_value
