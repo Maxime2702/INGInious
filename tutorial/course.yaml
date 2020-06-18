@@ -13,44 +13,44 @@ scoreboard:
         taskid5: 3
     name: Another scoreboard
     reverse: true
-adaptive:
-    tree:
-        - node: 000_start
-          content:
-              grandparent: {}
-              parent: {}
-              child: {001_use}
-              grandchild: {002_advanced}
-
-        - node: 001_use
-          content:
-              grandparent: {}
-              parent: {000_start}
-              child: {002_advanced}
-              grandchild: {}
-        - node: 002_advanced
-          content:
-              grandparent: {000_start}
-              parent: {001_use}
-              child: {}
-              grandchild: {}
-    base: {000_start}
-tags:
-    000_start:
-        visible: true
-        description: How to start to use INGInious
-        id: 000_start
-        type: 2
-        name: Start of use
-    001_use:
-        type: 2
-        name: Functions of INGInious
-        visible: true
-        id: 001_use
-        description: The basic use cases of inginious
-    002_advanced:
-        id: 002_advanced
-        type: 2
-        visible: true
-        description: Advanced functions of INGInious
-        name: Advanced usage
+#adaptive:
+#    tree:
+#        - node: 000_start
+#          content:
+#              grandparent: {}
+#              parent: {}
+#              child: {001_use}
+#              grandchild: {002_advanced}
+#
+#        - node: 001_use
+#          content:
+#              grandparent: {}
+#              parent: {000_start}
+#              child: {002_advanced}
+#              grandchild: {}
+#        - node: 002_advanced
+#          content:
+#              grandparent: {000_start}
+#              parent: {001_use}
+#              child: {}
+#              grandchild: {}
+#    base: {000_start}
+#tags:
+#    000_start:
+#        visible: true
+#        description: How to start to use INGInious
+#        id: 000_start
+#        type: 2
+#        name: Start of use
+#    001_use:
+#        type: 2
+#        name: Functions of INGInious
+#        visible: true
+#        id: 001_use
+#        description: The basic use cases of inginious
+#    002_advanced:
+#        id: 002_advanced
+#        type: 2
+#        visible: true
+#        description: Advanced functions of INGInious
+#        name: Advanced usage

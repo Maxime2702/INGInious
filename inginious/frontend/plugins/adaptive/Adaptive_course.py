@@ -16,15 +16,11 @@ class AdaptivePage(INGIniousAuthPage):
     def GET(self, courseid, level_student=1):
         course = self.get_course(courseid)
         global level_student_global
-        #calc_level_student = self.calc_level_student(course, 0, course.get_descriptor().get('adaptive', [])["level_max"])
-        #level_student_global = max(calc_level_student, level_student_global)
         return self.show_page(course, level_student_global)
 
     def POST(self, courseid, level_student=1):
         course = self.get_course(courseid)
         global level_student_global
-        #calc_level_student = self.calc_level_student(course, 0, course.get_descriptor().get('adaptive', [])["level_max"])
-        #level_student_global = max(calc_level_student, level_student_global)
         return self.show_page(course, level_student_global)
 
     def get_course(self, courseid):
